@@ -7,6 +7,7 @@
     <title>moabb.evaluations.base &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -159,14 +160,14 @@
 <span class="sd">        if not None, can guarantee same seed</span>
 <span class="sd">    n_jobs: 1;</span>
 <span class="sd">        number of jobs for fitting of pipeline</span>
-
+<span class="sd">    overwrite: bool (defaul False)</span>
+<span class="sd">        if true, overwrite the results.</span>
+<span class="sd">    suffix: str</span>
+<span class="sd">        suffix for the results file.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="viewcode-block" id="BaseEvaluation.__init__"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Init.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
+<div class="viewcode-block" id="BaseEvaluation.__init__"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                 <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">random_state</span> <span class="o">=</span> <span class="n">random_state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">=</span> <span class="n">n_jobs</span>
 
@@ -192,13 +193,38 @@
                                  <span class="s2">&quot;instance&quot;</span><span class="p">))</span>
 
         <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="c1"># fixme, we might want to drop dataset that are not compatible</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{dataset}</span><span class="s2"> not compatible with evaluation or &quot;</span>
+                            <span class="s2">&quot;paradigm. Removing this dataset from the list.&quot;</span><span class="p">)</span>
+                <span class="n">datasets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span>
 
-<div class="viewcode-block" id="BaseEvaluation.process"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Runs tasks on all given datasets.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">Results</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
+                               <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="p">),</span>
+                               <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
+                               <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseEvaluation.process"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Runs all pipelines on all datasets.</span>
+
+<span class="sd">        This function will apply all provided pipelines and return a dataframe</span>
+<span class="sd">        containing the results of the evaluation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pipelines : dict of pipeline instance.</span>
+<span class="sd">            A dict containing the sklearn pipeline to evaluate.</span>
+
+<span class="sd">        Return</span>
+<span class="sd">        ------</span>
+<span class="sd">        results: pd.DataFrame</span>
+<span class="sd">            A dataframe containing the results.</span>
+
 <span class="sd">        &#39;&#39;&#39;</span>
 
         <span class="c1"># check pipelines</span>
@@ -210,51 +236,56 @@
                 <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;pipelines must only contains Pipelines &quot;</span>
                                  <span class="s2">&quot;instance&quot;</span><span class="p">))</span>
 
-        <span class="n">results</span> <span class="o">=</span> <span class="n">Results</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
-                          <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="p">),</span>
-                          <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
-                          <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">)</span>
-
         <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Processing dataset: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">code</span><span class="p">))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">push_result</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
-                <span class="c1"># check if we already have result for this subject/pipeline</span>
-                <span class="n">run_pipes</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">not_yet_computed</span><span class="p">(</span><span class="n">pipelines</span><span class="p">,</span>
-                                                     <span class="n">dataset</span><span class="p">,</span>
-                                                     <span class="n">subject</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">run_pipes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">run_pipes</span><span class="p">)</span>
-                        <span class="k">for</span> <span class="n">pipe</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-                            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="n">pipe</span><span class="p">]:</span>
-                                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pipe</span><span class="p">)</span>
-                                <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1"> &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
-                                                             <span class="n">r</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
-                                <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;: Score </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
-                            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-                        <span class="n">results</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-                        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
-                        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">&#39;Skipping subject </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subject</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">results</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">push_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;pipeline&#39;</span><span class="p">])</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;dataset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+                                         <span class="n">res</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">],</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">])</span>
+        <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;: Score </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">add</span><span class="p">({</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;pipeline&#39;</span><span class="p">]:</span> <span class="n">res</span><span class="p">},</span> <span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span>
 
 <div class="viewcode-block" id="BaseEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Return results in a dict</span>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Evaluate results on a single dataset.</span>
+
+<span class="sd">        This method return a generator. each results item is a dict with</span>
+<span class="sd">        the following convension::</span>
+
+<span class="sd">            res = {&#39;time&#39;: Duration of the training ,</span>
+<span class="sd">                   &#39;dataset&#39;: dataset id,</span>
+<span class="sd">                   &#39;subject&#39;: subject id,</span>
+<span class="sd">                   &#39;session&#39;: session id,</span>
+<span class="sd">                   &#39;score&#39;: score,</span>
+<span class="sd">                   &#39;n_samples&#39;: number of training examples,</span>
+<span class="sd">                   &#39;n_channels&#39;: number of channel,</span>
+<span class="sd">                   &#39;pipeline&#39;: pipeline name}</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseEvaluation.preprocess_data"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.preprocess_data">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Optional paramter if any sort of dataset-wide computation is needed</span>
-<span class="sd">        per subject</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div></div>
+<div class="viewcode-block" id="BaseEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.verify">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verify the dataset is compatible with evaluation.</span>
+
+<span class="sd">        This method is called to verify dataset given in the constructor</span>
+<span class="sd">        are compatible with the evaluation context.</span>
+
+<span class="sd">        This method should raise an error if the dataset is not compatible</span>
+<span class="sd">        with the evaluation context. This is for example the case if the</span>
+<span class="sd">        dataset does not contain enought session for a cross-session eval.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : dataset instance</span>
+<span class="sd">            The dataset to verify.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 </pre></div>
 
     </div>

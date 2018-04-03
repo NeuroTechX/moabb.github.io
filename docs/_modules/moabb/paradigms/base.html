@@ -7,6 +7,7 @@
     <title>moabb.paradigms.base &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -131,13 +132,15 @@
       
   <h1>Source code for moabb.paradigms.base</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractproperty</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
-<div class="viewcode-block" id="BaseParadigm"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.base.BaseParadigm">[docs]</a><span class="k">class</span> <span class="nc">BaseParadigm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base Context.</span>
+<div class="viewcode-block" id="BaseParadigm"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.BaseParadigm">[docs]</a><span class="k">class</span> <span class="nc">BaseParadigm</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base Paradigm.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseParadigm.__init__"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.base.BaseParadigm.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseParadigm.__init__"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.BaseParadigm.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;init&quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
@@ -157,11 +160,109 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="BaseParadigm.verify"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.base.BaseParadigm.verify">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseParadigm.verify"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.BaseParadigm.verify">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Method that verifies dataset is correct for given parameters</span>
-<span class="sd">        &#39;&#39;&#39;</span></div></div>
+        <span class="sd">&quot;&quot;&quot;Verify the dataset is compatible with the paradigm.</span>
+
+<span class="sd">        This method is called to verify dataset is compatible with the</span>
+<span class="sd">        paradigm.</span>
+
+<span class="sd">        This method should raise an error if the dataset is not compatible</span>
+<span class="sd">        with the paradigm. This is for example the case if the</span>
+<span class="sd">        dataset is an ERP dataset for motor imagery paradigm, or if the</span>
+<span class="sd">        dataset does not contain any of the required events.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset : dataset instance</span>
+<span class="sd">            The dataset to verify.</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="BaseParadigm.process_raw"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.BaseParadigm.process_raw">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">process_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process one raw data file.</span>
+
+<span class="sd">        This function is apply the preprocessing and eventual epoching on the</span>
+<span class="sd">        individual run, and return the data, labels and a dataframe with</span>
+<span class="sd">        metadata.</span>
+
+<span class="sd">        metadata is a dataframe with as many row as the length of the data</span>
+<span class="sd">        and labels.</span>
+
+<span class="sd">        returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : np.ndarray</span>
+<span class="sd">            the data that will be used as features for the model</span>
+<span class="sd">        labels: np.ndarray</span>
+<span class="sd">            the labels for training / evaluating the model</span>
+<span class="sd">        metadata: pd.DataFrame</span>
+<span class="sd">            A dataframe containing the metadata</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BaseParadigm.get_data"><a class="viewcode-back" href="../../../generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.BaseParadigm.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the data for a list of subject.</span>
+
+<span class="sd">        return the data, labels and a dataframe with metadata. the dataframe</span>
+<span class="sd">        will contain at least the following columns</span>
+
+<span class="sd">        - subject : the subject indice</span>
+<span class="sd">        - session : the session indice</span>
+<span class="sd">        - run : the run indice</span>
+
+<span class="sd">        parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dataset:</span>
+<span class="sd">            A dataset instance.</span>
+<span class="sd">        subjects: List of int</span>
+<span class="sd">            List of subject number</span>
+
+<span class="sd">        returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        X : np.ndarray</span>
+<span class="sd">            the data that will be used as features for the model</span>
+<span class="sd">        labels: np.ndarray</span>
+<span class="sd">            the labels for training / evaluating the model</span>
+<span class="sd">        metadata: pd.DataFrame</span>
+<span class="sd">            A dataframe containing the metadata.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">subjects</span><span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">subject</span><span class="p">,</span> <span class="n">sessions</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">session</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="n">sessions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">run</span><span class="p">,</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">runs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">proc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_raw</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">dataset</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">proc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="c1"># this mean the run did not contain any selected event</span>
+                        <span class="c1"># go to next</span>
+                        <span class="k">continue</span>
+
+                    <span class="n">x</span><span class="p">,</span> <span class="n">lbs</span><span class="p">,</span> <span class="n">met</span> <span class="o">=</span> <span class="n">proc</span>
+                    <span class="n">met</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject</span>
+                    <span class="n">met</span><span class="p">[</span><span class="s1">&#39;session&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">session</span>
+                    <span class="n">met</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">run</span>
+                    <span class="n">metadata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">met</span><span class="p">)</span>
+
+                    <span class="c1"># grow X and labels in a memory efficient way. can be slow</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">lbs</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">X</span> <span class="o">=</span> <span class="n">x</span>
+                        <span class="n">labels</span> <span class="o">=</span> <span class="n">lbs</span>
+
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">metadata</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">metadata</span></div></div>
 </pre></div>
 
     </div>

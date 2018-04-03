@@ -7,6 +7,7 @@
     <title>moabb.paradigms.motor_imagery &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -134,10 +135,12 @@
 
 <span class="kn">import</span> <span class="nn">mne</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="kn">from</span> <span class="nn">moabb.paradigms.base</span> <span class="k">import</span> <span class="n">BaseParadigm</span>
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets.fake</span> <span class="k">import</span> <span class="n">FakeDataset</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
 
@@ -147,182 +150,161 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    datasets : List of Dataset instances, or None</span>
-<span class="sd">        List of dataset instances on which the pipelines will be evaluated.</span>
-<span class="sd">        If None, uses all datasets (and should break...)</span>
-<span class="sd">    pipelines : Dict of pipelines instances.</span>
-<span class="sd">        Dictionary of pipelines. Keys identifies pipeline names, and values</span>
-<span class="sd">        are scikit-learn pipelines instances.</span>
-<span class="sd">    evaluator: Evaluator instance</span>
-<span class="sd">        Instance that defines evaluation scheme</span>
-<span class="sd">    fmin : float | None, (default 7.)</span>
-<span class="sd">        Low cut-off frequency in Hz. If None the data are only low-passed.</span>
-<span class="sd">    fmax : float | None, (default 35)</span>
-<span class="sd">        High cut-off frequency in Hz. If None the data are only high-passed.</span>
-<span class="sd">    interval: list | None, (default None)</span>
-<span class="sd">        Interval to cut trial. If None, defaults to the dataset-defined interval</span>
 
+<span class="sd">    filters: List of list (defaults [[7, 35]])</span>
+<span class="sd">        bank of filter to apply</span>
+<span class="sd">    interval: list | None, (default None)</span>
+<span class="sd">        time interval to epoch trial. If None, defaults to the dataset-defined</span>
+<span class="sd">        interval</span>
+<span class="sd">    events: List of str | None (default None)</span>
+<span class="sd">        event to use for epoching. If None, default to all events defined in</span>
+<span class="sd">        the dataset.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseMotorImagery.__init__"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fmin</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">35</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;init&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseMotorImagery.__init__"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">35</span><span class="p">]],</span> <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">events</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resample</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fmin</span> <span class="o">=</span> <span class="n">fmin</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fmax</span> <span class="o">=</span> <span class="n">fmax</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filters</span> <span class="o">=</span> <span class="n">filters</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="o">=</span> <span class="n">events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resample</span> <span class="o">=</span> <span class="n">resample</span>
+
+        <span class="k">if</span> <span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">interval</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;interval must be a list&quot;</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;interval must be a list of 2 elements&quot;</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;first element of interval must be greater&quot;</span>
+                                 <span class="s2">&quot;than the second element&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="o">=</span> <span class="n">interval</span></div>
 
 <div class="viewcode-block" id="BaseMotorImagery.verify"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Method that verifies dataset is correct for given parameters</span>
-<span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">assert</span> <span class="n">dataset</span><span class="o">.</span><span class="n">paradigm</span> <span class="o">==</span> <span class="s1">&#39;imagery&#39;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">assert</span> <span class="n">dataset</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="BaseMotorImagery.raw_to_trials"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.raw_to_trials">[docs]</a>    <span class="k">def</span> <span class="nf">raw_to_trials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">event_dict</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Given a single raw file turn it into a features matrix and labels</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="n">raw_f</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">fmax</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
-                                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_f</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_dict</span><span class="p">,</span>
-                            <span class="n">tmin</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tmax</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                            <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+        <span class="c1"># check if dataset has required events</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">event_id</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="BaseMotorImagery.cont_to_trials"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.cont_to_trials">[docs]</a>    <span class="k">def</span> <span class="nf">cont_to_trials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raws</span><span class="p">,</span> <span class="n">event_dict</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Take list of raws and returns trial data and labels. Implements</span>
-<span class="sd">        imagery-specific processing as well</span>
+        <span class="c1"># we should verify list of channels, somehow</span>
 
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">raws</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">list</span><span class="p">:</span>
-            <span class="n">raws</span> <span class="o">=</span> <span class="p">[</span><span class="n">raws</span><span class="p">]</span>
-        <span class="n">Xall</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">yall</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">raw</span> <span class="ow">in</span> <span class="n">raws</span><span class="p">:</span>
-            <span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">shortest_event</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">channels</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span>
-            <span class="c1"># picks channels</span>
-            <span class="n">picks</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                   <span class="n">include</span><span class="o">=</span><span class="n">channels</span><span class="p">)</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Picks: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">picks</span><span class="p">))</span>
-            <span class="c1"># ensure events are desired:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">keep_events</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">val</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">event_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span>
-                               <span class="n">val</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">events</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])}</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keep_events</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="c1"># copy before filtering, so we let raws intact.</span>
-                    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_to_trials</span><span class="p">(</span>
-                        <span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">keep_events</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
-                    <span class="n">Xall</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-                    <span class="n">yall</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">Xall</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">yall</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+<div class="viewcode-block" id="BaseMotorImagery.process_raw"><a class="viewcode-back" href="../../../generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery.process_raw">[docs]</a>    <span class="k">def</span> <span class="nf">process_raw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="c1"># find the events</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">find_events</span><span class="p">(</span><span class="n">raw</span><span class="p">,</span> <span class="n">shortest_event</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">channels</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">channels</span>
+
+        <span class="c1"># picks channels</span>
+        <span class="n">picks</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_types</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">info</span><span class="p">,</span> <span class="n">eeg</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stim</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                               <span class="n">include</span><span class="o">=</span><span class="n">channels</span><span class="p">)</span>
+
+        <span class="c1"># get event id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">event_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">ev</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">event_id</span><span class="p">[</span><span class="n">ev</span><span class="p">]</span> <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">}</span>
+
+        <span class="c1"># pick events, based on event_id</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">pick_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">event_id</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="c1"># skip raw if no event found</span>
+            <span class="k">return</span>
+
+        <span class="c1"># get interval</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">interval</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interval</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resample</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">raw</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">resample</span><span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">bandpass</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">:</span>
+            <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span> <span class="o">=</span> <span class="n">bandpass</span>
+            <span class="c1"># filter data</span>
+            <span class="n">raw_f</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">,</span>
+                                      <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="c1"># epoch data</span>
+            <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_f</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_id</span><span class="p">,</span>
+                                <span class="n">tmin</span><span class="o">=</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="n">tmax</span><span class="p">,</span> <span class="n">proj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
+            <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+
+        <span class="n">inv_events</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">event_id</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">inv_events</span><span class="p">[</span><span class="n">e</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+        <span class="c1"># if only one band, return a 3D array, otherwise return a 4D</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">metadata</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">dataset_search</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">dataset_search</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
+                                    <span class="n">events</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">,</span>
+                                    <span class="n">has_all_events</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">scoring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;accuracy&#39;</span></div>
 
 
-<span class="k">class</span> <span class="nc">MotorImageryMultiPass</span><span class="p">(</span><span class="n">BaseMotorImagery</span><span class="p">):</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fbands</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
-                                        <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span>
-                                        <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
-                                        <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
-                                        <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span>
-                                        <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">]]),</span>
-                 <span class="n">channels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">FilterBankMotorImagery</span><span class="p">(</span><span class="n">BaseMotorImagery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filter Bank MI.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
+                                <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">]],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;init&quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fbands</span> <span class="o">=</span> <span class="n">fbands</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">channels</span> <span class="o">=</span> <span class="n">channels</span>
-
-    <span class="k">def</span> <span class="nf">raw_to_trials</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">raw</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">picks</span><span class="p">,</span> <span class="n">event_dict</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">fbands</span><span class="p">:</span>
-            <span class="n">raw_f</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;iir&#39;</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">,</span>
-                                      <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-            <span class="n">epochs</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">Epochs</span><span class="p">(</span><span class="n">raw_f</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">event_id</span><span class="o">=</span><span class="n">event_dict</span><span class="p">,</span>
-                                <span class="n">tmin</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tmax</span><span class="o">=</span><span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">proj</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">picks</span><span class="o">=</span><span class="n">picks</span><span class="p">)</span>
-            <span class="n">xband</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">epochs</span><span class="o">.</span><span class="n">get_data</span><span class="p">(),</span> <span class="n">epochs</span><span class="o">.</span><span class="n">events</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">xband</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span> <span class="n">y</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">ImageryNClassFactory</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
+<div class="viewcode-block" id="LeftRightImagery"><a class="viewcode-back" href="../../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery">[docs]</a><span class="k">class</span> <span class="nc">LeftRightImagery</span><span class="p">(</span><span class="n">BaseMotorImagery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Motor Imagery for left hand/right hand classification</span>
 
-    <span class="k">class</span> <span class="nc">ImageryNClass</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Imagery for multi class classification</span>
+<span class="sd">    Metric is &#39;roc_auc&#39;</span>
 
-<span class="sd">        Returns n-class imagery results, visualization agnostic but forces all</span>
-<span class="sd">        datasets to have exactly n classes. Uses &#39;accuracy&#39; as metric</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LeftRightImagery.__init__"><a class="viewcode-back" href="../../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LeftRightImagery dont accept events&#39;</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_classes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span> <span class="o">=</span> <span class="n">n_classes</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-                <span class="s1">&#39;Assumes events have already been selected per dataset&#39;</span><span class="p">)</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">selected_events</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span>
-
-        <span class="nd">@property</span>
-        <span class="k">def</span> <span class="nf">datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">dataset_search</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-                                        <span class="n">total_classes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">,</span>
-                                        <span class="n">has_all_events</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">ImageryNClass</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scoring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;roc_auc&#39;</span></div>
 
 
-<span class="k">def</span> <span class="nf">LeftRightImageryFactory</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
-    <span class="k">class</span> <span class="nc">LeftRightImagery</span><span class="p">(</span><span class="n">parent</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Motor Imagery for left hand/right hand classification</span>
+<span class="k">class</span> <span class="nc">FilterBankLeftRightImagery</span><span class="p">(</span><span class="n">FilterBankMotorImagery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Filter Bank Motor Imagery for left hand/right hand classification</span>
 
-<span class="sd">        Metric is &#39;roc_auc&#39;</span>
+<span class="sd">    Metric is &#39;roc_auc&#39;</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;events&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;LeftRightImagery dont accept events&#39;</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
-            <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;left_hand&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">]</span>
-            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">event_id</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-            <span class="n">d</span><span class="o">.</span><span class="n">selected_events</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-                <span class="nb">zip</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">event_id</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]))</span>
-
-        <span class="nd">@property</span>
-        <span class="k">def</span> <span class="nf">scoring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s1">&#39;roc_auc&#39;</span>
-
-        <span class="nd">@property</span>
-        <span class="k">def</span> <span class="nf">datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">utils</span><span class="o">.</span><span class="n">dataset_search</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-                                        <span class="n">events</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;right_hand&#39;</span><span class="p">,</span> <span class="s1">&#39;left_hand&#39;</span><span class="p">],</span>
-                                        <span class="n">has_all_events</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">LeftRightImagery</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">scoring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;roc_auc&#39;</span>
 
 
-<span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;LeftRightImagery&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LeftRightImageryFactory</span><span class="p">(</span>
-    <span class="n">BaseMotorImagery</span><span class="p">)</span>
-<span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;ImageryNClass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ImageryNClassFactory</span><span class="p">(</span><span class="n">BaseMotorImagery</span><span class="p">)</span>
-<span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;LeftRightImageryMultiPass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LeftRightImageryFactory</span><span class="p">(</span>
-    <span class="n">MotorImageryMultiPass</span><span class="p">)</span>
-<span class="nb">globals</span><span class="p">()[</span><span class="s1">&#39;ImageryNClassMultiPass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ImageryNClassFactory</span><span class="p">(</span>
-    <span class="n">MotorImageryMultiPass</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">FakeImageryParadigm</span><span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;fake Imagery for left hand/right hand classification</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">datasets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">FakeDataset</span><span class="p">([</span><span class="s1">&#39;left_hand&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">])]</span>
 </pre></div>
 
     </div>

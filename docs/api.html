@@ -7,6 +7,7 @@
     <title>Datasets &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
@@ -216,7 +217,7 @@ different recording sessions per subject or to evaluate them separately.</p>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.GigaDbMI.html#moabb.datasets.GigaDbMI" title="moabb.datasets.GigaDbMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GigaDbMI</span></code></a>()</td>
 <td>GigaDb Motor Imagery dataset</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.BBCIEEGfNIRS.html#moabb.datasets.BBCIEEGfNIRS" title="moabb.datasets.BBCIEEGfNIRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BBCIEEGfNIRS</span></code></a>([fnirs])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.BBCIEEGfNIRS.html#moabb.datasets.BBCIEEGfNIRS" title="moabb.datasets.BBCIEEGfNIRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BBCIEEGfNIRS</span></code></a>([fnirs,&nbsp;motor_imagery,&nbsp;…])</td>
 <td>BBCI EEG fNIRS Motor Imagery dataset</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI" title="moabb.datasets.OpenvibeMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenvibeMI</span></code></a>([tmin,&nbsp;tmax])</td>
@@ -224,6 +225,9 @@ different recording sessions per subject or to evaluate them separately.</p>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.PhysionetMI.html#moabb.datasets.PhysionetMI" title="moabb.datasets.PhysionetMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PhysionetMI</span></code></a>([imagined])</td>
 <td>Physionet Motor Imagery dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.UpperLimb.html#moabb.datasets.UpperLimb" title="moabb.datasets.UpperLimb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UpperLimb</span></code></a>([imagined,&nbsp;executed])</td>
+<td>Upper Limb motor dataset.</td>
 </tr>
 </tbody>
 </table>
@@ -258,7 +262,7 @@ different recording sessions per subject or to evaluate them separately.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.base.BaseDataset.html#moabb.datasets.base.BaseDataset" title="moabb.datasets.base.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseDataset</span></code></a>(subjects,&nbsp;…)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.base.BaseDataset.html#moabb.datasets.base.BaseDataset" title="moabb.datasets.base.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseDataset</span></code></a>(subjects,&nbsp;…[,&nbsp;doi])</td>
 <td>Base dataset</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.download.data_path.html#moabb.datasets.download.data_path" title="moabb.datasets.download.data_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download.data_path</span></code></a>(url,&nbsp;sign[,&nbsp;path,&nbsp;…])</td>
@@ -289,7 +293,7 @@ across-subject accuracy, or other transfer learning settings.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation" title="moabb.evaluations.WithinSessionEvaluation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WithinSessionEvaluation</span></code></a>(paradigm[,&nbsp;…])</td>
-<td>Within session evaluation, returns accuracy computed within each recording session</td>
+<td>Within session evaluation</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation" title="moabb.evaluations.CrossSessionEvaluation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CrossSessionEvaluation</span></code></a>(paradigm[,&nbsp;datasets,&nbsp;…])</td>
 <td>Cross session Context.</td>
@@ -330,10 +334,10 @@ paradigms.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery" title="moabb.paradigms.BaseMotorImagery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseMotorImagery</span></code></a>([fmin,&nbsp;fmax,&nbsp;channels,&nbsp;…])</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.paradigms.BaseMotorImagery.html#moabb.paradigms.BaseMotorImagery" title="moabb.paradigms.BaseMotorImagery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseMotorImagery</span></code></a>([filters,&nbsp;channels,&nbsp;…])</td>
 <td>Base Imagery paradigm  Context.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeftRightImagery</span></code></a>([fmin,&nbsp;fmax,&nbsp;channels,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LeftRightImagery</span></code></a>(**kwargs)</td>
 <td>Motor Imagery for left hand/right hand classification</td>
 </tr>
 </tbody>
@@ -348,7 +352,7 @@ paradigms.</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.base.BaseParadigm" title="moabb.paradigms.base.BaseParadigm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseParadigm</span></code></a>()</td>
-<td>Base Context.</td>
+<td>Base Paradigm.</td>
 </tr>
 </tbody>
 </table>

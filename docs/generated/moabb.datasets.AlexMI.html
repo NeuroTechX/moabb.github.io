@@ -7,6 +7,7 @@
     <title>moabb.datasets.AlexMI &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -226,9 +227,32 @@ config to the given path. If None, the user is prompted.</li>
 
 <dl class="method">
 <dt id="moabb.datasets.AlexMI.get_data">
-<code class="descname">get_data</code><span class="sig-paren">(</span><em>subjects=None</em>, <em>stack_sessions=False</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.AlexMI.get_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>return data for a (list of) subject(s)
-If sessions are not stacked, return each session as a separate dataset</p>
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.AlexMI.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data correspoonding to a list of subjects.</p>
+<p>The returned data is a dictionary with the folowing structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;subject_id&#39;</span> <span class="p">:</span>
+            <span class="p">{</span><span class="s1">&#39;session_id&#39;</span><span class="p">:</span>
+                <span class="p">{</span><span class="s1">&#39;run_id&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>subjects are on top, then we have sessions, then runs.
+A sessions is a recording done in a single day, without removing the
+EEG cap. A session is constitued of at least one run. A run is a single
+contigous recording. Some dataset break session in multiple runs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subjects</strong> (<em>List of int</em>) – List of subject number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>data</strong> – dict containing the raw data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dict</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

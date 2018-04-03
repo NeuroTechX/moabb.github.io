@@ -7,6 +7,7 @@
     <title>Datasets &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
@@ -196,7 +197,7 @@ different recording sessions per subject or to evaluate them separately.</p>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.GigaDbMI.html#moabb.datasets.GigaDbMI" title="moabb.datasets.GigaDbMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GigaDbMI</span></code></a>()</td>
 <td>GigaDb Motor Imagery dataset</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.BBCIEEGfNIRS.html#moabb.datasets.BBCIEEGfNIRS" title="moabb.datasets.BBCIEEGfNIRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BBCIEEGfNIRS</span></code></a>([fnirs])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.BBCIEEGfNIRS.html#moabb.datasets.BBCIEEGfNIRS" title="moabb.datasets.BBCIEEGfNIRS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BBCIEEGfNIRS</span></code></a>([fnirs,&nbsp;motor_imagery,&nbsp;…])</td>
 <td>BBCI EEG fNIRS Motor Imagery dataset</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI" title="moabb.datasets.OpenvibeMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenvibeMI</span></code></a>([tmin,&nbsp;tmax])</td>
@@ -204,6 +205,9 @@ different recording sessions per subject or to evaluate them separately.</p>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.PhysionetMI.html#moabb.datasets.PhysionetMI" title="moabb.datasets.PhysionetMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PhysionetMI</span></code></a>([imagined])</td>
 <td>Physionet Motor Imagery dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.UpperLimb.html#moabb.datasets.UpperLimb" title="moabb.datasets.UpperLimb"><code class="xref py py-obj docutils literal notranslate"><span class="pre">UpperLimb</span></code></a>([imagined,&nbsp;executed])</td>
+<td>Upper Limb motor dataset.</td>
 </tr>
 </tbody>
 </table>
@@ -238,7 +242,7 @@ different recording sessions per subject or to evaluate them separately.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.base.BaseDataset.html#moabb.datasets.base.BaseDataset" title="moabb.datasets.base.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseDataset</span></code></a>(subjects,&nbsp;…)</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.base.BaseDataset.html#moabb.datasets.base.BaseDataset" title="moabb.datasets.base.BaseDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseDataset</span></code></a>(subjects,&nbsp;…[,&nbsp;doi])</td>
 <td>Base dataset</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.download.data_path.html#moabb.datasets.download.data_path" title="moabb.datasets.download.data_path"><code class="xref py py-obj docutils literal notranslate"><span class="pre">download.data_path</span></code></a>(url,&nbsp;sign[,&nbsp;path,&nbsp;…])</td>

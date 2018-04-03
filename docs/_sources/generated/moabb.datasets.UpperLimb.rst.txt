@@ -1,0 +1,10 @@
+moabb.datasets.UpperLimb
+========================
+
+.. currentmodule:: moabb.datasets
+
+.. autoclass:: UpperLimb
+
+   
+   .. automethod:: __init__
+   

@@ -1,0 +1,425 @@
+
+
+.. _sphx_glr_auto_tutorials_plot_explore_paradigm.py:
+
+
+=======================
+Explore Paradigm Object
+=======================
+
+A paradigm defines how the raw data will be converted to trials ready
+to be processed by a decoding algorithm. This is a function of the paradigm
+used, i.e. in motor imagery one can have two-class, multi-class,
+or continuous paradigms; similarly, different preprocessing is necessary
+for ERP vs ERD paradigms.
+
+A paradigm also defines the appropriate evaluation metric, for example AUC
+for binary classification problem, accuracy for multiclass, or kappa
+coefficient for continuous paradigms.
+
+This tutorial explore the paradigm object, with 3 examples of paradigm :
+
+ - BaseMotorImagery
+ - FilterBankMotorImagery
+ - LeftRightImagery
+
+
+
+.. code-block:: python
+
+    # Authors: Alexandre Barachant <alexandre.barachant@gmail.com>
+    #
+    # License: BSD (3-clause)
+
+    import numpy as np
+    from moabb.datasets import BNCI2014001
+    from moabb.paradigms import (LeftRightImagery, BaseMotorImagery,
+                                 FilterBankMotorImagery)
+
+    print(__doc__)
+
+
+
+
+
+
+
+Base MotorImagery
+-----------------
+
+First, lets take a example of the BaseMotorImagery paradigm.
+
+
+
+.. code-block:: python
+
+
+    paradigm = BaseMotorImagery()
+
+    print(paradigm.__doc__)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Base Imagery paradigm  Context.
+
+        Parameters
+        ----------
+
+        filters: List of list (defaults [[7, 35]])
+            bank of filter to apply
+        interval: list | None, (default None)
+            time interval to epoch trial. If None, defaults to the dataset-defined
+            interval
+        events: List of str | None (default None)
+            event to use for epoching. If None, default to all events defined in
+            the dataset.
+
+
+The function `get_data` allow you to access preprocessed data from a dataset.
+this function will return 3 objects. A numpy array containing the
+preprocessed EEG data, the labels, and a dataframe with metadata.
+
+
+
+.. code-block:: python
+
+
+    print(paradigm.get_data.__doc__)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Return the data for a list of subject.
+
+            return the data, labels and a dataframe with metadata. the dataframe
+            will contain at least the following columns
+
+            - subject : the subject indice
+            - session : the session indice
+            - run : the run indice
+
+            parameters
+            ----------
+            dataset:
+                A dataset instance.
+            subjects: List of int
+                List of subject number
+
+            returns
+            -------
+            X : np.ndarray
+                the data that will be used as features for the model
+            labels: np.ndarray
+                the labels for training / evaluating the model
+            metadata: pd.DataFrame
+                A dataframe containing the metadata.
+
+
+Lets take the example of the BNCI2014001 dataset, known as the dataset IIa
+from the BCI competition IV. We will load the data from the subject 1.
+When calling `get_data`, the paradigm will retrieve the data from the
+specified list of subject, apply preprocessing (by default, a bandpass
+between 7 and 35 Hz), epoch the data (with interval specified by the dataset,
+unless superseeded by the paradigm) and return the corresponding objects.
+
+
+
+.. code-block:: python
+
+
+    dataset = BNCI2014001()
+    subjects = [1]
+
+    X, y, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
+
+
+
+
+
+
+
+The epoched data is a 3D array, with epochs on the first dimension (here
+576 trials), channels on the second (22 channels) and time sample on the last
+one.
+
+
+
+.. code-block:: python
+
+
+    print(X.shape)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    (576, 22, 501)
+
+
+Labels contains the labels corresponding to each trial. in the case of this
+dataset, we have the 4 type of motor imagery that was performed.
+
+
+
+.. code-block:: python
+
+
+    print(np.unique(y))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    ['feet' 'left_hand' 'right_hand' 'tongue']
+
+
+metadata have at least 3 columns, subject, session and run.
+
+- subject is the subject id of the corresponding trial
+- session is the session id. A session is a all the data recorded without
+removing the EEG cap.
+- run is the individual continuous recording made during a session. A Session
+may or may not contain multiple run.
+
+
+
+.. code-block:: python
+
+
+    print(metadata.head())
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    subject    session    run
+    0        1  session_T  run_3
+    1        1  session_T  run_3
+    2        1  session_T  run_3
+    3        1  session_T  run_3
+    4        1  session_T  run_3
+
+
+For this data, we have one subjecy, 2 sessions (2 different recording day)
+and 6 run per session.
+
+
+
+.. code-block:: python
+
+
+    print(metadata.describe(include='all'))
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    subject    session    run
+    count     576.0        576    576
+    unique      NaN          2      6
+    top         NaN  session_T  run_4
+    freq        NaN        288     96
+    mean        1.0        NaN    NaN
+    std         0.0        NaN    NaN
+    min         1.0        NaN    NaN
+    25%         1.0        NaN    NaN
+    50%         1.0        NaN    NaN
+    75%         1.0        NaN    NaN
+    max         1.0        NaN    NaN
+
+
+Paradigm object can also return the list of all dataset compatible. here
+it will return the list all the imagery datasets from the moabb.
+
+
+
+.. code-block:: python
+
+
+    compatible_datasets = paradigm.datasets
+    print([dataset.code for dataset in compatible_datasets])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    ['Alexandre Motor Imagery', 'BBCI EEG fNIRS', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'GigaDb Motor Imagery', 'Openvibe Motor Imagery', 'Physionet Motor Imagery', 'Upper Limb Imagery']
+
+
+FilterBank MotorImagery
+-----------------------
+
+FilterBankMotorImagery is the same paradigm, but with a different
+preprocessing. In this case, it apply a bank of 6 bandpass filter on the data
+before concatenating the output.
+
+
+
+.. code-block:: python
+
+
+    paradigm = FilterBankMotorImagery()
+
+    print(paradigm.__doc__)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Filter Bank MI.
+
+
+therefore, the output X is a 4D array, with trial x channel x time x filter
+
+
+
+.. code-block:: python
+
+
+    X, y, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
+
+    print(X.shape)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    (576, 22, 501, 6)
+
+
+LeftRight MotorImagery
+----------------------
+
+LeftRightImagery is a variation over the BaseMotorImagery paradigm,
+restricted to left and right hand events.
+
+
+
+.. code-block:: python
+
+
+    paradigm = LeftRightImagery()
+
+    print(paradigm.__doc__)
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    Motor Imagery for left hand/right hand classification
+
+        Metric is 'roc_auc'
+
+
+the compatible dataset list is a subset of motor imagery dataset that
+contains at least left and right hand events.
+
+
+
+.. code-block:: python
+
+
+    compatible_datasets = paradigm.datasets
+    print([dataset.code for dataset in compatible_datasets])
+
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    ['BBCI EEG fNIRS', '001-2014', '004-2014', 'GigaDb Motor Imagery', 'Openvibe Motor Imagery', 'Physionet Motor Imagery']
+
+
+So if we apply this this to our original dataset, it will only return trials
+corresponding to left and right hand motor imagination.
+
+
+
+.. code-block:: python
+
+
+    X, y, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
+
+    print(np.unique(y))
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ Out::
+
+    ['left_hand' 'right_hand']
+
+
+**Total running time of the script:** ( 0 minutes  26.269 seconds)
+
+
+
+.. only :: html
+
+ .. container:: sphx-glr-footer
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Python source code: plot_explore_paradigm.py <plot_explore_paradigm.py>`
+
+
+
+  .. container:: sphx-glr-download
+
+     :download:`Download Jupyter notebook: plot_explore_paradigm.ipynb <plot_explore_paradigm.ipynb>`
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_

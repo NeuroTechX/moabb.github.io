@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Explore Paradigm Object &#8212; moabb  documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          moabb</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../auto_examples/index.html">Gallery</a></li>
+                <li><a href="index.html">Tutorials</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#erp-datasets">ERP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#ssvep-datasets">SSVEP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations.html">Evaluations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluations.html#id1">Evaluations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluations.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Explore Paradigm Object</a><ul>
+<li><a class="reference internal" href="#base-motorimagery">Base MotorImagery</a></li>
+<li><a class="reference internal" href="#filterbank-motorimagery">FilterBank MotorImagery</a></li>
+<li><a class="reference internal" href="#leftright-motorimagery">LeftRight MotorImagery</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Explore Paradigm Object</a><ul>
+<li><a class="reference internal" href="#base-motorimagery">Base MotorImagery</a></li>
+<li><a class="reference internal" href="#filterbank-motorimagery">FilterBank MotorImagery</a></li>
+<li><a class="reference internal" href="#leftright-motorimagery">LeftRight MotorImagery</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="sourcelink">
+  <a href="../_sources/auto_tutorials/plot_explore_paradigm.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+<form action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="explore-paradigm-object">
+<span id="sphx-glr-auto-tutorials-plot-explore-paradigm-py"></span><h1>Explore Paradigm Object<a class="headerlink" href="#explore-paradigm-object" title="Permalink to this headline">¶</a></h1>
+<p>A paradigm defines how the raw data will be converted to trials ready
+to be processed by a decoding algorithm. This is a function of the paradigm
+used, i.e. in motor imagery one can have two-class, multi-class,
+or continuous paradigms; similarly, different preprocessing is necessary
+for ERP vs ERD paradigms.</p>
+<p>A paradigm also defines the appropriate evaluation metric, for example AUC
+for binary classification problem, accuracy for multiclass, or kappa
+coefficient for continuous paradigms.</p>
+<p>This tutorial explore the paradigm object, with 3 examples of paradigm :</p>
+<blockquote>
+<div><ul class="simple">
+<li>BaseMotorImagery</li>
+<li>FilterBankMotorImagery</li>
+<li>LeftRightImagery</li>
+</ul>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Alexandre Barachant &lt;alexandre.barachant@gmail.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD (3-clause)</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014001</span>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">,</span> <span class="n">BaseMotorImagery</span><span class="p">,</span>
+                             <span class="n">FilterBankMotorImagery</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="base-motorimagery">
+<h2>Base MotorImagery<a class="headerlink" href="#base-motorimagery" title="Permalink to this headline">¶</a></h2>
+<p>First, lets take a example of the BaseMotorImagery paradigm.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">BaseMotorImagery</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Base</span> <span class="n">Imagery</span> <span class="n">paradigm</span>  <span class="n">Context</span><span class="o">.</span>
+
+    <span class="n">Parameters</span>
+    <span class="o">----------</span>
+
+    <span class="n">filters</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">list</span> <span class="p">(</span><span class="n">defaults</span> <span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">35</span><span class="p">]])</span>
+        <span class="n">bank</span> <span class="n">of</span> <span class="nb">filter</span> <span class="n">to</span> <span class="n">apply</span>
+    <span class="n">interval</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">time</span> <span class="n">interval</span> <span class="n">to</span> <span class="n">epoch</span> <span class="n">trial</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span> <span class="n">to</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">-</span><span class="n">defined</span>
+        <span class="n">interval</span>
+    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">event</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">epoching</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">events</span> <span class="n">defined</span> <span class="ow">in</span>
+        <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>The function <cite>get_data</cite> allow you to access preprocessed data from a dataset.
+this function will return 3 objects. A numpy array containing the
+preprocessed EEG data, the labels, and a dataframe with metadata.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Return</span> <span class="n">the</span> <span class="n">data</span> <span class="k">for</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">subject</span><span class="o">.</span>
+
+        <span class="k">return</span> <span class="n">the</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">dataframe</span> <span class="k">with</span> <span class="n">metadata</span><span class="o">.</span> <span class="n">the</span> <span class="n">dataframe</span>
+        <span class="n">will</span> <span class="n">contain</span> <span class="n">at</span> <span class="n">least</span> <span class="n">the</span> <span class="n">following</span> <span class="n">columns</span>
+
+        <span class="o">-</span> <span class="n">subject</span> <span class="p">:</span> <span class="n">the</span> <span class="n">subject</span> <span class="n">indice</span>
+        <span class="o">-</span> <span class="n">session</span> <span class="p">:</span> <span class="n">the</span> <span class="n">session</span> <span class="n">indice</span>
+        <span class="o">-</span> <span class="n">run</span> <span class="p">:</span> <span class="n">the</span> <span class="n">run</span> <span class="n">indice</span>
+
+        <span class="n">parameters</span>
+        <span class="o">----------</span>
+        <span class="n">dataset</span><span class="p">:</span>
+            <span class="n">A</span> <span class="n">dataset</span> <span class="n">instance</span><span class="o">.</span>
+        <span class="n">subjects</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">int</span>
+            <span class="n">List</span> <span class="n">of</span> <span class="n">subject</span> <span class="n">number</span>
+
+        <span class="n">returns</span>
+        <span class="o">-------</span>
+        <span class="n">X</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+            <span class="n">the</span> <span class="n">data</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">as</span> <span class="n">features</span> <span class="k">for</span> <span class="n">the</span> <span class="n">model</span>
+        <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+            <span class="n">the</span> <span class="n">labels</span> <span class="k">for</span> <span class="n">training</span> <span class="o">/</span> <span class="n">evaluating</span> <span class="n">the</span> <span class="n">model</span>
+        <span class="n">metadata</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+            <span class="n">A</span> <span class="n">dataframe</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">metadata</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Lets take the example of the BNCI2014001 dataset, known as the dataset IIa
+from the BCI competition IV. We will load the data from the subject 1.
+When calling <cite>get_data</cite>, the paradigm will retrieve the data from the
+specified list of subject, apply preprocessing (by default, a bandpass
+between 7 and 35 Hz), epoch the data (with interval specified by the dataset,
+unless superseeded by the paradigm) and return the corresponding objects.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
+<span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The epoched data is a 3D array, with epochs on the first dimension (here
+576 trials), channels on the second (22 channels) and time sample on the last
+one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">501</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Labels contains the labels corresponding to each trial. in the case of this
+dataset, we have the 4 type of motor imagery that was performed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;feet&#39;</span> <span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span> <span class="s1">&#39;tongue&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>metadata have at least 3 columns, subject, session and run.</p>
+<ul class="simple">
+<li>subject is the subject id of the corresponding trial</li>
+<li>session is the session id. A session is a all the data recorded without</li>
+</ul>
+<p>removing the EEG cap.
+- run is the individual continuous recording made during a session. A Session
+may or may not contain multiple run.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
+<span class="mi">0</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<span class="mi">1</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<span class="mi">2</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<span class="mi">3</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<span class="mi">4</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+</pre></div>
+</div>
+<p>For this data, we have one subjecy, 2 sessions (2 different recording day)
+and 6 run per session.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">print</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
+<span class="n">count</span>     <span class="mf">576.0</span>        <span class="mi">576</span>    <span class="mi">576</span>
+<span class="n">unique</span>      <span class="n">NaN</span>          <span class="mi">2</span>      <span class="mi">6</span>
+<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_T</span>  <span class="n">run_4</span>
+<span class="n">freq</span>        <span class="n">NaN</span>        <span class="mi">288</span>     <span class="mi">96</span>
+<span class="n">mean</span>        <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="n">std</span>         <span class="mf">0.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="nb">min</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">25</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">50</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="mi">75</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<span class="nb">max</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+</pre></div>
+</div>
+<p>Paradigm object can also return the list of all dataset compatible. here
+it will return the list all the imagery datasets from the moabb.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">compatible_datasets</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">datasets</span>
+<span class="k">print</span><span class="p">([</span><span class="n">dataset</span><span class="o">.</span><span class="n">code</span> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">compatible_datasets</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;BBCI EEG fNIRS&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;GigaDb Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Upper Limb Imagery&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filterbank-motorimagery">
+<h2>FilterBank MotorImagery<a class="headerlink" href="#filterbank-motorimagery" title="Permalink to this headline">¶</a></h2>
+<p>FilterBankMotorImagery is the same paradigm, but with a different
+preprocessing. In this case, it apply a bank of 6 bandpass filter on the data
+before concatenating the output.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">FilterBankMotorImagery</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Filter</span> <span class="n">Bank</span> <span class="n">MI</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>therefore, the output X is a 4D array, with trial x channel x time x filter</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">501</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="leftright-motorimagery">
+<h2>LeftRight MotorImagery<a class="headerlink" href="#leftright-motorimagery" title="Permalink to this headline">¶</a></h2>
+<p>LeftRightImagery is a variation over the BaseMotorImagery paradigm,
+restricted to left and right hand events.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Motor</span> <span class="n">Imagery</span> <span class="k">for</span> <span class="n">left</span> <span class="n">hand</span><span class="o">/</span><span class="n">right</span> <span class="n">hand</span> <span class="n">classification</span>
+
+    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc_auc&#39;</span>
+</pre></div>
+</div>
+<p>the compatible dataset list is a subset of motor imagery dataset that
+contains at least left and right hand events.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">compatible_datasets</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">datasets</span>
+<span class="k">print</span><span class="p">([</span><span class="n">dataset</span><span class="o">.</span><span class="n">code</span> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">compatible_datasets</span><span class="p">])</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;BBCI EEG fNIRS&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;GigaDb Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>So if we apply this this to our original dataset, it will only return trials
+corresponding to left and right hand motor imagination.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><span class="n">subjects</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  26.269 seconds)</p>
+<div class="sphx-glr-footer docutils container">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_explore_paradigm.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" href="../_downloads/plot_explore_paradigm.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_explore_paradigm.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/auto_tutorials/plot_explore_paradigm.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Alexandre Barachant.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

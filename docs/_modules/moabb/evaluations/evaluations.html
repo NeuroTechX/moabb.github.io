@@ -7,6 +7,7 @@
     <title>moabb.evaluations.evaluations &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -134,13 +135,120 @@
 <span class="kn">from</span> <span class="nn">time</span> <span class="k">import</span> <span class="n">time</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">cross_val_score</span><span class="p">,</span> <span class="n">LeaveOneGroupOut</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="k">import</span> <span class="n">LabelEncoder</span>
 
 <span class="kn">from</span> <span class="nn">moabb.evaluations.base</span> <span class="k">import</span> <span class="n">BaseEvaluation</span>
-
+<span class="kn">from</span> <span class="nn">sklearn.model_selection._validation</span> <span class="k">import</span> <span class="n">_fit_and_score</span><span class="p">,</span> <span class="n">_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">get_scorer</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="WithinSessionEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation">[docs]</a><span class="k">class</span> <span class="nc">WithinSessionEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Within session evaluation</span>
+
+<span class="sd">    returns Score computed within each recording session</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="WithinSessionEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
+            <span class="c1"># check if we already have result for this subject/pipeline</span>
+            <span class="c1"># we might need a better granularity, if we query the DB</span>
+            <span class="n">run_pipes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">not_yet_computed</span><span class="p">(</span><span class="n">pipelines</span><span class="p">,</span>
+                                                      <span class="n">dataset</span><span class="p">,</span>
+                                                      <span class="n">subject</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">run_pipes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># get the data</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">subject</span><span class="p">])</span>
+
+            <span class="c1"># iterate over sessions</span>
+            <span class="k">for</span> <span class="n">session</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">session</span><span class="p">):</span>
+                <span class="n">ix</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">session</span> <span class="o">==</span> <span class="n">session</span>
+
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">run_pipes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+                    <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+                    <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">ix</span><span class="p">],</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
+                    <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span> <span class="o">/</span> <span class="mf">5.</span><span class="p">,</span>  <span class="c1"># 5 fold CV</span>
+                           <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
+                           <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
+                           <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">,</span>
+                           <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+                           <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">ix</span><span class="p">]),</span>  <span class="c1"># not training sample</span>
+                           <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
+
+                    <span class="k">yield</span> <span class="n">res</span></div>
+
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="p">):</span>
+        <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+
+        <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">acc</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span>
+                              <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<div class="viewcode-block" id="WithinSessionEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="CrossSessionEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation">[docs]</a><span class="k">class</span> <span class="nc">CrossSessionEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Cross session Context.</span>
+
+<span class="sd">    Evaluate performance of the pipeline across sessions but for a single</span>
+<span class="sd">    subject. Verifies that sufficient sessions are there for this to be</span>
+<span class="sd">    reasonable</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CrossSessionEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
+            <span class="c1"># check if we already have result for this subject/pipeline</span>
+            <span class="c1"># we might need a better granularity, if we query the DB</span>
+            <span class="n">run_pipes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">not_yet_computed</span><span class="p">(</span><span class="n">pipelines</span><span class="p">,</span>
+                                                      <span class="n">dataset</span><span class="p">,</span>
+                                                      <span class="n">subject</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">run_pipes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="c1"># get the data</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">subject</span><span class="p">])</span>
+            <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">scorer</span> <span class="o">=</span> <span class="n">get_scorer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">run_pipes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+                <span class="c1"># we want to store a results per session</span>
+                <span class="n">cv</span> <span class="o">=</span> <span class="n">LeaveOneGroupOut</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
+                    <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+                    <span class="n">score</span> <span class="o">=</span> <span class="n">_fit_and_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scorer</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span>
+                                           <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                                           <span class="n">fit_params</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
+                           <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
+                           <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
+                           <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="n">groups</span><span class="p">[</span><span class="n">test</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                           <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+                           <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span>
+                           <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
+                    <span class="k">yield</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="CrossSessionEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_sessions</span> <span class="o">&gt;</span> <span class="mi">1</span></div></div>
 
 
 <div class="viewcode-block" id="CrossSubjectEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation">[docs]</a><span class="k">class</span> <span class="nc">CrossSubjectEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
@@ -149,163 +257,67 @@
 <span class="sd">    Evaluate performance of the pipeline trained on all subjects but one,</span>
 <span class="sd">    concatenating sessions.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    random_state</span>
-<span class="sd">    n_jobs</span>
-
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="CrossSubjectEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="c1"># requires that subject be an int</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">subject</span><span class="o">-</span><span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">*</span><span class="mi">0</span>
-        <span class="n">allX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X_cache</span><span class="p">)</span>
-        <span class="n">ally</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y_cache</span><span class="p">)</span>
-        <span class="n">groups</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="p">)</span>
-        <span class="c1"># re-generate s group label</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">pipelines</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-            <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">allX</span><span class="p">,</span> <span class="n">ally</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
-            <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
-                          <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
-                          <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
-                          <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
-                          <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="n">groups</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span>
-                          <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">allX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span>
-        <span class="k">return</span> <span class="n">out</span></div>
+<div class="viewcode-block" id="CrossSubjectEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="c1"># this is a bit akward, but we need to check if at least one pipe</span>
+        <span class="c1"># have to be run before loading the data. If at least one pipeline</span>
+        <span class="c1"># need to be run, we have to load all the data.</span>
+        <span class="c1"># we might need a better granularity, if we query the DB</span>
+        <span class="n">run_pipes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
+            <span class="n">run_pipes</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">not_yet_computed</span><span class="p">(</span><span class="n">pipelines</span><span class="p">,</span>
+                                                           <span class="n">dataset</span><span class="p">,</span>
+                                                           <span class="n">subject</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">run_pipes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
 
-<div class="viewcode-block" id="CrossSubjectEvaluation.preprocess_data"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.preprocess_data">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Dataset </span><span class="si">{}</span><span class="s2"> has only one subject&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">code</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">X_cache</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">event_id</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">selected_events</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">event_id</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset had no selected events&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y_cache</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
-            <span class="n">sub</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">([</span><span class="n">s</span><span class="p">],</span> <span class="n">stack_sessions</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c1"># get all epochs for individual files in given subject</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">cont_to_trials</span><span class="p">(</span>
-                <span class="n">sub</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">X_cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">y_cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ind_cache</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span></div>
+            <span class="c1"># get the data</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">scoring</span><span class="p">):</span>
-        <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">acc</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="p">[(</span><span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">groups</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
-                                              <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">groups</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">])],</span>
-                              <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+            <span class="c1"># encode labels</span>
+            <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 
+            <span class="c1"># extract metadata</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">subject</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">sessions</span> <span class="o">=</span> <span class="n">metadata</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">values</span>
 
-<div class="viewcode-block" id="WithinSessionEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation">[docs]</a><span class="k">class</span> <span class="nc">WithinSessionEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Within session evaluation, returns accuracy computed within each recording session</span>
+            <span class="n">scorer</span> <span class="o">=</span> <span class="n">get_scorer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+            <span class="c1"># perform leave one subject out CV</span>
+            <span class="n">cv</span> <span class="o">=</span> <span class="n">LeaveOneGroupOut</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span> <span class="ow">in</span> <span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="p">):</span>
 
-<div class="viewcode-block" id="WithinSessionEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Prepare data for classification.&quot;&quot;&quot;</span>
-        <span class="n">event_id</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">selected_events</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">event_id</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset had no selected events&quot;</span><span class="p">))</span>
+                <span class="n">subject</span> <span class="o">=</span> <span class="n">groups</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+                <span class="c1"># now we can check if this subject has results</span>
+                <span class="n">run_pipes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">not_yet_computed</span><span class="p">(</span><span class="n">pipelines</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span>
+                                                          <span class="n">subject</span><span class="p">)</span>
 
-        <span class="n">sub</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">([</span><span class="n">subject</span><span class="p">],</span> <span class="n">stack_sessions</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">pipelines</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">session</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
-            <span class="c1"># get all epochs for individual files in given session</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">cont_to_trials</span><span class="p">(</span>
-                <span class="n">session</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;score imbalance: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counts</span><span class="p">))</span>
-                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">pipelines</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="c1"># iterate over pipelines</span>
+                <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">run_pipes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                     <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-                    <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
+                    <span class="n">model</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">clf</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">train</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">train</span><span class="p">])</span>
                     <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
-                    <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
-                                      <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
-                                      <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
-                                      <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
-                                      <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-                                      <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]})</span>
-        <span class="k">return</span> <span class="n">out</span></div>
 
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">scoring</span><span class="p">):</span>
-        <span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_state</span><span class="p">)</span>
+                    <span class="c1"># we eval on each session</span>
+                    <span class="k">for</span> <span class="n">session</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">sessions</span><span class="p">[</span><span class="n">test</span><span class="p">]):</span>
+                        <span class="n">ix</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">test</span><span class="p">]</span> <span class="o">==</span> <span class="n">session</span>
+                        <span class="n">score</span> <span class="o">=</span> <span class="n">_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="n">ix</span><span class="p">]],</span> <span class="n">y</span><span class="p">[</span><span class="n">test</span><span class="p">[</span><span class="n">ix</span><span class="p">]],</span> <span class="n">scorer</span><span class="p">)</span>
 
-        <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">acc</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span>
-                              <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+                        <span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
+                               <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
+                               <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
+                               <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">,</span>
+                               <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+                               <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">),</span>
+                               <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                               <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
 
-<div class="viewcode-block" id="WithinSessionEvaluation.preprocess_data"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.preprocess_data">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        Optional paramter if any sort of dataset-wide computation is needed</span>
-<span class="sd">        per subject</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="k">pass</span></div></div>
+                        <span class="k">yield</span> <span class="n">res</span></div>
 
-
-<div class="viewcode-block" id="CrossSessionEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation">[docs]</a><span class="k">class</span> <span class="nc">CrossSessionEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Cross session Context.</span>
-
-<span class="sd">    Evaluate performance of the pipeline across sessions but for a single subject.</span>
-<span class="sd">    Verifies that sufficient sessions are there for this to be reasonable</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="CrossSessionEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="n">event_id</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">selected_events</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">event_id</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset had no selected events&quot;</span><span class="p">))</span>
-
-        <span class="n">sub</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">([</span><span class="n">subject</span><span class="p">],</span> <span class="n">stack_sessions</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">listX</span><span class="p">,</span> <span class="n">listy</span> <span class="o">=</span> <span class="p">([],</span> <span class="p">[])</span>
-        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">session</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sub</span><span class="p">):</span>
-            <span class="c1"># get list epochs for individual files in given session</span>
-            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">cont_to_trials</span><span class="p">(</span>
-                <span class="n">session</span><span class="p">,</span> <span class="n">event_id</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">interval</span><span class="p">)</span>
-            <span class="n">listX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="n">listy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">listy</span><span class="p">):</span>
-            <span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),))</span> <span class="o">*</span> <span class="n">ind</span><span class="p">)</span>
-        <span class="n">allX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">listX</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">ally</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">listy</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">groupvec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">groups</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">clf</span> <span class="ow">in</span> <span class="n">pipelines</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="n">t_start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
-            <span class="n">score</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">allX</span><span class="p">,</span> <span class="n">ally</span><span class="p">,</span> <span class="n">groupvec</span><span class="p">,</span>
-                               <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">scoring</span><span class="p">)</span>
-            <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">t_start</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">duration</span><span class="p">,</span>
-                          <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">,</span>
-                          <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">subject</span><span class="p">,</span>
-                          <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
-                          <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
-                          <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">allX</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]}]</span>
-        <span class="k">return</span> <span class="n">out</span></div>
-
-<div class="viewcode-block" id="CrossSessionEvaluation.preprocess_data"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.preprocess_data">[docs]</a>    <span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_sessions</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Proposed dataset </span><span class="si">{}</span><span class="s2"> has only one session&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">dataset</span><span class="o">.</span><span class="n">code</span><span class="p">)</span></div>
-
-    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="n">scoring</span><span class="p">):</span>
-        <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-        <span class="n">acc</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">groups</span><span class="o">=</span><span class="n">groups</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">LeaveOneGroupOut</span><span class="p">(),</span>
-                              <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span></div>
+<div class="viewcode-block" id="CrossSubjectEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></div></div>
 </pre></div>
 
     </div>

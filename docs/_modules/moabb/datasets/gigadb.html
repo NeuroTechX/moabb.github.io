@@ -7,6 +7,7 @@
     <title>moabb.datasets.gigadb &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
@@ -144,8 +145,6 @@
 <span class="kn">from</span> <span class="nn">mne.channels</span> <span class="k">import</span> <span class="n">read_montage</span>
 <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
-
 <span class="n">GIGA_URL</span> <span class="o">=</span> <span class="s1">&#39;ftp://penguin.genomics.cn/pub/10.5524/100001_101000/100295/mat_data/&#39;</span>
 
 
@@ -154,17 +153,17 @@
 
 <div class="viewcode-block" id="GigaDbMI.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.GigaDbMI.html#moabb.datasets.GigaDbMI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">53</span><span class="p">)),</span>
+            <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">53</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">left_hand</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">right_hand</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;GigaDb Motor Imagery&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span>
-            <span class="p">)</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.5524/100295&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">49</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subject_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">stack_sessions</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>
         <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
 
@@ -188,15 +187,15 @@
         <span class="n">eeg_data_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
                                 <span class="n">data</span><span class="o">.</span><span class="n">imagery_event</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span>
 
-        <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">eeg_data_l</span><span class="p">,</span> <span class="n">eeg_data_r</span><span class="p">])</span>  <span class="c1"># stacking causes first trials of _r to be corrupted slightly by any sort of filtering -- can fix by making them two raw arrays?</span>
+        <span class="c1"># trials are already non continuous. edge artifact can appears but</span>
+        <span class="c1"># are likely to be present during rest / inter-trial activity</span>
+        <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">eeg_data_l</span><span class="p">,</span> <span class="n">eeg_data_r</span><span class="p">])</span>
 
         <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span>
                            <span class="n">sfreq</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">srate</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
         <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">stack_sessions</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[[</span><span class="n">raw</span><span class="p">]]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[[[</span><span class="n">raw</span><span class="p">]]]</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;session_0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
 
 <div class="viewcode-block" id="GigaDbMI.data_path"><a class="viewcode-back" href="../../../generated/moabb.datasets.GigaDbMI.html#moabb.datasets.GigaDbMI.data_path">[docs]</a>    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                   <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

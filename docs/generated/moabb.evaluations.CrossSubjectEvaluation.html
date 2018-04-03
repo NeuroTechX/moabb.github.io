@@ -7,6 +7,7 @@
     <title>moabb.evaluations.CrossSubjectEvaluation &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -153,45 +154,71 @@
 <h1>moabb.evaluations.CrossSubjectEvaluation<a class="headerlink" href="#moabb-evaluations-crosssubjectevaluation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="moabb.evaluations.CrossSubjectEvaluation">
-<em class="property">class </em><code class="descclassname">moabb.evaluations.</code><code class="descname">CrossSubjectEvaluation</code><span class="sig-paren">(</span><em>paradigm</em>, <em>datasets=None</em>, <em>random_state=None</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">moabb.evaluations.</code><code class="descname">CrossSubjectEvaluation</code><span class="sig-paren">(</span><em>paradigm</em>, <em>datasets=None</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>overwrite=False</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cross Subject evaluation Context.</p>
 <p>Evaluate performance of the pipeline trained on all subjects but one,
 concatenating sessions.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>random_state</strong></li>
-<li><strong>n_jobs</strong></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="method">
 <dt id="moabb.evaluations.CrossSubjectEvaluation.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>paradigm</em>, <em>datasets=None</em>, <em>random_state=None</em>, <em>n_jobs=1</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Init.</p>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>paradigm</em>, <em>datasets=None</em>, <em>random_state=None</em>, <em>n_jobs=1</em>, <em>overwrite=False</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="moabb.evaluations.CrossSubjectEvaluation.evaluate">
-<code class="descname">evaluate</code><span class="sig-paren">(</span><em>dataset</em>, <em>subject</em>, <em>pipelines</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.evaluate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return results in a dict</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.evaluations.CrossSubjectEvaluation.preprocess_data">
-<code class="descname">preprocess_data</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.preprocess_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.preprocess_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optional paramter if any sort of dataset-wide computation is needed
-per subject</p>
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>dataset</em>, <em>pipelines</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate results on a single dataset.</p>
+<p>This method return a generator. each results item is a dict with
+the following convension:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">Duration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span> <span class="p">,</span>
+       <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span> <span class="nb">id</span><span class="p">,</span>
+       <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">subject</span> <span class="nb">id</span><span class="p">,</span>
+       <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="n">session</span> <span class="nb">id</span><span class="p">,</span>
+       <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
+       <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">training</span> <span class="n">examples</span><span class="p">,</span>
+       <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">channel</span><span class="p">,</span>
+       <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">pipeline</span> <span class="n">name</span><span class="p">}</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="moabb.evaluations.CrossSubjectEvaluation.process">
-<code class="descname">process</code><span class="sig-paren">(</span><em>pipelines</em>, <em>overwrite=False</em>, <em>suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs tasks on all given datasets.</p>
+<code class="descname">process</code><span class="sig-paren">(</span><em>pipelines</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs all pipelines on all datasets.</p>
+<p>This function will apply all provided pipelines and return a dataframe
+containing the results of the evaluation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pipelines</strong> (<em>dict of pipeline instance.</em>) – A dict containing the sklearn pipeline to evaluate.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>results</strong> – A dataframe containing the results.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moabb.evaluations.CrossSubjectEvaluation.verify">
+<code class="descname">verify</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the dataset is compatible with evaluation.</p>
+<p>This method is called to verify dataset given in the constructor
+are compatible with the evaluation context.</p>
+<p>This method should raise an error if the dataset is not compatible
+with the evaluation context. This is for example the case if the
+dataset does not contain enought session for a cross-session eval.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>

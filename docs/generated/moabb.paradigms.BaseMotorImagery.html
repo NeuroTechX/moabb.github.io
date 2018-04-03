@@ -7,6 +7,7 @@
     <title>moabb.paradigms.BaseMotorImagery &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
     <script type="text/javascript" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
@@ -153,21 +154,18 @@
 <h1>moabb.paradigms.BaseMotorImagery<a class="headerlink" href="#moabb-paradigms-basemotorimagery" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="moabb.paradigms.BaseMotorImagery">
-<em class="property">class </em><code class="descclassname">moabb.paradigms.</code><code class="descname">BaseMotorImagery</code><span class="sig-paren">(</span><em>fmin=7</em>, <em>fmax=35</em>, <em>channels=None</em>, <em>interval=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">moabb.paradigms.</code><code class="descname">BaseMotorImagery</code><span class="sig-paren">(</span><em>filters=[[7, 35]], channels=None, interval=None, events=None, resample=None, **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base Imagery paradigm  Context.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>datasets</strong> (<em>List of Dataset instances, or None</em>) – List of dataset instances on which the pipelines will be evaluated.
-If None, uses all datasets (and should break…)</li>
-<li><strong>pipelines</strong> (<em>Dict of pipelines instances.</em>) – Dictionary of pipelines. Keys identifies pipeline names, and values
-are scikit-learn pipelines instances.</li>
-<li><strong>evaluator</strong> (<em>Evaluator instance</em>) – Instance that defines evaluation scheme</li>
-<li><strong>fmin</strong> (<em>float | None, (default 7.)</em>) – Low cut-off frequency in Hz. If None the data are only low-passed.</li>
-<li><strong>fmax</strong> (<em>float | None, (default 35)</em>) – High cut-off frequency in Hz. If None the data are only high-passed.</li>
-<li><strong>interval</strong> (<em>list | None, (default None)</em>) – Interval to cut trial. If None, defaults to the dataset-defined interval</li>
+<li><strong>filters</strong> (<em>List of list (defaults [[7, 35]])</em>) – bank of filter to apply</li>
+<li><strong>interval</strong> (<em>list | None, (default None)</em>) – time interval to epoch trial. If None, defaults to the dataset-defined
+interval</li>
+<li><strong>events</strong> (<em>List of str | None (default None)</em>) – event to use for epoching. If None, default to all events defined in
+the dataset.</li>
 </ul>
 </td>
 </tr>
@@ -175,15 +173,8 @@ are scikit-learn pipelines instances.</li>
 </table>
 <dl class="method">
 <dt id="moabb.paradigms.BaseMotorImagery.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>fmin=7</em>, <em>fmax=35</em>, <em>channels=None</em>, <em>interval=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>filters=[[7, 35]], channels=None, interval=None, events=None, resample=None, **kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>init</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.BaseMotorImagery.cont_to_trials">
-<code class="descname">cont_to_trials</code><span class="sig-paren">(</span><em>raws</em>, <em>event_dict</em>, <em>time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.cont_to_trials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.cont_to_trials" title="Permalink to this definition">¶</a></dt>
-<dd><p>Take list of raws and returns trial data and labels. Implements
-imagery-specific processing as well</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -193,9 +184,60 @@ imagery-specific processing as well</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="moabb.paradigms.BaseMotorImagery.raw_to_trials">
-<code class="descname">raw_to_trials</code><span class="sig-paren">(</span><em>raw</em>, <em>events</em>, <em>picks</em>, <em>event_dict</em>, <em>time</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.raw_to_trials"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.raw_to_trials" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given a single raw file turn it into a features matrix and labels</p>
+<dt id="moabb.paradigms.BaseMotorImagery.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>dataset</em>, <em>subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data for a list of subject.</p>
+<p>return the data, labels and a dataframe with metadata. the dataframe
+will contain at least the following columns</p>
+<ul class="simple">
+<li>subject : the subject indice</li>
+<li>session : the session indice</li>
+<li>run : the run indice</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> – A dataset instance.</li>
+<li><strong>subjects</strong> (<em>List of int</em>) – List of subject number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>X</strong> (<em>np.ndarray</em>) – the data that will be used as features for the model</li>
+<li><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</li>
+<li><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata.</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moabb.paradigms.BaseMotorImagery.process_raw">
+<code class="descname">process_raw</code><span class="sig-paren">(</span><em>raw</em>, <em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.process_raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.process_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process one raw data file.</p>
+<p>This function is apply the preprocessing and eventual epoching on the
+individual run, and return the data, labels and a dataframe with
+metadata.</p>
+<p>metadata is a dataframe with as many row as the length of the data
+and labels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li><strong>X</strong> (<em>np.ndarray</em>) – the data that will be used as features for the model</li>
+<li><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</li>
+<li><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="attribute">
@@ -209,7 +251,21 @@ sklearn scorer.</p>
 <dl class="method">
 <dt id="moabb.paradigms.BaseMotorImagery.verify">
 <code class="descname">verify</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#BaseMotorImagery.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.BaseMotorImagery.verify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method that verifies dataset is correct for given parameters</p>
+<dd><p>Verify the dataset is compatible with the paradigm.</p>
+<p>This method is called to verify dataset is compatible with the
+paradigm.</p>
+<p>This method should raise an error if the dataset is not compatible
+with the paradigm. This is for example the case if the
+dataset is an ERP dataset for motor imagery paradigm, or if the
+dataset does not contain any of the required events.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </dd></dl>
