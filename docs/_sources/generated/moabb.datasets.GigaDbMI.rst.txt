@@ -1,0 +1,10 @@
+moabb.datasets.GigaDbMI
+=======================
+
+.. currentmodule:: moabb.datasets
+
+.. autoclass:: GigaDbMI
+
+   
+   .. automethod:: __init__
+   

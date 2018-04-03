@@ -1,0 +1,10 @@
+moabb.evaluations.WithinSessionEvaluation
+=========================================
+
+.. currentmodule:: moabb.evaluations
+
+.. autoclass:: WithinSessionEvaluation
+
+   
+   .. automethod:: __init__
+   

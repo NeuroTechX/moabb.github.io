@@ -1,0 +1,10 @@
+moabb.pipelines.features.LogVariance
+====================================
+
+.. currentmodule:: moabb.pipelines.features
+
+.. autoclass:: LogVariance
+
+   
+   .. automethod:: __init__
+   

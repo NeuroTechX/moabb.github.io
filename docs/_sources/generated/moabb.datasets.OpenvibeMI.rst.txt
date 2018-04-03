@@ -1,0 +1,10 @@
+moabb.datasets.OpenvibeMI
+=========================
+
+.. currentmodule:: moabb.datasets
+
+.. autoclass:: OpenvibeMI
+
+   
+   .. automethod:: __init__
+   

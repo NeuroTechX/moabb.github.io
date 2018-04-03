@@ -1,0 +1,10 @@
+moabb.datasets.BBCIEEGfNIRS
+===========================
+
+.. currentmodule:: moabb.datasets
+
+.. autoclass:: BBCIEEGfNIRS
+
+   
+   .. automethod:: __init__
+   

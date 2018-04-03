@@ -1,0 +1,10 @@
+moabb.pipelines.utils.create_pipeline_from_config
+=================================================
+
+.. currentmodule:: moabb.pipelines.utils
+
+.. autoclass:: create_pipeline_from_config
+
+   
+   .. automethod:: __init__
+   
