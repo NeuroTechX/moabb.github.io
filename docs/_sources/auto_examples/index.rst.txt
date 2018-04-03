@@ -22,6 +22,26 @@
    :hidden:
 
    /auto_examples/plot_cross_session_motor_imagery
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This Example show a comparison of CSP versus FilterBank CSP on the very popular dataset 2a from...">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_filterbank_csp_vs_csp_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_filterbank_csp_vs_csp.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_filterbank_csp_vs_csp
 .. raw:: html
 
     <div style='clear:both'></div>

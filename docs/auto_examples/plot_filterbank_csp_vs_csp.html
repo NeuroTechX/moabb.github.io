@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Cross Session Motor Imagery &#8212; moabb  documentation</title>
+    <title>FilterBank CSP versus CSP &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
@@ -92,7 +92,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Cross Session Motor Imagery</a><ul>
+<li><a class="reference internal" href="#">FilterBank CSP versus CSP</a><ul>
 <li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
 <li><a class="reference internal" href="#evaluation">Evaluation</a></li>
 <li><a class="reference internal" href="#plot-results">Plot Results</a></li>
@@ -127,7 +127,7 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Cross Session Motor Imagery</a><ul>
+<li><a class="reference internal" href="#">FilterBank CSP versus CSP</a><ul>
 <li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
 <li><a class="reference internal" href="#evaluation">Evaluation</a></li>
 <li><a class="reference internal" href="#plot-results">Plot Results</a></li>
@@ -136,7 +136,7 @@
 </ul>
 
 <div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_cross_session_motor_imagery.rst.txt"
+  <a href="../_sources/auto_examples/plot_filterbank_csp_vs_csp.rst.txt"
      rel="nofollow">Source</a>
 </div>
 <form action="../search.html" method="get">
@@ -150,21 +150,10 @@
       </div>
     <div class="col-md-9 content">
       
-  <div class="section" id="cross-session-motor-imagery">
-<span id="sphx-glr-auto-examples-plot-cross-session-motor-imagery-py"></span><h1>Cross Session Motor Imagery<a class="headerlink" href="#cross-session-motor-imagery" title="Permalink to this headline">¶</a></h1>
-<p>This Example show how to perform a cross session motor imagery analysis on the
+  <div class="section" id="filterbank-csp-versus-csp">
+<span id="sphx-glr-auto-examples-plot-filterbank-csp-vs-csp-py"></span><h1>FilterBank CSP versus CSP<a class="headerlink" href="#filterbank-csp-versus-csp" title="Permalink to this headline">¶</a></h1>
+<p>This Example show a comparison of CSP versus FilterBank CSP on the
 very popular dataset 2a from the BCI competition IV.</p>
-<p>We will compare two pipelines :</p>
-<ul class="simple">
-<li>CSP + LDA</li>
-<li>Riemannian Geometry + Logistic Regression</li>
-</ul>
-<p>We will use the LeftRightImagery paradigm. this will restrict the analysis
-to two classes (left hand versus righ hand) and use AUC as metric.</p>
-<p>The cross session evaluation context will evaluate performance using a leave
-one session out cross-validation. For each session in the dataset, a model
-is trained on every other session and performance are evaluated on the current
-session.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Alexandre Barachant &lt;alexandre.barachant@gmail.com&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD (3-clause)</span>
@@ -172,78 +161,77 @@ session.</p>
 <span class="kn">import</span> <span class="nn">moabb</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 
 <span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <span class="n">CSP</span>
 
-<span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <span class="n">Covariances</span>
-<span class="kn">from</span> <span class="nn">pyriemann.tangentspace</span> <span class="kn">import</span> <span class="n">TangentSpace</span>
-
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014001</span>
-<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">LeftRightImagery</span>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">LeftRightImagery</span><span class="p">,</span> <span class="n">FilterBankLeftRightImagery</span>
 <span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <span class="n">CrossSessionEvaluation</span>
+<span class="kn">from</span> <span class="nn">moabb.pipelines.filter_bank</span> <span class="kn">import</span> <span class="n">FilterBank</span>
 
 <span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="section" id="create-pipelines">
 <h2>Create pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
-<p>Pipelines must be a dict of sklearn pipeline transformer.</p>
-<p>The csp implementation from MNE is used. We selected 8 CSP components, as
+<p>The CSP implementation from MNE is used. We selected 8 CSP components, as
 usually done in the litterature.</p>
-<p>The riemannian geometry pipeline consists in covariance estimation, tangent
-space mapping and finaly a logistic regression for the classification.</p>
+<p>The second pipeline is the filter bank CSP. We use the FilterBank object
+with a CSP estimator. We set up the CSP to 4 components, to compensate for
+the higher dimensionality.</p>
+<p>The two pipelines will be applied on two different paradigm, so they have
+their own dict.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span> <span class="o">=</span> <span class="p">{}</span>
-
 <span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;CSP + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
                                        <span class="n">LDA</span><span class="p">())</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span>
-                                     <span class="n">TangentSpace</span><span class="p">(),</span>
-                                     <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">pipelines_fb</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">pipelines_fb</span><span class="p">[</span><span class="s1">&#39;FBCSP + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">FilterBank</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">4</span><span class="p">)),</span>
+                                            <span class="n">LDA</span><span class="p">())</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">norm_trace</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">True</span> <span class="ow">in</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">but</span> <span class="n">will</span> <span class="n">change</span> <span class="n">to</span> <span class="kc">False</span> <span class="ow">in</span> <span class="mf">0.16</span><span class="o">.</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
+<span class="n">norm_trace</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">True</span> <span class="ow">in</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">but</span> <span class="n">will</span> <span class="n">change</span> <span class="n">to</span> <span class="kc">False</span> <span class="ow">in</span> <span class="mf">0.16</span><span class="o">.</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
-<p>We define the paradigm (LeftRightImagery) and the dataset (BNCI2014001).
-The evaluation will return a dataframe containing a single AUC score for
-each subject / session of the dataset, and for each pipeline.</p>
-<p>Results are saved into the database, so that if you add a new pipeline, it
-will not run again the evaluation unless a parameter has changed. Results can
-be overwrited if necessary.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">BNCI2014001</span><span class="p">()]</span>
+<p>Since two different preprocessing will be applied, we have two different
+paradigm objects. We have to make sure their filter matchs so the comparison
+will be fair.</p>
+<p>The first one is a standard <cite>LeftRightImagery</cite> with a 8 to 35 Hz broadband
+filter.</p>
+<p>The second is a <cite>FilterBankLeftRightImagery</cite> with a bank of 6 filter, ranging
+from 8 to 35 Hz.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">BNCI2014001</span><span class="p">()]</span>
 <span class="n">overwrite</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
+
+<span class="c1"># broadband filters</span>
+<span class="n">filters</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">35</span><span class="p">]]</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
 <span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
                                     <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
-
 <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="c1"># cashed results might return other pipelines</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">==</span> <span class="s1">&#39;CSP + LDA&#39;</span><span class="p">]</span>
+
+<span class="c1"># bank of 6 filter, by 4 Hz increment</span>
+<span class="n">filters</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">35</span><span class="p">]]</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">FilterBankLeftRightImagery</span><span class="p">()</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
+                                    <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+<span class="n">results_fb</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines_fb</span><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">score</span>      <span class="n">time</span>  <span class="n">samples</span> <span class="n">subject</span>    <span class="n">session</span>  <span class="n">channels</span>  <span class="n">n_sessions</span>  \
-<span class="mi">0</span>  <span class="mf">0.926312</span>  <span class="mf">0.110328</span>    <span class="mf">144.0</span>       <span class="mi">1</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">1</span>  <span class="mf">0.890046</span>  <span class="mf">0.070261</span>    <span class="mf">144.0</span>       <span class="mi">1</span>  <span class="n">session_T</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">2</span>  <span class="mf">0.543596</span>  <span class="mf">0.115977</span>    <span class="mf">144.0</span>       <span class="mi">2</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">3</span>  <span class="mf">0.568866</span>  <span class="mf">0.085699</span>    <span class="mf">144.0</span>       <span class="mi">2</span>  <span class="n">session_T</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">4</span>  <span class="mf">0.985532</span>  <span class="mf">0.057350</span>    <span class="mf">144.0</span>       <span class="mi">3</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
-
-    <span class="n">dataset</span>   <span class="n">pipeline</span>
-<span class="mi">0</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">CSP</span> <span class="o">+</span> <span class="n">LDA</span>
-<span class="mi">1</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">CSP</span> <span class="o">+</span> <span class="n">LDA</span>
-<span class="mi">2</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">CSP</span> <span class="o">+</span> <span class="n">LDA</span>
-<span class="mi">3</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">CSP</span> <span class="o">+</span> <span class="n">LDA</span>
-<span class="mi">4</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">CSP</span> <span class="o">+</span> <span class="n">LDA</span>
+<p>After processing the two, we simply concatenate the results.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">results</span><span class="p">,</span> <span class="n">results_fb</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -269,7 +257,7 @@ points are in its quadrant.</p>
                              <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;subject&#39;</span><span class="p">,</span> <span class="s1">&#39;session&#39;</span><span class="p">])</span>
 <span class="n">paired</span> <span class="o">=</span> <span class="n">paired</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">paired</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;RG + LR&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;CSP + LDA&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">paired</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;FBCSP + LDA&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;CSP + LDA&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -277,13 +265,13 @@ points are in its quadrant.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" class="align-center" src="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  45.626 seconds)</p>
+<img alt="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" class="align-center" src="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" />
+<p><strong>Total running time of the script:</strong> ( 2 minutes  14.760 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_cross_session_motor_imagery.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_motor_imagery.py</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_filterbank_csp_vs_csp.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_filterbank_csp_vs_csp.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_cross_session_motor_imagery.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_session_motor_imagery.ipynb</span></code></a></div>
+<a class="reference download internal" href="../_downloads/plot_filterbank_csp_vs_csp.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_filterbank_csp_vs_csp.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -302,7 +290,7 @@ points are in its quadrant.</p>
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_cross_session_motor_imagery.rst.txt"
+  <a href="../_sources/auto_examples/plot_filterbank_csp_vs_csp.rst.txt"
      rel="nofollow">Source</a>
 </div>
       
