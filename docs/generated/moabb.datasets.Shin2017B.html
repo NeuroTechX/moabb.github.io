@@ -4,7 +4,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>moabb.datasets.GigaDbMI &#8212; moabb  documentation</title>
+    <title>moabb.datasets.Shin2017B &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="moabb.datasets.BBCIEEGfNIRS" href="moabb.datasets.BBCIEEGfNIRS.html" />
-    <link rel="prev" title="moabb.datasets.AlexMI" href="moabb.datasets.AlexMI.html" />
+    <link rel="next" title="moabb.datasets.OpenvibeMI" href="moabb.datasets.OpenvibeMI.html" />
+    <link rel="prev" title="moabb.datasets.Shin2017A" href="moabb.datasets.Shin2017A.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -94,7 +94,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">moabb.datasets.GigaDbMI</a></li>
+<li><a class="reference internal" href="#">moabb.datasets.Shin2017B</a></li>
 </ul>
 </ul>
 </li>
@@ -124,19 +124,19 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">moabb.datasets.GigaDbMI</a></li>
+<li><a class="reference internal" href="#">moabb.datasets.Shin2017B</a></li>
 </ul>
 
   <li>
-    <a href="moabb.datasets.AlexMI.html" title="Previous Chapter: moabb.datasets.AlexMI"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; moabb.datasets.AlexMI</span>
+    <a href="moabb.datasets.Shin2017A.html" title="Previous Chapter: moabb.datasets.Shin2017A"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; moabb.dataset...</span>
     </a>
   </li>
   <li>
-    <a href="moabb.datasets.BBCIEEGfNIRS.html" title="Next Chapter: moabb.datasets.BBCIEEGfNIRS"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">moabb.dataset... &raquo;</span>
+    <a href="moabb.datasets.OpenvibeMI.html" title="Next Chapter: moabb.datasets.OpenvibeMI"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">moabb.dataset... &raquo;</span>
     </a>
   </li>
 <div id="sourcelink">
-  <a href="../_sources/generated/moabb.datasets.GigaDbMI.rst.txt"
+  <a href="../_sources/generated/moabb.datasets.Shin2017B.rst.txt"
      rel="nofollow">Source</a>
 </div>
 <form action="../search.html" method="get">
@@ -150,21 +150,101 @@
       </div>
     <div class="col-md-9 content">
       
-  <div class="section" id="moabb-datasets-gigadbmi">
-<h1>moabb.datasets.GigaDbMI<a class="headerlink" href="#moabb-datasets-gigadbmi" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="moabb-datasets-shin2017b">
+<h1>moabb.datasets.Shin2017B<a class="headerlink" href="#moabb-datasets-shin2017b" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="moabb.datasets.GigaDbMI">
-<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">GigaDbMI</code><a class="reference internal" href="../_modules/moabb/datasets/gigadb.html#GigaDbMI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.GigaDbMI" title="Permalink to this definition">¶</a></dt>
-<dd><p>GigaDb Motor Imagery dataset</p>
+<dt id="moabb.datasets.Shin2017B">
+<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">Shin2017B</code><a class="reference internal" href="../_modules/moabb/datasets/bbci_eeg_fnirs.html#Shin2017B"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.Shin2017B" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mental Arithmetic Dataset from Shin et al 2017.</p>
+<p>Dataset B from <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Data Acquisition</strong></p>
+<p>EEG and NIRS data was collected in an ordinary bright room. EEG data was
+recorded by a multichannel BrainAmp EEG amplifier with thirty active
+electrodes (Brain Products GmbH, Gilching, Germany) with linked mastoids
+reference at 1000 Hz sampling rate. The EEG amplifier was also used to
+measure the electrooculogram (EOG), electrocardiogram (ECG) and respiration
+with a piezo based breathing belt. Thirty EEG electrodes were placed on a
+custom-made stretchy fabric cap (EASYCAP GmbH, Herrsching am Ammersee,
+Germany) and placed according to the international 10-5 system (AFp1, AFp2,
+AFF1h, AFF2h, AFF5h, AFF6h, F3, F4, F7, F8, FCC3h, FCC4h, FCC5h, FCC6h, T7,
+T8, Cz, CCP3h, CCP4h, CCP5h, CCP6h, Pz, P3, P4, P7, P8, PPO1h, PPO2h, POO1,
+POO2 and Fz for ground electrode).</p>
+<p>NIRS data was collected by NIRScout (NIRx GmbH, Berlin, Germany) at 12.5 Hz
+sampling rate. Each adjacent source-detector pair creates one physiological
+NIRS channel. Fourteen sources and sixteen detectors resulting in
+thirty-six
+physiological channels were placed at frontal (nine channels around Fp1,
+Fp2, and Fpz), motor (twelve channels around C3 and C4, respectively) and
+visual areas (three channels around Oz). The inter-optode distance was 30
+mm. NIRS optodes were fixed on the same cap as the EEG electrodes. Ambient
+lights were sufficiently blocked by a firm contact between NIRS optodes and
+scalp and use of an opaque cap.</p>
+<p>EOG was recorded using two vertical (above and below left eye) and two
+horizontal (outer canthus of each eye) electrodes. ECG was recorded based
+on
+Einthoven triangle derivations I and II, and respiration was measured using
+a respiration belt on the lower chest. EOG, ECG and respiration were
+sampled
+at the same sampling rate of the EEG. ECG and respiration data were not
+analyzed in this study, but are provided along with the other signals.</p>
+<p><strong>Experimental Procedure</strong></p>
+<p>The subjects sat on a comfortable armchair in front of a 50-inch white
+screen. The distance between their heads and the screen was 1.6 m. They
+were
+asked not to move any part of the body during the data recording. The
+experiment consisted of three sessions of left and right hand MI (dataset
+A)and MA and baseline tasks (taking a rest without any thought) (dataset B)
+each. Each session comprised a 1 min pre-experiment resting period, 20
+repetitions of the given task and a 1 min post-experiment resting
+period. The task started with 2 s of a visual introduction of the task,
+followed by 10 s of a task period and resting period which was given
+randomly from 15 to 17 s. At the beginning and end of the task period, a
+short beep (250 ms) was played. All instructions were displayed on the
+white
+screen by a video projector. MI and MA tasks were performed in separate
+sessions but in alternating order (i.e., sessions 1, 3 and 5 for MI
+(dataset
+A) and sessions 2, 4 and 6 for MA (dataset B)). Fig. 2 shows the schematic
+diagram of the experimental paradigm. Five sorts of motion artifacts
+induced
+by eye and head movements (dataset C) were measured. The motion artifacts
+were recorded after all MI and MA task recordings. The experiment did not
+include the pre- and post-experiment resting state periods.</p>
+<p><strong>Mental Arithmetic (Dataset B)</strong></p>
+<p>For the visual instruction of the MA task, an initial subtraction such as
+‘three-digit number minus one-digit number’ (e.g., 384-8) appeared at the
+center of the screen for 2 s. The subjects were instructed to memorize the
+numbers while the initial subtraction was displayed on the screen. The
+initial subtraction disappeared with a short beep sound and a black
+fixation cross was displayed during the task period in which the subjects
+were asked
+to repeatedly perform to subtract the one-digit number from the result of
+the previous subtraction. For the baseline task, no specific sign but the
+black fixation cross was displayed on the screen, and the subjects were
+instructed to take a rest. Note that there were other rest periods between
+the MA and baseline task periods, as same with the MI paradigm. Both task
+periods were finished with a short beep sound and a ‘STOP’ displayed for
+1 s on the screen. The fixation cross was displayed again during the rest
+period. MA and baseline trials were randomized in the same way as MI.</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Shin, J., von Lühmann, A., Blankertz, B., Kim, D.W., Jeong, J.,
+Hwang, H.J. and Müller, K.R., 2017. Open access dataset for EEG+NIRS
+single-trial classification. IEEE Transactions on Neural Systems
+and Rehabilitation Engineering, 25(10), pp.1735-1745.</td></tr>
+</tbody>
+</table>
 <dl class="method">
-<dt id="moabb.datasets.GigaDbMI.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/gigadb.html#GigaDbMI.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.GigaDbMI.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="moabb.datasets.Shin2017B.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bbci_eeg_fnirs.html#Shin2017B.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.Shin2017B.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="moabb.datasets.GigaDbMI.data_path">
-<code class="descname">data_path</code><span class="sig-paren">(</span><em>subject</em>, <em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/gigadb.html#GigaDbMI.data_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.GigaDbMI.data_path" title="Permalink to this definition">¶</a></dt>
+<dt id="moabb.datasets.Shin2017B.data_path">
+<code class="descname">data_path</code><span class="sig-paren">(</span><em>subject</em>, <em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.Shin2017B.data_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get path to local copy of a subject data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -198,8 +278,8 @@ list of length one, for compatibility.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="moabb.datasets.GigaDbMI.download">
-<code class="descname">download</code><span class="sig-paren">(</span><em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.GigaDbMI.download" title="Permalink to this definition">¶</a></dt>
+<dt id="moabb.datasets.Shin2017B.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.Shin2017B.download" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download all data from the dataset.</p>
 <p>This function is only usefull to download all the dataset at once.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -226,8 +306,8 @@ config to the given path. If None, the user is prompted.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="moabb.datasets.GigaDbMI.get_data">
-<code class="descname">get_data</code><span class="sig-paren">(</span><em>subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.GigaDbMI.get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="moabb.datasets.Shin2017B.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.Shin2017B.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the data correspoonding to a list of subjects.</p>
 <p>The returned data is a dictionary with the folowing structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;subject_id&#39;</span> <span class="p">:</span>
@@ -272,7 +352,7 @@ contigous recording. Some dataset break session in multiple runs.</p>
         <br/>
         
 <div id="sourcelink">
-  <a href="../_sources/generated/moabb.datasets.GigaDbMI.rst.txt"
+  <a href="../_sources/generated/moabb.datasets.Shin2017B.rst.txt"
      rel="nofollow">Source</a>
 </div>
       

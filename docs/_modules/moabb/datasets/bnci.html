@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -773,73 +773,294 @@
 
 
 <div class="viewcode-block" id="BNCI2014001"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014001</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2014-001 Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-001 Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="BNCI2014001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">5.5</span><span class="p">):</span>
+<span class="sd">    Dataset IIa from BCI Competition 4 [1]_.</span>
+
+<span class="sd">    **Dataset Description**</span>
+
+<span class="sd">    This data set consists of EEG data from 9 subjects.  The cue-based BCI</span>
+<span class="sd">    paradigm consisted of four different motor imagery tasks, namely the imag-</span>
+<span class="sd">    ination of movement of the left hand (class 1), right hand (class 2), both</span>
+<span class="sd">    feet (class 3), and tongue (class 4).  Two sessions on different days were</span>
+<span class="sd">    recorded for each subject.  Each session is comprised of 6 runs separated</span>
+<span class="sd">    by short breaks.  One run consists of 48 trials (12 for each of the four</span>
+<span class="sd">    possible classes), yielding a total of 288 trials per session.</span>
+
+<span class="sd">    The subjects were sitting in a comfortable armchair in front of a computer</span>
+<span class="sd">    screen.  At the beginning of a trial ( t = 0 s), a fixation cross appeared</span>
+<span class="sd">    on the black screen.  In addition, a short acoustic warning tone was</span>
+<span class="sd">    presented.  After two seconds ( t = 2 s), a cue in the form of an arrow</span>
+<span class="sd">    pointing either to the left, right, down or up (corresponding to one of the</span>
+<span class="sd">    four classes left hand, right hand, foot or tongue) appeared and stayed on</span>
+<span class="sd">    the screen for 1.25 s.  This prompted the subjects to perform the desired</span>
+<span class="sd">    motor imagery task.  No feedback was provided.  The subjects were ask to</span>
+<span class="sd">    carry out the motor imagery task until the fixation cross disappeared from</span>
+<span class="sd">    the screen at t = 6 s.</span>
+
+<span class="sd">    Twenty-two Ag/AgCl electrodes (with inter-electrode distances of 3.5 cm)</span>
+<span class="sd">    were used to record the EEG; the montage is shown in Figure 3 left.  All</span>
+<span class="sd">    signals were recorded monopolarly with the left mastoid serving as</span>
+<span class="sd">    reference and the right mastoid as ground. The signals were sampled with.</span>
+<span class="sd">    250 Hz and bandpass-filtered between 0.5 Hz and 100 Hz. The sensitivity of</span>
+<span class="sd">    the amplifier was set to 100 μV . An additional 50 Hz notch filter was</span>
+<span class="sd">    enabled to suppress line noise</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] Tangermann, M., Müller, K.R., Aertsen, A., Birbaumer, N., Braun, C.,</span>
+<span class="sd">           Brunner, C., Leeb, R., Mehring, C., Miller, K.J., Mueller-Putz, G.</span>
+<span class="sd">           and Nolte, G., 2012. Review of the BCI competition IV.</span>
+<span class="sd">           Frontiers in neuroscience, 6, p.55.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2014001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;left_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;tongue&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.3389/fnins.2012.00055&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014002"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014002</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2014-002 Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-002 Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="BNCI2014002.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">5.5</span><span class="p">):</span>
+<span class="sd">    Motor Imagery Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    The session consisted of eight runs, five of them for training and three</span>
+<span class="sd">    with feedback for validation.  One run was composed of 20 trials.  Taken</span>
+<span class="sd">    together, we recorded 50 trials per class for training and 30 trials per</span>
+<span class="sd">    class for validation.  Participants had the task of performing sustained (5</span>
+<span class="sd">    seconds) kinaesthetic motor imagery (MI) of the right hand and of the feet</span>
+<span class="sd">    each as instructed by the cue. At 0 s, a white colored cross appeared on</span>
+<span class="sd">    screen, 2 s later a beep sounded to catch the participant’s attention. The</span>
+<span class="sd">    cue was displayed from 3 s to 4 s. Participants were instructed to start</span>
+<span class="sd">    with MI as soon as they recognized the cue and to perform the indicated MI</span>
+<span class="sd">    until the cross disappeared at 8 s. A rest period with a random length</span>
+<span class="sd">    between 2 s and 3 s was presented between trials. Participants did not</span>
+<span class="sd">    receive feedback during training.  Feedback was presented in form of a</span>
+<span class="sd">    white</span>
+<span class="sd">    coloured bar-graph.  The length of the bar-graph reflected the amount of</span>
+<span class="sd">    correct classifications over the last second.  EEG was measured with a</span>
+<span class="sd">    biosignal amplifier and active Ag/AgCl electrodes (g.USBamp, g.LADYbird,</span>
+<span class="sd">    Guger Technologies OG, Schiedlberg, Austria) at a sampling rate of 512 Hz.</span>
+<span class="sd">    The electrodes placement was designed for obtaining three Laplacian</span>
+<span class="sd">    derivations.  Center electrodes at positions C3, Cz, and C4 and four</span>
+<span class="sd">    additional electrodes around each center electrode with a distance of 2.5</span>
+<span class="sd">    cm, 15 electrodes total.  The reference electrode was mounted on the left</span>
+<span class="sd">    mastoid and the ground electrode on the right mastoid.  The 13 participants</span>
+<span class="sd">    were aged between 20 and 30 years, 8 naive to the task, and had no known</span>
+<span class="sd">    medical or neurological diseases.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    -----------</span>
+
+<span class="sd">    .. [1] Steyrl, D., Scherer, R., Faller, J. and Müller-Putz, G.R., 2016.</span>
+<span class="sd">           Random forests in non-invasive sensorimotor rhythm brain-computer</span>
+<span class="sd">           interfaces: a practical and convenient non-linear classifier.</span>
+<span class="sd">           Biomedical Engineering/Biomedizinische Technik, 61(1), pp.77-86.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2014002.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;002-2014&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1515/bmt-2014-0117&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014004"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014004</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2014-004 Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-004 Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="BNCI2014004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">6.5</span><span class="p">):</span>
+<span class="sd">    Dataset B from BCI Competition 2008.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    This data set consists of EEG data from 9 subjects of a study published in</span>
+<span class="sd">    [1]_. The subjects were right-handed, had normal or corrected-to-normal</span>
+<span class="sd">    vision and were paid for participating in the experiments.</span>
+<span class="sd">    All volunteers were sitting in an armchair, watching a flat screen monitor</span>
+<span class="sd">    placed approximately 1 m away at eye level. For each subject 5 sessions</span>
+<span class="sd">    are provided, whereby the first two sessions contain training data without</span>
+<span class="sd">    feedback (screening), and the last three sessions were recorded with</span>
+<span class="sd">    feedback.</span>
+
+<span class="sd">    Three bipolar recordings (C3, Cz, and C4) were recorded with a sampling</span>
+<span class="sd">    frequency of 250 Hz.They were bandpass- filtered between 0.5 Hz and 100 Hz,</span>
+<span class="sd">    and a notch filter at 50 Hz was enabled.  The placement of the three</span>
+<span class="sd">    bipolar recordings (large or small distances, more anterior or posterior)</span>
+<span class="sd">    were slightly different for each subject (for more details see [1]).</span>
+<span class="sd">    The electrode position Fz served as EEG ground. In addition to the EEG</span>
+<span class="sd">    channels, the electrooculogram (EOG) was recorded with three monopolar</span>
+<span class="sd">    electrodes.</span>
+
+<span class="sd">    The cue-based screening paradigm consisted of two classes,</span>
+<span class="sd">    namely the motor imagery (MI) of left hand (class 1) and right hand</span>
+<span class="sd">    (class 2).</span>
+<span class="sd">    Each subject participated in two screening sessions without feedback</span>
+<span class="sd">    recorded on two different days within two weeks.</span>
+<span class="sd">    Each session consisted of six runs with ten trials each and two classes of</span>
+<span class="sd">    imagery.  This resulted in 20 trials per run and 120 trials per session.</span>
+<span class="sd">    Data of 120 repetitions of each MI class were available for each person in</span>
+<span class="sd">    total.  Prior to the first motor im- agery training the subject executed</span>
+<span class="sd">    and imagined different movements for each body part and selected the one</span>
+<span class="sd">    which they could imagine best (e. g., squeezing a ball or pulling a brake).</span>
+
+<span class="sd">    Each trial started with a fixation cross and an additional short acoustic</span>
+<span class="sd">    warning tone (1 kHz, 70 ms).  Some seconds later a visual cue was presented</span>
+<span class="sd">    for 1.25 seconds.  Afterwards the subjects had to imagine the corresponding</span>
+<span class="sd">    hand movement over a period of 4 seconds.  Each trial was followed by a</span>
+<span class="sd">    short break of at least 1.5 seconds.  A randomized time of up to 1 second</span>
+<span class="sd">    was added to the break to avoid adaptation</span>
+
+<span class="sd">    For the three online feedback sessions four runs with smiley feedback</span>
+<span class="sd">    were recorded, whereby each run consisted of twenty trials for each type of</span>
+<span class="sd">    motor imagery.  At the beginning of each trial (second 0) the feedback (a</span>
+<span class="sd">    gray smiley) was centered on the screen.  At second 2, a short warning beep</span>
+<span class="sd">    (1 kHz, 70 ms) was given. The cue was presented from second 3 to 7.5. At</span>
+<span class="sd">    second 7.5 the screen went blank and a random interval between 1.0 and 2.0</span>
+<span class="sd">    seconds was added to the trial.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] R. Leeb, F. Lee, C. Keinrath, R. Scherer, H. Bischof,</span>
+<span class="sd">           G. Pfurtscheller. Brain-computer communication: motivation, aim,</span>
+<span class="sd">           and impact of exploring a virtual apartment. IEEE Transactions on</span>
+<span class="sd">           Neural Systems and Rehabilitation Engineering 15, 473–482, 2007</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2014004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;left_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;004-2014&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/TNSRE.2007.906956&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015001"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015001</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2015-001 Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2015-001 Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="BNCI2015001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mf">7.5</span><span class="p">):</span>
+<span class="sd">    Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    We acquired the EEG from three Laplacian derivations, 3.5 cm (center-to-</span>
+<span class="sd">    center) around the electrode positions (according to International 10-20</span>
+<span class="sd">    System of Electrode Placement) C3 (FC3, C5, CP3 and C1), Cz (FCz, C1, CPz</span>
+<span class="sd">    and C2) and C4 (FC4, C2, CP4 and C6).  The acquisition hardware was a</span>
+<span class="sd">    g.GAMMAsys active electrode system along with a g.USBamp amplifier (g.tec,</span>
+<span class="sd">    Guger Tech- nologies OEG, Graz, Austria).  The system sampled at 512 Hz,</span>
+<span class="sd">    with a bandpass filter between 0.5 and 100 Hz and a notch filter at 50 Hz.</span>
+<span class="sd">    The order of the channels in the data is FC3, FCz, FC4, C5, C3, C1, Cz, C2,</span>
+<span class="sd">    C4, C6, CP3, CPz, CP4.</span>
+
+<span class="sd">    The task for the user was to perform sustained right hand versus both feet</span>
+<span class="sd">    movement imagery starting from the cue (second 3) to the end of the cross</span>
+<span class="sd">    period (sec- ond 8).  A trial started with 3 s of reference period,</span>
+<span class="sd">    followed by a brisk audible cue and a visual cue (arrow right for right</span>
+<span class="sd">    hand, arrow down for both feet) from second 3 to 4.25.</span>
+<span class="sd">    The activity period, where the users received feedback, lasted from</span>
+<span class="sd">    second 4 to 8. There was a random 2 to 3 s pause between the trials.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] J. Faller, C. Vidaurre, T. Solis-Escalante, C. Neuper and R.</span>
+<span class="sd">           Scherer (2012). Autocalibration and recurrent adaptation: Towards a</span>
+<span class="sd">           plug and play online ERD- BCI.  IEEE Transactions on Neural Systems</span>
+<span class="sd">           and Rehabilitation Engineering, 20(3), 313-319.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2015001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># FIXME: some participant have 3 sessions</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;001-2015&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/tnsre.2012.2189584&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015004"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015004</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2015-004 Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2015-004 Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="BNCI2015004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mf">4.25</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="sd">    Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    We provide EEG data recorded from nine users with disability (spinal cord</span>
+<span class="sd">    injury and stroke) on two different days (sessions).  Users performed,</span>
+<span class="sd">    follow- ing a cue-guided experimental paradigm, five distinct mental tasks</span>
+<span class="sd">    (MT).  MTs include mental word association (condition WORD), mental</span>
+<span class="sd">    subtraction (SUB), spatial navigation (NAV), right hand motor imagery</span>
+<span class="sd">    (HAND) and</span>
+<span class="sd">    feet motor imagery (FEET). Details on the experimental paradigm are</span>
+<span class="sd">    summarized in Figure 1.  The session for a single subject consisted of 8</span>
+<span class="sd">    runs resulting in 40 trials of each class for each day.  One single</span>
+<span class="sd">    experimental run consisted of 25 cues, with 5 of each mental task.  Cues</span>
+<span class="sd">    were presented in random order.</span>
+
+<span class="sd">    EEG was recorded from 30 electrode channels placed on the scalp according</span>
+<span class="sd">    to the international 10-20 system.  Electrode positions included channels</span>
+<span class="sd">    AFz, F7, F3, Fz, F4, F8, FC3, FCz, FC4, T3, C3, Cz, C4, T4, CP3, CPz,CP4,</span>
+<span class="sd">    P7, P5, P3, P1, Pz, P2, P4, P6, P8, PO3, PO4, O1, and O2.  Reference and</span>
+<span class="sd">    ground were placed at the left and right mastoid, respectively.  The g.tec</span>
+<span class="sd">    GAMMAsys system with g.LADYbird active electrodes and two g.USBamp</span>
+<span class="sd">    biosignal</span>
+<span class="sd">    amplifiers (Guger Technolgies, Graz, Austria) was used for recording.  EEG</span>
+<span class="sd">    was band pass filtered 0.5-100 Hz (notch filter at 50 Hz) and sampled at a</span>
+<span class="sd">    rate of 256 Hz.</span>
+
+<span class="sd">    The duration of a single imagery trials is 10 s.  At t = 0 s, a cross was</span>
+<span class="sd">    presented in the middle of the screen.  Participants were asked to relax</span>
+<span class="sd">    and</span>
+<span class="sd">    fixate the cross to avoid eye movements.  At t = 3 s, a beep was sounded to</span>
+<span class="sd">    get the participant’s attention.  The cue indicating the requested imagery</span>
+<span class="sd">    task, one out of five graphical symbols, was presented from t = 3 s to t =</span>
+<span class="sd">    4.25 s.  At t = 10 s, a second beep was sounded and the fixation-cross</span>
+<span class="sd">    disappeared, which indicated the end of the trial.  A variable break</span>
+<span class="sd">    (inter-trial-interval, ITI) lasting between 2.5 s and 3.5 s occurred</span>
+<span class="sd">    before</span>
+<span class="sd">    the start of the next trial.  Participants were asked to avoid movements</span>
+<span class="sd">    during the imagery period, and to move and blink during the</span>
+<span class="sd">    ITI. Experimental runs began and ended with a blank screen (duration 4 s)</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] Scherer R, Faller J, Friedrich EVC, Opisso E, Costa U, Kübler A, et</span>
+<span class="sd">           al. (2015) Individually Adapted Imagery Improves Brain-Computer</span>
+<span class="sd">           Interface Performance in End-Users with Disability. PLoS ONE 10(5).</span>
+<span class="sd">           https://doi.org/10.1371/journal.pone.0123727</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2015004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">feet</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">navigation</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">subtraction</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
                         <span class="n">word_ass</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;004-2015&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1371/journal.pone.0123727&#39;</span><span class="p">)</span></div></div>
 </pre></div>

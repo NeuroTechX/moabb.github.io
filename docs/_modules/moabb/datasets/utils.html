@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -136,7 +136,6 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">moabb.datasets</span> <span class="k">as</span> <span class="nn">db</span>
 <span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="k">import</span> <span class="n">BaseDataset</span>
 
@@ -147,21 +146,40 @@
 
 
 <div class="viewcode-block" id="dataset_search"><a class="viewcode-back" href="../../../generated/moabb.datasets.utils.dataset_search.html#moabb.datasets.utils.dataset_search">[docs]</a><span class="k">def</span> <span class="nf">dataset_search</span><span class="p">(</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">multi_session</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                   <span class="n">has_all_events</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">total_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_subjects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-                   <span class="n">channels</span><span class="o">=</span><span class="p">[]):</span>
+                   <span class="n">has_all_events</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">total_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                   <span class="n">min_subjects</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="p">()):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Function that returns a list of datasets that match given criteria. Valid</span>
 <span class="sd">    criteria are:</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    paradigm: str</span>
+<span class="sd">        &#39;imagery&#39;,&#39;p300&#39;,(more to come)</span>
+
+<span class="sd">    multi_session: bool</span>
+<span class="sd">        if True only returns datasets with more than one session per subject.</span>
+<span class="sd">        If False return all</span>
+
 <span class="sd">    events: list of strings</span>
-<span class="sd">    total_classes: int or None, total number of classes (returns all if None), will either truncate or choose</span>
-<span class="sd">    from events. Defaults to 100 to keep all classes.</span>
-<span class="sd">    has_all_events: bool, skip datasets that don&#39;t have all events in events</span>
-<span class="sd">    multi_session: bool, if True only returns datasets with more than one</span>
-<span class="sd">    session per subject. If False return all</span>
-<span class="sd">    paradigm: &#39;imagery&#39;,&#39;p300&#39;,(more to come)</span>
-<span class="sd">    min_subjects: int, minimum subjects in dataset</span>
-<span class="sd">    channels: list or set of channels</span>
+<span class="sd">        events to select</span>
+
+<span class="sd">    has_all_events: bool</span>
+<span class="sd">        skip datasets that don&#39;t have all events in events</span>
+
+<span class="sd">    total_classes: int or None</span>
+<span class="sd">        total number of classes (returns all if None)</span>
+<span class="sd">        will either truncate or choose rom events.</span>
+
+<span class="sd">    interval:</span>
+<span class="sd">        Length of motor imagery interval, in seconds. Only used in imagery</span>
+<span class="sd">        paradigm</span>
+
+<span class="sd">    min_subjects: int,</span>
+<span class="sd">        minimum subjects in dataset</span>
+
+<span class="sd">    channels: list of str</span>
+<span class="sd">        list or set of channels</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">channels</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
@@ -184,6 +202,9 @@
             <span class="k">continue</span>
 
         <span class="k">if</span> <span class="n">paradigm</span> <span class="o">==</span> <span class="n">d</span><span class="o">.</span><span class="n">paradigm</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">d</span><span class="o">.</span><span class="n">interval</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">interval</span><span class="p">:</span>
+                    <span class="k">continue</span>
             <span class="n">keep_event_dict</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">if</span> <span class="n">events</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="c1"># randomly keep n_classes events</span>
@@ -205,12 +226,12 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">if</span> <span class="n">has_all_events</span><span class="p">:</span>
                             <span class="n">skip_dataset</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="c1"># don&#39;t want to use datasets with less than total number of labels</span>
+                <span class="c1"># don&#39;t want to use datasets with less than total number of</span>
+                <span class="c1"># labels</span>
                 <span class="k">if</span> <span class="n">n_classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">n_events</span> <span class="o">&lt;</span> <span class="n">n_classes</span><span class="p">:</span>
                         <span class="n">skip_dataset</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="k">if</span> <span class="n">keep_event_dict</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">skip_dataset</span><span class="p">:</span>
-                <span class="n">d</span><span class="o">.</span><span class="n">selected_events</span> <span class="o">=</span> <span class="n">keep_event_dict</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">s1</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get_data</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="kc">False</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
                     <span class="k">if</span> <span class="n">channels</span> <span class="o">&lt;=</span> <span class="nb">set</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;ch_names&#39;</span><span class="p">]):</span>
@@ -248,7 +269,7 @@
             <span class="n">dset_chans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">processed</span><span class="p">)</span>
             <span class="n">keep_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dataset </span><span class="si">{:s}</span><span class="s1"> has no recognizable EEG channels&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dataset </span><span class="si">{:s}</span><span class="s1"> has no recognizable EEG channels&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span> <span class="c1"># noqa</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dset_chans</span><span class="p">:</span>
         <span class="n">allchans</span><span class="o">.</span><span class="n">intersection_update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="n">allchans</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">allchans</span><span class="p">]</span>

@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -154,11 +154,39 @@
 <h1>moabb.datasets.BNCI2015001<a class="headerlink" href="#moabb-datasets-bnci2015001" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="moabb.datasets.BNCI2015001">
-<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2015001</code><span class="sig-paren">(</span><em>tmin=4</em>, <em>tmax=7.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015001"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015001" title="Permalink to this definition">¶</a></dt>
-<dd><p>BNCI 2015-001 Motor Imagery dataset</p>
+<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2015001</code><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015001"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015001" title="Permalink to this definition">¶</a></dt>
+<dd><p>BNCI 2015-001 Motor Imagery dataset.</p>
+<p>Dataset from <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>We acquired the EEG from three Laplacian derivations, 3.5 cm (center-to-
+center) around the electrode positions (according to International 10-20
+System of Electrode Placement) C3 (FC3, C5, CP3 and C1), Cz (FCz, C1, CPz
+and C2) and C4 (FC4, C2, CP4 and C6).  The acquisition hardware was a
+g.GAMMAsys active electrode system along with a g.USBamp amplifier (g.tec,
+Guger Tech- nologies OEG, Graz, Austria).  The system sampled at 512 Hz,
+with a bandpass filter between 0.5 and 100 Hz and a notch filter at 50 Hz.
+The order of the channels in the data is FC3, FCz, FC4, C5, C3, C1, Cz, C2,
+C4, C6, CP3, CPz, CP4.</p>
+<p>The task for the user was to perform sustained right hand versus both feet
+movement imagery starting from the cue (second 3) to the end of the cross
+period (sec- ond 8).  A trial started with 3 s of reference period,
+followed by a brisk audible cue and a visual cue (arrow right for right
+hand, arrow down for both feet) from second 3 to 4.25.
+The activity period, where the users received feedback, lasted from
+second 4 to 8. There was a random 2 to 3 s pause between the trials.</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>J. Faller, C. Vidaurre, T. Solis-Escalante, C. Neuper and R.
+Scherer (2012). Autocalibration and recurrent adaptation: Towards a
+plug and play online ERD- BCI.  IEEE Transactions on Neural Systems
+and Rehabilitation Engineering, 20(3), 313-319.</td></tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="moabb.datasets.BNCI2015001.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>tmin=4</em>, <em>tmax=7.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015001.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015001.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015001.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015001.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

@@ -1,0 +1,10 @@
+moabb.paradigms.MotorImagery
+============================
+
+.. currentmodule:: moabb.paradigms
+
+.. autoclass:: MotorImagery
+
+   
+   .. automethod:: __init__
+   

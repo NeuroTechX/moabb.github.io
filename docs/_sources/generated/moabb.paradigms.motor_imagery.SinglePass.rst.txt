@@ -1,0 +1,10 @@
+moabb.paradigms.motor_imagery.SinglePass
+========================================
+
+.. currentmodule:: moabb.paradigms.motor_imagery
+
+.. autoclass:: SinglePass
+
+   
+   .. automethod:: __init__
+   

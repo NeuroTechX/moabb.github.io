@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -144,7 +144,31 @@
 
 
 <div class="viewcode-block" id="AlexMI"><a class="viewcode-back" href="../../../generated/moabb.datasets.AlexMI.html#moabb.datasets.AlexMI">[docs]</a><span class="k">class</span> <span class="nc">AlexMI</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Alex Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Alex Motor Imagery dataset.</span>
+
+<span class="sd">    Motor imagery dataset from the PhD dissertation of A. Barachant [1]_.</span>
+
+<span class="sd">    This Dataset contains EEG recordings from 8 subjects, performing 2 task of</span>
+<span class="sd">    motor imagination (right hand, feet or rest). Data have been recorded at</span>
+<span class="sd">    512Hz with 16 wet electrodes (Fpz, F7, F3, Fz, F4, F8, T7, C3, Cz, C4, T8,</span>
+<span class="sd">    P7, P3, Pz, P4, P8) with a g.tec g.USBamp EEG amplifier.</span>
+
+<span class="sd">    File are provided in MNE raw file format. A stimulation channel encoding</span>
+<span class="sd">    the timing of the motor imagination. The start of a trial is encoded as 1,</span>
+<span class="sd">    then the actual start of the motor imagination is encoded with 2 for</span>
+<span class="sd">    imagination of a right hand movement, 3 for imagination of both feet</span>
+<span class="sd">    movement and 4 with a rest trial.</span>
+
+<span class="sd">    The duration of each trial is 3 second. There is 20 trial of each class.</span>
+
+<span class="sd">    references</span>
+<span class="sd">    ----------</span>
+<span class="sd">    .. [1] Barachant, A., 2012. Commande robuste d&#39;un effecteur par une</span>
+<span class="sd">           interface cerveau machine EEG asynchrone (Doctoral dissertation,</span>
+<span class="sd">           Université de Grenoble).</span>
+<span class="sd">           https://tel.archives-ouvertes.fr/tel-01196752</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="AlexMI.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.AlexMI.html#moabb.datasets.AlexMI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -153,8 +177,7 @@
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">feet</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rest</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span>
-            <span class="p">)</span></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>

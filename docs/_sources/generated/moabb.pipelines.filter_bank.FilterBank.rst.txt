@@ -1,0 +1,10 @@
+moabb.pipelines.filter_bank.FilterBank
+======================================
+
+.. currentmodule:: moabb.pipelines.filter_bank
+
+.. autoclass:: FilterBank
+
+   
+   .. automethod:: __init__
+   

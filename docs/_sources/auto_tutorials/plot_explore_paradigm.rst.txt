@@ -18,10 +18,10 @@ for binary classification problem, accuracy for multiclass, or kappa
 coefficient for continuous paradigms.
 
 This tutorial explore the paradigm object, with 3 examples of paradigm :
+     - MotorImagery
+     - FilterBankMotorImagery
+     - LeftRightImagery
 
- - BaseMotorImagery
- - FilterBankMotorImagery
- - LeftRightImagery
 
 
 
@@ -33,7 +33,7 @@ This tutorial explore the paradigm object, with 3 examples of paradigm :
 
     import numpy as np
     from moabb.datasets import BNCI2014001
-    from moabb.paradigms import (LeftRightImagery, BaseMotorImagery,
+    from moabb.paradigms import (LeftRightImagery, MotorImagery,
                                  FilterBankMotorImagery)
 
     print(__doc__)
@@ -44,17 +44,17 @@ This tutorial explore the paradigm object, with 3 examples of paradigm :
 
 
 
-Base MotorImagery
+MotorImagery
 -----------------
 
-First, lets take a example of the BaseMotorImagery paradigm.
+First, lets take a example of the MotorImagery paradigm.
 
 
 
 .. code-block:: python
 
 
-    paradigm = BaseMotorImagery()
+    paradigm = MotorImagery(n_classes=4)
 
     print(paradigm.__doc__)
 
@@ -66,19 +66,44 @@ First, lets take a example of the BaseMotorImagery paradigm.
 
  Out::
 
-    Base Imagery paradigm  Context.
+    N-class motor imagery.
+
+        Metric is 'roc-auc' if 2 classes and 'accuracy' if more
 
         Parameters
-        ----------
+        -----------
 
-        filters: List of list (defaults [[7, 35]])
-            bank of filter to apply
-        interval: list | None, (default None)
-            time interval to epoch trial. If None, defaults to the dataset-defined
-            interval
-        events: List of str | None (default None)
-            event to use for epoching. If None, default to all events defined in
+        events: List of str
+            event labels used to filter datasets (e.g. if only motor imagery is
+            desired).
+
+        n_classes: int,
+            number of classes each dataset must have. If events is given,
+            requires all imagery sorts to be within the events list.
+
+        fmin: float (default 8)
+            cutoff frequency (Hz) for the high pass filter
+
+        fmax: float (default 32)
+            cutoff frequency (Hz) for the low pass filter
+
+        tmin: float (default 0.0)
+            Start time (in second) of the epoch, relative to the dataset specific
+            task interval e.g. tmin = 1 would mean the epoch will start 1 second
+            after the begining of the task as defined by the dataset.
+
+        tmax: float | None, (default None)
+            End time (in second) of the epoch, relative to the begining of the
+            dataset specific task interval. tmax = 5 would mean the epoch will end
+            5 second after the begining of the task as defined in the dataset. If
+            None, use the dataset value.
+
+        channels: list of str | None (default None)
+            list of channel to select. If None, use all EEG channels available in
             the dataset.
+
+        resample: float | None (default None)
+            If not None, resample the eeg data with the sampling rate provided.
 
 
 The function `get_data` allow you to access preprocessed data from a dataset.
@@ -168,7 +193,7 @@ one.
 
  Out::
 
-    (576, 22, 501)
+    (576, 22, 1001)
 
 
 Labels contains the labels corresponding to each trial. in the case of this
@@ -244,7 +269,7 @@ and 6 run per session.
     subject    session    run
     count     576.0        576    576
     unique      NaN          2      6
-    top         NaN  session_E  run_7
+    top         NaN  session_T  run_5
     freq        NaN        288     96
     mean        1.0        NaN    NaN
     std         0.0        NaN    NaN
@@ -274,7 +299,7 @@ it will return the list all the imagery datasets from the moabb.
 
  Out::
 
-    ['Alexandre Motor Imagery', 'BBCI EEG fNIRS', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'GigaDb Motor Imagery', 'Openvibe Motor Imagery', 'Physionet Motor Imagery', 'Upper Limb Imagery']
+    ['Alexandre Motor Imagery', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'Cho2017', 'Ofner2017', 'Openvibe Motor Imagery', 'Physionet Motor Imagery', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
 
 FilterBank MotorImagery
@@ -301,7 +326,20 @@ before concatenating the output.
 
  Out::
 
-    Filter Bank MI.
+    Filter bank n-class motor imagery.
+
+        Metric is 'roc-auc' if 2 classes and 'accuracy' if more
+
+        Parameters
+        -----------
+
+        events: List of str
+            event labels used to filter datasets (e.g. if only motor imagery is
+            desired).
+
+        n_classes: int,
+            number of classes each dataset must have. If events is given,
+            requires all imagery sorts to be within the events list.
 
 
 therefore, the output X is a 4D array, with trial x channel x time x filter
@@ -323,7 +361,7 @@ therefore, the output X is a 4D array, with trial x channel x time x filter
 
  Out::
 
-    (576, 22, 501, 6)
+    (288, 22, 1001, 6)
 
 
 LeftRight MotorImagery
@@ -373,7 +411,7 @@ contains at least left and right hand events.
 
  Out::
 
-    ['BBCI EEG fNIRS', '001-2014', '004-2014', 'GigaDb Motor Imagery', 'Openvibe Motor Imagery', 'Physionet Motor Imagery']
+    ['001-2014', '004-2014', 'Cho2017', 'Openvibe Motor Imagery', 'Physionet Motor Imagery', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
 
 So if we apply this this to our original dataset, it will only return trials
@@ -398,7 +436,7 @@ corresponding to left and right hand motor imagination.
     ['left_hand' 'right_hand']
 
 
-**Total running time of the script:** ( 0 minutes  24.235 seconds)
+**Total running time of the script:** ( 0 minutes  23.684 seconds)
 
 
 

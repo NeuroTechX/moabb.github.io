@@ -1,9 +1,9 @@
-moabb.datasets.GigaDbMI
+moabb.datasets.Zhou2016
 =======================
 
 .. currentmodule:: moabb.datasets
 
-.. autoclass:: GigaDbMI
+.. autoclass:: Zhou2016
 
    
    .. automethod:: __init__

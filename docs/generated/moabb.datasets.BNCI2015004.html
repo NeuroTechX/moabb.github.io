@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -154,11 +154,57 @@
 <h1>moabb.datasets.BNCI2015004<a class="headerlink" href="#moabb-datasets-bnci2015004" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="moabb.datasets.BNCI2015004">
-<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2015004</code><span class="sig-paren">(</span><em>tmin=4.25</em>, <em>tmax=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015004"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015004" title="Permalink to this definition">¶</a></dt>
-<dd><p>BNCI 2015-004 Motor Imagery dataset</p>
+<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2015004</code><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015004"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015004" title="Permalink to this definition">¶</a></dt>
+<dd><p>BNCI 2015-004 Motor Imagery dataset.</p>
+<p>Dataset from <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>We provide EEG data recorded from nine users with disability (spinal cord
+injury and stroke) on two different days (sessions).  Users performed,
+follow- ing a cue-guided experimental paradigm, five distinct mental tasks
+(MT).  MTs include mental word association (condition WORD), mental
+subtraction (SUB), spatial navigation (NAV), right hand motor imagery
+(HAND) and
+feet motor imagery (FEET). Details on the experimental paradigm are
+summarized in Figure 1.  The session for a single subject consisted of 8
+runs resulting in 40 trials of each class for each day.  One single
+experimental run consisted of 25 cues, with 5 of each mental task.  Cues
+were presented in random order.</p>
+<p>EEG was recorded from 30 electrode channels placed on the scalp according
+to the international 10-20 system.  Electrode positions included channels
+AFz, F7, F3, Fz, F4, F8, FC3, FCz, FC4, T3, C3, Cz, C4, T4, CP3, CPz,CP4,
+P7, P5, P3, P1, Pz, P2, P4, P6, P8, PO3, PO4, O1, and O2.  Reference and
+ground were placed at the left and right mastoid, respectively.  The g.tec
+GAMMAsys system with g.LADYbird active electrodes and two g.USBamp
+biosignal
+amplifiers (Guger Technolgies, Graz, Austria) was used for recording.  EEG
+was band pass filtered 0.5-100 Hz (notch filter at 50 Hz) and sampled at a
+rate of 256 Hz.</p>
+<p>The duration of a single imagery trials is 10 s.  At t = 0 s, a cross was
+presented in the middle of the screen.  Participants were asked to relax
+and
+fixate the cross to avoid eye movements.  At t = 3 s, a beep was sounded to
+get the participant’s attention.  The cue indicating the requested imagery
+task, one out of five graphical symbols, was presented from t = 3 s to t =
+4.25 s.  At t = 10 s, a second beep was sounded and the fixation-cross
+disappeared, which indicated the end of the trial.  A variable break
+(inter-trial-interval, ITI) lasting between 2.5 s and 3.5 s occurred
+before
+the start of the next trial.  Participants were asked to avoid movements
+during the imagery period, and to move and blink during the
+ITI. Experimental runs began and ended with a blank screen (duration 4 s)</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Scherer R, Faller J, Friedrich EVC, Opisso E, Costa U, Kübler A, et
+al. (2015) Individually Adapted Imagery Improves Brain-Computer
+Interface Performance in End-Users with Disability. PLoS ONE 10(5).
+<a class="reference external" href="https://doi.org/10.1371/journal.pone.0123727">https://doi.org/10.1371/journal.pone.0123727</a></td></tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="moabb.datasets.BNCI2015004.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>tmin=4.25</em>, <em>tmax=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015004.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015004.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2015004.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2015004.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

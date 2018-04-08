@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -154,11 +154,47 @@
 <h1>moabb.datasets.BNCI2014001<a class="headerlink" href="#moabb-datasets-bnci2014001" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="moabb.datasets.BNCI2014001">
-<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2014001</code><span class="sig-paren">(</span><em>tmin=3.5</em>, <em>tmax=5.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014001"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014001" title="Permalink to this definition">¶</a></dt>
-<dd><p>BNCI 2014-001 Motor Imagery dataset</p>
+<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2014001</code><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014001"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014001" title="Permalink to this definition">¶</a></dt>
+<dd><p>BNCI 2014-001 Motor Imagery dataset.</p>
+<p>Dataset IIa from BCI Competition 4 <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Dataset Description</strong></p>
+<p>This data set consists of EEG data from 9 subjects.  The cue-based BCI
+paradigm consisted of four different motor imagery tasks, namely the imag-
+ination of movement of the left hand (class 1), right hand (class 2), both
+feet (class 3), and tongue (class 4).  Two sessions on different days were
+recorded for each subject.  Each session is comprised of 6 runs separated
+by short breaks.  One run consists of 48 trials (12 for each of the four
+possible classes), yielding a total of 288 trials per session.</p>
+<p>The subjects were sitting in a comfortable armchair in front of a computer
+screen.  At the beginning of a trial ( t = 0 s), a fixation cross appeared
+on the black screen.  In addition, a short acoustic warning tone was
+presented.  After two seconds ( t = 2 s), a cue in the form of an arrow
+pointing either to the left, right, down or up (corresponding to one of the
+four classes left hand, right hand, foot or tongue) appeared and stayed on
+the screen for 1.25 s.  This prompted the subjects to perform the desired
+motor imagery task.  No feedback was provided.  The subjects were ask to
+carry out the motor imagery task until the fixation cross disappeared from
+the screen at t = 6 s.</p>
+<p>Twenty-two Ag/AgCl electrodes (with inter-electrode distances of 3.5 cm)
+were used to record the EEG; the montage is shown in Figure 3 left.  All
+signals were recorded monopolarly with the left mastoid serving as
+reference and the right mastoid as ground. The signals were sampled with.
+250 Hz and bandpass-filtered between 0.5 Hz and 100 Hz. The sensitivity of
+the amplifier was set to 100 μV . An additional 50 Hz notch filter was
+enabled to suppress line noise</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Tangermann, M., Müller, K.R., Aertsen, A., Birbaumer, N., Braun, C.,
+Brunner, C., Leeb, R., Mehring, C., Miller, K.J., Mueller-Putz, G.
+and Nolte, G., 2012. Review of the BCI competition IV.
+Frontiers in neuroscience, 6, p.55.</td></tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="moabb.datasets.BNCI2014001.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>tmin=3.5</em>, <em>tmax=5.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014001.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014001.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014001.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014001.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 

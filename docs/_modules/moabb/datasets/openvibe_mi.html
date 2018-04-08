@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -170,30 +170,70 @@
 
 
 <div class="viewcode-block" id="OpenvibeMI"><a class="viewcode-back" href="../../../generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI">[docs]</a><span class="k">class</span> <span class="nc">OpenvibeMI</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Openvibe Motor Imagery dataset&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Openvibe Motor Imagery dataset.</span>
 
-<div class="viewcode-block" id="OpenvibeMI.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">tmax</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+<span class="sd">    This datasets includes 14 records of left and right hand motor imagery from</span>
+<span class="sd">    a single subject. They include 11 channels : C3, C4, Nz, FC3, FC4, C5, C1,</span>
+<span class="sd">    C2, C6, CP3 and CP4. The channels are recorded in common average mode and</span>
+<span class="sd">    Nz can be used as a reference if needed. The signal is sampled at 512 Hz</span>
+<span class="sd">    and was recorded with our Mindmedia NeXus32B amplifier.</span>
+
+<span class="sd">    Each file consists in 40 trials where the subject was requested to imagine</span>
+<span class="sd">    either left or right hand movements (20 each). The experiment followed the</span>
+<span class="sd">    Graz University protocol [1]_.</span>
+
+<span class="sd">    The files were recorded on three different days of the same month.</span>
+
+<span class="sd">    The data set has been used in the paper [2]_.</span>
+
+<span class="sd">    references</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] Pfurtscheller, G. &amp; Neuper, C. Motor Imagery and Direct</span>
+<span class="sd">           Brain-Computer Communication. Proceedings of the IEEE, 89,</span>
+<span class="sd">           1123-1134, 2001.</span>
+
+<span class="sd">    .. [2] N. Brodu, F. Lotte, A. Lécuyer. Exploring Two Novel Features for</span>
+<span class="sd">           EEG-based Brain-Computer Interfaces: Multifractal Cumulants and</span>
+<span class="sd">           Predictive Complexity. Neurocomputing 79: 87-94, 2012.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="OpenvibeMI.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>
+            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">left_hand</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
             <span class="n">code</span><span class="o">=</span><span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="n">tmin</span><span class="p">,</span> <span class="n">tmax</span><span class="p">],</span>
+            <span class="c1"># 5 second is the duration of the feedback in the OV protocol.</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for subject&quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">):</span>
-            <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_single_session_data</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;session_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
+
+        <span class="c1"># data are recorded on 3 different day (session). it&#39;s not specified</span>
+        <span class="c1"># wich run is wich session, but by looking at the data, we can identify</span>
+        <span class="c1"># the 3 sessions.</span>
+
+        <span class="n">sessions</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+                    <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">14</span><span class="p">]]</span>
+
+        <span class="k">for</span> <span class="n">jj</span><span class="p">,</span> <span class="n">session</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sessions</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">session</span><span class="p">):</span>
+                <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_single_run_data</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
+                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;session_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;run_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
+
         <span class="k">return</span> <span class="n">data</span>
 
-    <span class="k">def</span> <span class="nf">_get_single_session_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_single_run_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for a single recording session&quot;&quot;&quot;</span>
-        <span class="n">csv_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">session</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">csv_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="n">run</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
         <span class="n">fif_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">csv_path</span><span class="p">),</span>
-                                <span class="s1">&#39;raw_</span><span class="si">{:d}</span><span class="s1">.fif&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">session</span><span class="p">))</span>
+                                <span class="s1">&#39;raw_</span><span class="si">{:d}</span><span class="s1">.fif&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">run</span><span class="p">))</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fif_path</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Resaving .csv file as .fif for ease of future loading&#39;</span><span class="p">)</span>
             <span class="n">raw</span> <span class="o">=</span> <span class="n">convert_inria_csv_to_mne</span><span class="p">(</span><span class="n">csv_path</span><span class="p">)</span>

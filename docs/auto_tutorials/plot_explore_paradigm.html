@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -93,7 +93,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Explore Paradigm Object</a><ul>
-<li><a class="reference internal" href="#base-motorimagery">Base MotorImagery</a></li>
+<li><a class="reference internal" href="#motorimagery">MotorImagery</a></li>
 <li><a class="reference internal" href="#filterbank-motorimagery">FilterBank MotorImagery</a></li>
 <li><a class="reference internal" href="#leftright-motorimagery">LeftRight MotorImagery</a></li>
 </ul>
@@ -128,7 +128,7 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Explore Paradigm Object</a><ul>
-<li><a class="reference internal" href="#base-motorimagery">Base MotorImagery</a></li>
+<li><a class="reference internal" href="#motorimagery">MotorImagery</a></li>
 <li><a class="reference internal" href="#filterbank-motorimagery">FilterBank MotorImagery</a></li>
 <li><a class="reference internal" href="#leftright-motorimagery">LeftRight MotorImagery</a></li>
 </ul>
@@ -160,48 +160,74 @@ for ERP vs ERD paradigms.</p>
 <p>A paradigm also defines the appropriate evaluation metric, for example AUC
 for binary classification problem, accuracy for multiclass, or kappa
 coefficient for continuous paradigms.</p>
-<p>This tutorial explore the paradigm object, with 3 examples of paradigm :</p>
-<blockquote>
-<div><ul class="simple">
-<li>BaseMotorImagery</li>
+<dl class="docutils">
+<dt>This tutorial explore the paradigm object, with 3 examples of paradigm :</dt>
+<dd><ul class="first last simple">
+<li>MotorImagery</li>
 <li>FilterBankMotorImagery</li>
 <li>LeftRightImagery</li>
 </ul>
-</div></blockquote>
+</dd>
+</dl>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Alexandre Barachant &lt;alexandre.barachant@gmail.com&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD (3-clause)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014001</span>
-<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">,</span> <span class="n">BaseMotorImagery</span><span class="p">,</span>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">,</span> <span class="n">MotorImagery</span><span class="p">,</span>
                              <span class="n">FilterBankMotorImagery</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="base-motorimagery">
-<h2>Base MotorImagery<a class="headerlink" href="#base-motorimagery" title="Permalink to this headline">¶</a></h2>
-<p>First, lets take a example of the BaseMotorImagery paradigm.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">BaseMotorImagery</span><span class="p">()</span>
+<div class="section" id="motorimagery">
+<h2>MotorImagery<a class="headerlink" href="#motorimagery" title="Permalink to this headline">¶</a></h2>
+<p>First, lets take a example of the MotorImagery paradigm.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">MotorImagery</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Base</span> <span class="n">Imagery</span> <span class="n">paradigm</span>  <span class="n">Context</span><span class="o">.</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">-</span><span class="k">class</span> <span class="nc">motor</span> <span class="n">imagery</span><span class="o">.</span>
+
+    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc-auc&#39;</span> <span class="k">if</span> <span class="mi">2</span> <span class="n">classes</span> <span class="ow">and</span> <span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="n">more</span>
 
     <span class="n">Parameters</span>
-    <span class="o">----------</span>
+    <span class="o">-----------</span>
 
-    <span class="n">filters</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">list</span> <span class="p">(</span><span class="n">defaults</span> <span class="p">[[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">35</span><span class="p">]])</span>
-        <span class="n">bank</span> <span class="n">of</span> <span class="nb">filter</span> <span class="n">to</span> <span class="n">apply</span>
-    <span class="n">interval</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">time</span> <span class="n">interval</span> <span class="n">to</span> <span class="n">epoch</span> <span class="n">trial</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">defaults</span> <span class="n">to</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">-</span><span class="n">defined</span>
-        <span class="n">interval</span>
-    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">event</span> <span class="n">to</span> <span class="n">use</span> <span class="k">for</span> <span class="n">epoching</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">default</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">events</span> <span class="n">defined</span> <span class="ow">in</span>
+    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span>
+        <span class="n">event</span> <span class="n">labels</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">filter</span> <span class="n">datasets</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">if</span> <span class="n">only</span> <span class="n">motor</span> <span class="n">imagery</span> <span class="ow">is</span>
+        <span class="n">desired</span><span class="p">)</span><span class="o">.</span>
+
+    <span class="n">n_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">number</span> <span class="n">of</span> <span class="n">classes</span> <span class="n">each</span> <span class="n">dataset</span> <span class="n">must</span> <span class="n">have</span><span class="o">.</span> <span class="n">If</span> <span class="n">events</span> <span class="ow">is</span> <span class="n">given</span><span class="p">,</span>
+        <span class="n">requires</span> <span class="nb">all</span> <span class="n">imagery</span> <span class="n">sorts</span> <span class="n">to</span> <span class="n">be</span> <span class="n">within</span> <span class="n">the</span> <span class="n">events</span> <span class="nb">list</span><span class="o">.</span>
+
+    <span class="n">fmin</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="n">cutoff</span> <span class="n">frequency</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">high</span> <span class="k">pass</span> <span class="nb">filter</span>
+
+    <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mi">32</span><span class="p">)</span>
+        <span class="n">cutoff</span> <span class="n">frequency</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">low</span> <span class="k">pass</span> <span class="nb">filter</span>
+
+    <span class="n">tmin</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">Start</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">second</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">specific</span>
+        <span class="n">task</span> <span class="n">interval</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">tmin</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">would</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">epoch</span> <span class="n">will</span> <span class="n">start</span> <span class="mi">1</span> <span class="n">second</span>
+        <span class="n">after</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span> <span class="n">task</span> <span class="k">as</span> <span class="n">defined</span> <span class="n">by</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span>
+
+    <span class="n">tmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">End</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">second</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span>
+        <span class="n">dataset</span> <span class="n">specific</span> <span class="n">task</span> <span class="n">interval</span><span class="o">.</span> <span class="n">tmax</span> <span class="o">=</span> <span class="mi">5</span> <span class="n">would</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">epoch</span> <span class="n">will</span> <span class="n">end</span>
+        <span class="mi">5</span> <span class="n">second</span> <span class="n">after</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span> <span class="n">task</span> <span class="k">as</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span> <span class="n">If</span>
+        <span class="kc">None</span><span class="p">,</span> <span class="n">use</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">value</span><span class="o">.</span>
+
+    <span class="n">channels</span><span class="p">:</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="nb">list</span> <span class="n">of</span> <span class="n">channel</span> <span class="n">to</span> <span class="n">select</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">use</span> <span class="nb">all</span> <span class="n">EEG</span> <span class="n">channels</span> <span class="n">available</span> <span class="ow">in</span>
         <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span>
+
+    <span class="n">resample</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">If</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">resample</span> <span class="n">the</span> <span class="n">eeg</span> <span class="n">data</span> <span class="k">with</span> <span class="n">the</span> <span class="n">sampling</span> <span class="n">rate</span> <span class="n">provided</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>The function <cite>get_data</cite> allow you to access preprocessed data from a dataset.
@@ -256,7 +282,7 @@ one.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">501</span><span class="p">)</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Labels contains the labels corresponding to each trial. in the case of this
@@ -297,7 +323,7 @@ and 6 run per session.</p>
 <div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
 <span class="n">count</span>     <span class="mf">576.0</span>        <span class="mi">576</span>    <span class="mi">576</span>
 <span class="n">unique</span>      <span class="n">NaN</span>          <span class="mi">2</span>      <span class="mi">6</span>
-<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_E</span>  <span class="n">run_7</span>
+<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_T</span>  <span class="n">run_5</span>
 <span class="n">freq</span>        <span class="n">NaN</span>        <span class="mi">288</span>     <span class="mi">96</span>
 <span class="n">mean</span>        <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
 <span class="n">std</span>         <span class="mf">0.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
@@ -315,7 +341,7 @@ it will return the list all the imagery datasets from the moabb.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;BBCI EEG fNIRS&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;GigaDb Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Upper Limb Imagery&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Ofner2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -330,7 +356,20 @@ before concatenating the output.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Filter</span> <span class="n">Bank</span> <span class="n">MI</span><span class="o">.</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Filter</span> <span class="n">bank</span> <span class="n">n</span><span class="o">-</span><span class="k">class</span> <span class="nc">motor</span> <span class="n">imagery</span><span class="o">.</span>
+
+    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc-auc&#39;</span> <span class="k">if</span> <span class="mi">2</span> <span class="n">classes</span> <span class="ow">and</span> <span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="n">more</span>
+
+    <span class="n">Parameters</span>
+    <span class="o">-----------</span>
+
+    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span>
+        <span class="n">event</span> <span class="n">labels</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">filter</span> <span class="n">datasets</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">if</span> <span class="n">only</span> <span class="n">motor</span> <span class="n">imagery</span> <span class="ow">is</span>
+        <span class="n">desired</span><span class="p">)</span><span class="o">.</span>
+
+    <span class="n">n_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">number</span> <span class="n">of</span> <span class="n">classes</span> <span class="n">each</span> <span class="n">dataset</span> <span class="n">must</span> <span class="n">have</span><span class="o">.</span> <span class="n">If</span> <span class="n">events</span> <span class="ow">is</span> <span class="n">given</span><span class="p">,</span>
+        <span class="n">requires</span> <span class="nb">all</span> <span class="n">imagery</span> <span class="n">sorts</span> <span class="n">to</span> <span class="n">be</span> <span class="n">within</span> <span class="n">the</span> <span class="n">events</span> <span class="nb">list</span><span class="o">.</span>
 </pre></div>
 </div>
 <p>therefore, the output X is a 4D array, with trial x channel x time x filter</p>
@@ -340,7 +379,7 @@ before concatenating the output.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">501</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">288</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -366,7 +405,7 @@ contains at least left and right hand events.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;BBCI EEG fNIRS&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;GigaDb Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>So if we apply this this to our original dataset, it will only return trials
@@ -380,7 +419,7 @@ corresponding to left and right hand motor imagination.</p>
 <div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  24.235 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  23.684 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_explore_paradigm.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></div>

@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -157,15 +157,27 @@
 <em class="property">class </em><code class="descclassname">moabb.datasets.utils.</code><code class="descname">dataset_search</code><a class="reference internal" href="../_modules/moabb/datasets/utils.html#dataset_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.utils.dataset_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function that returns a list of datasets that match given criteria. Valid
 criteria are:</p>
-<p>events: list of strings
-total_classes: int or None, total number of classes (returns all if None), will either truncate or choose
-from events. Defaults to 100 to keep all classes.
-has_all_events: bool, skip datasets that don’t have all events in events
-multi_session: bool, if True only returns datasets with more than one
-session per subject. If False return all
-paradigm: ‘imagery’,’p300’,(more to come)
-min_subjects: int, minimum subjects in dataset
-channels: list or set of channels</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>paradigm</strong> (<em>str</em>) – ‘imagery’,’p300’,(more to come)</li>
+<li><strong>multi_session</strong> (<em>bool</em>) – if True only returns datasets with more than one session per subject.
+If False return all</li>
+<li><strong>events</strong> (<em>list of strings</em>) – events to select</li>
+<li><strong>has_all_events</strong> (<em>bool</em>) – skip datasets that don’t have all events in events</li>
+<li><strong>total_classes</strong> (<em>int or None</em>) – total number of classes (returns all if None)
+will either truncate or choose rom events.</li>
+<li><strong>interval</strong> – Length of motor imagery interval, in seconds. Only used in imagery
+paradigm</li>
+<li><strong>min_subjects</strong> (<em>int,</em>) – minimum subjects in dataset</li>
+<li><strong>channels</strong> (<em>list of str</em>) – list or set of channels</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="moabb.datasets.utils.dataset_search.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.utils.dataset_search.__init__" title="Permalink to this definition">¶</a></dt>

@@ -1,9 +1,9 @@
-moabb.datasets.UpperLimb
+moabb.datasets.Ofner2017
 ========================
 
 .. currentmodule:: moabb.datasets
 
-.. autoclass:: UpperLimb
+.. autoclass:: Ofner2017
 
    
    .. automethod:: __init__

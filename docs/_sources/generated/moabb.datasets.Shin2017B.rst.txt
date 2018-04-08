@@ -1,0 +1,10 @@
+moabb.datasets.Shin2017B
+========================
+
+.. currentmodule:: moabb.datasets
+
+.. autoclass:: Shin2017B
+
+   
+   .. automethod:: __init__
+   

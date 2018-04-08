@@ -75,7 +75,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -179,9 +179,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: E501</span>
     <span class="n">sign</span> <span class="o">=</span> <span class="n">sign</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
     <span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;MNE_DATASETS_</span><span class="si">{:s}</span><span class="s1">_PATH&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sign</span><span class="p">)</span>
+    <span class="n">key_dest</span> <span class="o">=</span> <span class="s1">&#39;MNE-</span><span class="si">{:s}</span><span class="s1">-data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sign</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">_get_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">sign</span><span class="p">)</span>
-    <span class="n">destination</span> <span class="o">=</span> <span class="n">_url_to_local_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>
-                                                  <span class="s1">&#39;MNE-</span><span class="si">{:s}</span><span class="s1">-data&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sign</span><span class="o">.</span><span class="n">lower</span><span class="p">())))</span>
+    <span class="n">destination</span> <span class="o">=</span> <span class="n">_url_to_local_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">key_dest</span><span class="p">))</span>
     <span class="c1"># Fetch the file</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">destination</span><span class="p">)</span> <span class="ow">or</span> <span class="n">force_update</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">op</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">destination</span><span class="p">):</span>

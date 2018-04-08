@@ -19,7 +19,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Pipelines" href="../pipelines.html" />
-    <link rel="prev" title="moabb.paradigms.LeftRightImagery" href="moabb.paradigms.LeftRightImagery.html" />
+    <link rel="prev" title="moabb.paradigms.motor_imagery.FilterBank" href="moabb.paradigms.motor_imagery.FilterBank.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -77,7 +77,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -128,7 +128,7 @@
 </ul>
 
   <li>
-    <a href="moabb.paradigms.LeftRightImagery.html" title="Previous Chapter: moabb.paradigms.LeftRightImagery"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; moabb.paradig...</span>
+    <a href="moabb.paradigms.motor_imagery.FilterBank.html" title="Previous Chapter: moabb.paradigms.motor_imagery.FilterBank"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; moabb.paradig...</span>
     </a>
   </li>
   <li>
@@ -159,7 +159,7 @@
 <dl class="method">
 <dt id="moabb.paradigms.base.BaseParadigm.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/base.html#BaseParadigm.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.base.BaseParadigm.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>init</p>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -214,11 +214,19 @@ and labels.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>raw</strong> (<em>mne.Raw instance</em>) – the raw EEG data.</li>
+<li><strong>dataset</strong> (<em>dataset instance</em>) – The dataset corresponding to the raw file. mainly use to access
+dataset specific information.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
 <li><strong>X</strong> (<em>np.ndarray</em>) – the data that will be used as features for the model</li>
 <li><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</li>
 <li><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata</li>
 </ul>
+</p>
 </td>
 </tr>
 </tbody>
