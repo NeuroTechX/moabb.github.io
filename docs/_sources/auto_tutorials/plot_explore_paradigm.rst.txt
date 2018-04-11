@@ -269,7 +269,7 @@ and 6 run per session.
     subject    session    run
     count     576.0        576    576
     unique      NaN          2      6
-    top         NaN  session_T  run_5
+    top         NaN  session_T  run_4
     freq        NaN        288     96
     mean        1.0        NaN    NaN
     std         0.0        NaN    NaN
@@ -436,7 +436,7 @@ corresponding to left and right hand motor imagination.
     ['left_hand' 'right_hand']
 
 
-**Total running time of the script:** ( 0 minutes  23.684 seconds)
+**Total running time of the script:** ( 0 minutes  21.977 seconds)
 
 
 

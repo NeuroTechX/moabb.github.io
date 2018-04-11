@@ -127,18 +127,18 @@ be overwrited if necessary.
  Out::
 
     score      time  samples subject    session  channels  n_sessions  \
-    0  0.962191  0.215992    144.0       1  session_E        22           2   
-    1  0.921682  0.151860    144.0       1  session_T        22           2   
-    2  0.578897  0.101402    144.0       2  session_E        22           2   
-    3  0.489583  0.133820    144.0       2  session_T        22           2   
-    4  0.996914  0.164561    144.0       3  session_E        22           2   
+    0  0.962770  0.814771    144.0       1  session_E        22           2   
+    1  0.950424  0.719581    144.0       1  session_T        22           2   
+    2  0.585648  0.728132    144.0       2  session_E        22           2   
+    3  0.574846  0.697012    144.0       2  session_T        22           2   
+    4  0.998650  0.806765    144.0       3  session_E        22           2   
 
-        dataset   pipeline  
-    0  001-2014  CSP + LDA  
-    1  001-2014  CSP + LDA  
-    2  001-2014  CSP + LDA  
-    3  001-2014  CSP + LDA  
-    4  001-2014  CSP + LDA
+        dataset pipeline  
+    0  001-2014  RG + LR  
+    1  001-2014  RG + LR  
+    2  001-2014  RG + LR  
+    3  001-2014  RG + LR  
+    4  001-2014  RG + LR
 
 
 Plot Results
@@ -185,7 +185,7 @@ points are in its quadrant.
 
 
 
-**Total running time of the script:** ( 0 minutes  52.949 seconds)
+**Total running time of the script:** ( 0 minutes  51.247 seconds)
 
 
 
