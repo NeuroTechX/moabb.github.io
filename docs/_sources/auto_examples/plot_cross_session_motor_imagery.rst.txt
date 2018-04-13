@@ -127,11 +127,11 @@ be overwrited if necessary.
  Out::
 
     score      time  samples subject    session  channels  n_sessions  \
-    0  0.962770  0.719930    144.0       1  session_E        22           2   
-    1  0.950424  0.727279    144.0       1  session_T        22           2   
-    2  0.585648  0.659453    144.0       2  session_E        22           2   
-    3  0.574846  0.717114    144.0       2  session_T        22           2   
-    4  0.998650  0.717854    144.0       3  session_E        22           2   
+    0  0.962770  0.686022    144.0       1  session_E        22           2   
+    1  0.950424  0.844295    144.0       1  session_T        22           2   
+    2  0.585648  0.804822    144.0       2  session_E        22           2   
+    3  0.574846  0.809989    144.0       2  session_T        22           2   
+    4  0.998650  0.975015    144.0       3  session_E        22           2   
 
         dataset pipeline  
     0  001-2014  RG + LR  
@@ -185,7 +185,7 @@ points are in its quadrant.
 
 
 
-**Total running time of the script:** ( 0 minutes  49.276 seconds)
+**Total running time of the script:** ( 0 minutes  57.227 seconds)
 
 
 
