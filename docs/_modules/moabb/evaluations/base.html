@@ -191,16 +191,16 @@
             <span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">BaseDataset</span><span class="p">)):</span>
                 <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;datasets must only contains dataset &quot;</span>
                                  <span class="s2">&quot;instance&quot;</span><span class="p">))</span>
-
+        <span class="n">rm</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
             <span class="c1"># fixme, we might want to drop dataset that are not compatible</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-            <span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+            <span class="n">valid_for_paradigm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="n">valid_for_eval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">valid_for_paradigm</span> <span class="ow">and</span> <span class="n">valid_for_eval</span><span class="p">):</span>
                 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{dataset}</span><span class="s2"> not compatible with evaluation or &quot;</span>
                             <span class="s2">&quot;paradigm. Removing this dataset from the list.&quot;</span><span class="p">)</span>
-                <span class="n">datasets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+                <span class="n">rm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="p">[</span><span class="n">datasets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rm</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span>
 
@@ -270,21 +270,22 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="BaseEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.verify">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseEvaluation.is_valid"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.is_valid">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Verify the dataset is compatible with evaluation.</span>
 
 <span class="sd">        This method is called to verify dataset given in the constructor</span>
 <span class="sd">        are compatible with the evaluation context.</span>
 
-<span class="sd">        This method should raise an error if the dataset is not compatible</span>
-<span class="sd">        with the evaluation context. This is for example the case if the</span>
-<span class="sd">        dataset does not contain enought session for a cross-session eval.</span>
+<span class="sd">        This method should return false if the dataset does not match the</span>
+<span class="sd">        evaluation. This is for example the case if the dataset does not contain</span>
+<span class="sd">        enought session for a cross-session eval.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        dataset : dataset instance</span>
 <span class="sd">            The dataset to verify.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span></div></div>
 </pre></div>
 

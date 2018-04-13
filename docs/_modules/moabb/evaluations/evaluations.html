@@ -196,7 +196,7 @@
                               <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">acc</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 
-<div class="viewcode-block" id="WithinSessionEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+<div class="viewcode-block" id="WithinSessionEvaluation.is_valid"><a class="viewcode-back" href="../../../generated/moabb.evaluations.WithinSessionEvaluation.html#moabb.evaluations.WithinSessionEvaluation.is_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="k">pass</span></div></div>
 
 
@@ -210,7 +210,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CrossSessionEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Dataset is not appropriate for evaluation&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
             <span class="c1"># check if we already have result for this subject/pipeline</span>
             <span class="c1"># we might need a better granularity, if we query the DB</span>
@@ -247,8 +248,8 @@
                            <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span>
                     <span class="k">yield</span> <span class="n">res</span></div>
 
-<div class="viewcode-block" id="CrossSessionEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="n">dataset</span><span class="o">.</span><span class="n">n_sessions</span> <span class="o">&gt;</span> <span class="mi">1</span></div></div>
+<div class="viewcode-block" id="CrossSessionEvaluation.is_valid"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation.is_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">n_sessions</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="CrossSubjectEvaluation"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation">[docs]</a><span class="k">class</span> <span class="nc">CrossSubjectEvaluation</span><span class="p">(</span><span class="n">BaseEvaluation</span><span class="p">):</span>
@@ -260,7 +261,8 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="CrossSubjectEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s1">&#39;Dataset is not appropriate for evaluation&#39;</span><span class="p">)</span>
         <span class="c1"># this is a bit akward, but we need to check if at least one pipe</span>
         <span class="c1"># have to be run before loading the data. If at least one pipeline</span>
         <span class="c1"># need to be run, we have to load all the data.</span>
@@ -316,8 +318,8 @@
 
                         <span class="k">yield</span> <span class="n">res</span></div>
 
-<div class="viewcode-block" id="CrossSubjectEvaluation.verify"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span></div></div>
+<div class="viewcode-block" id="CrossSubjectEvaluation.is_valid"><a class="viewcode-back" href="../../../generated/moabb.evaluations.CrossSubjectEvaluation.html#moabb.evaluations.CrossSubjectEvaluation.is_valid">[docs]</a>    <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span></div></div>
 </pre></div>
 
     </div>

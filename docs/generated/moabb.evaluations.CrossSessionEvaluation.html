@@ -184,6 +184,25 @@ the following convension:</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="moabb.evaluations.CrossSessionEvaluation.is_valid">
+<code class="descname">is_valid</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSessionEvaluation.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSessionEvaluation.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the dataset is compatible with evaluation.</p>
+<p>This method is called to verify dataset given in the constructor
+are compatible with the evaluation context.</p>
+<p>This method should return false if the dataset does not match the
+evaluation. This is for example the case if the dataset does not contain
+enought session for a cross-session eval.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="moabb.evaluations.CrossSessionEvaluation.process">
 <code class="descname">process</code><span class="sig-paren">(</span><em>pipelines</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSessionEvaluation.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs all pipelines on all datasets.</p>
@@ -198,25 +217,6 @@ containing the results of the evaluation.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>results</strong> – A dataframe containing the results.</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pd.DataFrame</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.evaluations.CrossSessionEvaluation.verify">
-<code class="descname">verify</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSessionEvaluation.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSessionEvaluation.verify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verify the dataset is compatible with evaluation.</p>
-<p>This method is called to verify dataset given in the constructor
-are compatible with the evaluation context.</p>
-<p>This method should raise an error if the dataset is not compatible
-with the evaluation context. This is for example the case if the
-dataset does not contain enought session for a cross-session eval.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
 </tr>
 </tbody>
 </table>

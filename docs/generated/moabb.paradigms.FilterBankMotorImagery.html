@@ -217,6 +217,26 @@ will contain at least the following columns</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="moabb.paradigms.FilterBankMotorImagery.is_valid">
+<code class="descname">is_valid</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#FilterBankMotorImagery.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.FilterBankMotorImagery.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify the dataset is compatible with the paradigm.</p>
+<p>This method is called to verify dataset is compatible with the
+paradigm.</p>
+<p>This method should raise an error if the dataset is not compatible
+with the paradigm. This is for example the case if the
+dataset is an ERP dataset for motor imagery paradigm, or if the
+dataset does not contain any of the required events.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="moabb.paradigms.FilterBankMotorImagery.process_raw">
 <code class="descname">process_raw</code><span class="sig-paren">(</span><em>raw</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.FilterBankMotorImagery.process_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process one raw data file.</p>
@@ -254,26 +274,6 @@ dataset specific information.</li>
 <dd><p>Property that defines scoring metric (e.g. ROC-AUC or accuracy
 or f-score), given as a sklearn-compatible string or a compatible
 sklearn scorer.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.FilterBankMotorImagery.verify">
-<code class="descname">verify</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#FilterBankMotorImagery.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.FilterBankMotorImagery.verify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verify the dataset is compatible with the paradigm.</p>
-<p>This method is called to verify dataset is compatible with the
-paradigm.</p>
-<p>This method should raise an error if the dataset is not compatible
-with the paradigm. This is for example the case if the
-dataset is an ERP dataset for motor imagery paradigm, or if the
-dataset does not contain any of the required events.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </dd></dl>
