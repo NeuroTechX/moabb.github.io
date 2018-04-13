@@ -17,8 +17,8 @@ Motor Imagery Paradigms
     MotorImagery
     LeftRightImagery
 
-    FilterBankMotorImagery
     FilterBankLeftRightImagery
+    FilterBankMotorImagery
 
 ------------
 Base & Utils
