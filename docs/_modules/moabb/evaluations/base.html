@@ -196,10 +196,15 @@
             <span class="c1"># fixme, we might want to drop dataset that are not compatible</span>
             <span class="n">valid_for_paradigm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">paradigm</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
             <span class="n">valid_for_eval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">valid_for_paradigm</span> <span class="ow">and</span> <span class="n">valid_for_eval</span><span class="p">):</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{dataset}</span><span class="s2"> not compatible with evaluation or &quot;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_for_paradigm</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{dataset}</span><span class="s2"> not compatible with &quot;</span>
                             <span class="s2">&quot;paradigm. Removing this dataset from the list.&quot;</span><span class="p">)</span>
                 <span class="n">rm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">valid_for_eval</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{dataset}</span><span class="s2"> not compatible with evaluation. &quot;</span>
+                            <span class="s2">&quot;Removing this dataset from the list.&quot;</span><span class="p">)</span>
+                <span class="n">rm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+                
         <span class="p">[</span><span class="n">datasets</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rm</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="n">datasets</span>
