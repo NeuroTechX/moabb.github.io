@@ -183,7 +183,7 @@ points are in its quadrant.
 
 
 
-**Total running time of the script:** ( 2 minutes  44.693 seconds)
+**Total running time of the script:** ( 2 minutes  42.722 seconds)
 
 
 

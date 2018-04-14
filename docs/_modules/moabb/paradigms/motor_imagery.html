@@ -431,8 +431,8 @@
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
                     <span class="k">break</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset </span><span class="si">{}</span><span class="s2"> did not have enough events in </span><span class="si">{}</span><span class="s2"> to run analysis&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                             <span class="n">dataset</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">))</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Dataset </span><span class="si">{dataset.code}</span><span class="s2"> did not have enough &quot;</span>
+                             <span class="n">f</span><span class="s2">&quot;events in </span><span class="si">{self.events}</span><span class="s2"> to run analysis&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="nd">@property</span>
@@ -534,8 +534,8 @@
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
                     <span class="k">break</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_classes</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset </span><span class="si">{}</span><span class="s2"> did not have enough events in </span><span class="si">{}</span><span class="s2"> to run analysis&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                <span class="n">dataset</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">events</span><span class="p">))</span>
+            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Dataset </span><span class="si">{dataset.code}</span><span class="s2"> did not have enough &quot;</span>
+                             <span class="n">f</span><span class="s2">&quot;events in </span><span class="si">{self.events}</span><span class="s2"> to run analysis&quot;</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">out</span>
 
     <span class="nd">@property</span>
