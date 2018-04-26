@@ -31,7 +31,7 @@ very popular dataset 2a from the BCI competition IV.
     from moabb.datasets import BNCI2014001
     from moabb.paradigms import LeftRightImagery, FilterBankLeftRightImagery
     from moabb.evaluations import CrossSessionEvaluation
-    from moabb.pipelines.filter_bank import FilterBank
+    from moabb.pipelines.utils import FilterBank
 
     moabb.set_log_level('info')
 
@@ -183,7 +183,7 @@ points are in its quadrant.
 
 
 
-**Total running time of the script:** ( 2 minutes  42.722 seconds)
+**Total running time of the script:** ( 2 minutes  42.909 seconds)
 
 
 
