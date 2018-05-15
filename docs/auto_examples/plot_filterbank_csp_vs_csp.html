@@ -213,15 +213,12 @@ from 8 to 35 Hz.</p>
 <span class="n">overwrite</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
 
 <span class="c1"># broadband filters</span>
-<span class="n">fmin</span><span class="o">=</span><span class="mi">8</span>
-<span class="n">fmax</span><span class="o">=</span><span class="mi">35</span>
+<span class="n">fmin</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">fmax</span> <span class="o">=</span> <span class="mi">35</span>
 <span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
 <span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
                                     <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines</span><span class="p">)</span>
-
-<span class="c1"># cashed results might return other pipelines</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="o">.</span><span class="n">pipeline</span> <span class="o">==</span> <span class="s1">&#39;CSP + LDA&#39;</span><span class="p">]</span>
 
 <span class="c1"># bank of 6 filter, by 4 Hz increment</span>
 <span class="n">filters</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span> <span class="p">[</span><span class="mi">12</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span> <span class="p">[</span><span class="mi">24</span><span class="p">,</span> <span class="mi">28</span><span class="p">],</span> <span class="p">[</span><span class="mi">28</span><span class="p">,</span> <span class="mi">35</span><span class="p">]]</span>
@@ -267,7 +264,7 @@ points are in its quadrant.</p>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" class="align-center" src="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" />
-<p><strong>Total running time of the script:</strong> ( 2 minutes  42.909 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 2 minutes  43.638 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_filterbank_csp_vs_csp.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_filterbank_csp_vs_csp.py</span></code></a></div>

@@ -249,7 +249,7 @@
             <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">push_result</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">push_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> | &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;pipeline&#39;</span><span class="p">])</span>
@@ -258,6 +258,9 @@
         <span class="n">message</span> <span class="o">+=</span> <span class="s1">&#39;: Score </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">res</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
         <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">add</span><span class="p">({</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;pipeline&#39;</span><span class="p">]:</span> <span class="n">res</span><span class="p">},</span> <span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
 
 <div class="viewcode-block" id="BaseEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.BaseEvaluation.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
