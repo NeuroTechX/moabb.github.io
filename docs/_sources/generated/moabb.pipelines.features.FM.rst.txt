@@ -1,0 +1,10 @@
+moabb.pipelines.features.FM
+===========================
+
+.. currentmodule:: moabb.pipelines.features
+
+.. autoclass:: FM
+
+   
+   .. automethod:: __init__
+   

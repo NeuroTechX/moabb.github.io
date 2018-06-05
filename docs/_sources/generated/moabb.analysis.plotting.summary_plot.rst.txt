@@ -1,0 +1,7 @@
+moabb.analysis.plotting.summary_plot
+====================================
+
+.. currentmodule:: moabb.analysis.plotting
+
+.. autofunction:: summary_plot
+

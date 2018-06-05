@@ -22,6 +22,46 @@
    :hidden:
 
    /auto_tutorials/plot_explore_paradigm
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial takes you through a basic working example of how to use this codebase, including ...">
+
+.. only:: html
+
+    .. figure:: /auto_tutorials/images/thumb/sphx_glr_plot_Getting_Started_thumb.png
+
+        :ref:`sphx_glr_auto_tutorials_plot_Getting_Started.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/plot_Getting_Started
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The MOABB codebase comes with convenience plotting utilities and some statistical testing. This...">
+
+.. only:: html
+
+    .. figure:: /auto_tutorials/images/thumb/sphx_glr_plot_statistical_analysis_thumb.png
+
+        :ref:`sphx_glr_auto_tutorials_plot_statistical_analysis.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/plot_statistical_analysis
 .. raw:: html
 
     <div style='clear:both'></div>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Analysis &#8212; moabb  documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="moabb.analysis.plotting.score_plot" href="generated/moabb.analysis.plotting.score_plot.html" />
+    <link rel="prev" title="moabb.pipelines.utils.FilterBank" href="generated/moabb.pipelines.utils.FilterBank.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          moabb</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="api.html">API</a></li>
+                <li><a href="auto_examples/index.html">Gallery</a></li>
+                <li><a href="auto_tutorials/index.html">Tutorials</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html#erp-datasets">ERP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html#ssvep-datasets">SSVEP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="datasets.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="evaluations.html">Evaluations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="evaluations.html#id1">Evaluations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="evaluations.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="paradigms.html">Paradigms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipelines.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#id1">Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipelines.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#statistics">Statistics</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Analysis</a><ul>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+<li><a class="reference internal" href="#statistics">Statistics</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Analysis</a><ul>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+<li><a class="reference internal" href="#statistics">Statistics</a></li>
+</ul>
+</li>
+</ul>
+
+  <li>
+    <a href="generated/moabb.pipelines.utils.FilterBank.html" title="Previous Chapter: moabb.pipelines.utils.FilterBank"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; moabb.pipelin...</span>
+    </a>
+  </li>
+  <li>
+    <a href="generated/moabb.analysis.plotting.score_plot.html" title="Next Chapter: moabb.analysis.plotting.score_plot"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">moabb.analysi... &raquo;</span>
+    </a>
+  </li>
+<div id="sourcelink">
+  <a href="_sources/analysis.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="module-moabb.analysis">
+<span id="analysis"></span><h1>Analysis<a class="headerlink" href="#module-moabb.analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="moabb.analysis.analyze">
+<code class="descclassname">moabb.analysis.</code><code class="descname">analyze</code><span class="sig-paren">(</span><em>results</em>, <em>out_path</em>, <em>name='analysis'</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/moabb/analysis.html#analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.analysis.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze results.</p>
+<p>Given a results dataframe, generates a folder with
+results and a dataframe of the exact data used to generate those results,
+aswell as introspection to return information on the computer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>out_path</strong> (<em>location to store analysis folder</em>)</li>
+<li><strong>results</strong> (<em>Dataframe generated from Results object</em>)</li>
+<li><strong>path</strong> (<em>string/None</em>)</li>
+<li><strong>plot</strong> (<em>whether to plot results</em>)</li>
+<li><strong>Either path or results is necessary</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.plotting.score_plot.html#moabb.analysis.plotting.score_plot" title="moabb.analysis.plotting.score_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.score_plot</span></code></a>(data[,&nbsp;pipelines])</td>
+<td>In:     data: output of Results.to_dataframe()     pipelines: list of string|None, pipelines to include in this plot Out:     ax: pyplot Axes reference</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.plotting.paired_plot.html#moabb.analysis.plotting.paired_plot" title="moabb.analysis.plotting.paired_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.paired_plot</span></code></a>(data,&nbsp;alg1,&nbsp;alg2)</td>
+<td>returns figure with an axis that has a paired plot on it Data: dataframe from Results alg1: name of a member of column data.pipeline alg2: name of a member of column data.pipeline</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot" title="moabb.analysis.plotting.summary_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.summary_plot</span></code></a>(sig_df,&nbsp;effect_df[,&nbsp;…])</td>
+<td>Visualize significances as a heatmap with green/grey/red for significantly higher/significantly lower.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.plotting.meta_analysis_plot.html#moabb.analysis.plotting.meta_analysis_plot" title="moabb.analysis.plotting.meta_analysis_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.meta_analysis_plot</span></code></a>(stats_df,&nbsp;alg1,&nbsp;alg2)</td>
+<td>A meta-analysis style plot that shows the standardized effect with confidence intervals over all datasets for two algorithms.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.find_significant_differences.html#moabb.analysis.meta_analysis.find_significant_differences" title="moabb.analysis.meta_analysis.find_significant_differences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.find_significant_differences</span></code></a>(df)</td>
+<td>Compute matrix of p-values for all algorithms over all datasets via combined p-values method</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html#moabb.analysis.meta_analysis.compute_dataset_statistics" title="moabb.analysis.meta_analysis.compute_dataset_statistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.compute_dataset_statistics</span></code></a>(df)</td>
+<td>Returns dict of datasets to DataFrames with stats</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_effects.html#moabb.analysis.meta_analysis.combine_effects" title="moabb.analysis.meta_analysis.combine_effects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_effects</span></code></a>(effects,&nbsp;nsubs)</td>
+<td>Function that takes effects from each experiments and number of subjects to return meta-analysis effect</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_pvalues.html#moabb.analysis.meta_analysis.combine_pvalues" title="moabb.analysis.meta_analysis.combine_pvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_pvalues</span></code></a>(p,&nbsp;nsubs)</td>
+<td>Function that takes pvals from each experiments and number of subjects to return meta-analysis significance</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.collapse_session_scores.html#moabb.analysis.meta_analysis.collapse_session_scores" title="moabb.analysis.meta_analysis.collapse_session_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.collapse_session_scores</span></code></a>(df)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/analysis.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Alexandre Barachant.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

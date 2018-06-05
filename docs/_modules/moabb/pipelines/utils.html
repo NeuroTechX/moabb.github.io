@@ -79,6 +79,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../../analysis.html">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../analysis.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../analysis.html#statistics">Statistics</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -170,7 +175,7 @@
     <span class="k">return</span> <span class="n">pipeline</span></div>
 
 
-<span class="k">class</span> <span class="nc">FilterBank</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<div class="viewcode-block" id="FilterBank"><a class="viewcode-back" href="../../../generated/moabb.pipelines.utils.FilterBank.html#moabb.pipelines.utils.FilterBank">[docs]</a><span class="k">class</span> <span class="nc">FilterBank</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Apply a given indentical pipeline over a bank of filter.</span>
 
 <span class="sd">    The pipeline provided with the constrictor will be appield on the 4th</span>
@@ -213,7 +218,7 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(estimator=</span><span class="si">{}</span><span class="s1">, flatten=</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                                                      <span class="bp">self</span><span class="o">.</span><span class="n">estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(),</span> <span class="c1"># flake8: noqa</span>
-                                                     <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">)</span>
+                                                     <span class="bp">self</span><span class="o">.</span><span class="n">flatten</span><span class="p">)</span></div>
 </pre></div>
 
     </div>

@@ -79,6 +79,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../analysis.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analysis.html#statistics">Statistics</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -323,7 +328,7 @@ and 6 run per session.</p>
 <div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
 <span class="n">count</span>     <span class="mf">576.0</span>        <span class="mi">576</span>    <span class="mi">576</span>
 <span class="n">unique</span>      <span class="n">NaN</span>          <span class="mi">2</span>      <span class="mi">6</span>
-<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_E</span>  <span class="n">run_4</span>
 <span class="n">freq</span>        <span class="n">NaN</span>        <span class="mi">288</span>     <span class="mi">96</span>
 <span class="n">mean</span>        <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
 <span class="n">std</span>         <span class="mf">0.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
@@ -341,7 +346,7 @@ it will return the list all the imagery datasets from the moabb.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Ofner2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Ofner2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -405,7 +410,7 @@ contains at least left and right hand events.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Openvibe Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>So if we apply this this to our original dataset, it will only return trials
@@ -419,7 +424,7 @@ corresponding to left and right hand motor imagination.</p>
 <div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  23.287 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  22.846 seconds)</p>
 <div class="sphx-glr-footer docutils container">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" href="../_downloads/plot_explore_paradigm.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></div>

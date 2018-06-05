@@ -79,6 +79,11 @@
 <li class="toctree-l2"><a class="reference internal" href="pipelines.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="analysis.html#statistics">Statistics</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -112,6 +117,11 @@
 <li><a class="reference internal" href="#module-moabb.pipelines">Pipelines</a><ul>
 <li><a class="reference internal" href="#id4">Pipelines</a></li>
 <li><a class="reference internal" href="#id5">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-moabb.analysis">Analysis</a><ul>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+<li><a class="reference internal" href="#statistics">Statistics</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +173,11 @@
 <li><a class="reference internal" href="#module-moabb.pipelines">Pipelines</a><ul>
 <li><a class="reference internal" href="#id4">Pipelines</a></li>
 <li><a class="reference internal" href="#id5">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-moabb.analysis">Analysis</a><ul>
+<li><a class="reference internal" href="#plotting">Plotting</a></li>
+<li><a class="reference internal" href="#statistics">Statistics</a></li>
 </ul>
 </li>
 </ul>
@@ -223,22 +238,19 @@ different recording sessions per subject or to evaluate them separately.</p>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.Ofner2017.html#moabb.datasets.Ofner2017" title="moabb.datasets.Ofner2017"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ofner2017</span></code></a>([imagined,&nbsp;executed])</td>
 <td>Motor Imagery ataset from Ofner et al 2017.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.OpenvibeMI.html#moabb.datasets.OpenvibeMI" title="moabb.datasets.OpenvibeMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OpenvibeMI</span></code></a>()</td>
-<td>Openvibe Motor Imagery dataset.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.PhysionetMI.html#moabb.datasets.PhysionetMI" title="moabb.datasets.PhysionetMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PhysionetMI</span></code></a>([imagined,&nbsp;executed])</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.PhysionetMI.html#moabb.datasets.PhysionetMI" title="moabb.datasets.PhysionetMI"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PhysionetMI</span></code></a>([imagined,&nbsp;executed])</td>
 <td>Physionet Motor Imagery dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.Shin2017A.html#moabb.datasets.Shin2017A" title="moabb.datasets.Shin2017A"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shin2017A</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.Shin2017A.html#moabb.datasets.Shin2017A" title="moabb.datasets.Shin2017A"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shin2017A</span></code></a>()</td>
 <td>Motor Imagey Dataset from Shin et al 2017.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.Shin2017B.html#moabb.datasets.Shin2017B" title="moabb.datasets.Shin2017B"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shin2017B</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.Shin2017B.html#moabb.datasets.Shin2017B" title="moabb.datasets.Shin2017B"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shin2017B</span></code></a>()</td>
 <td>Mental Arithmetic Dataset from Shin et al 2017.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.Weibo2014.html#moabb.datasets.Weibo2014" title="moabb.datasets.Weibo2014"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Weibo2014</span></code></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.Weibo2014.html#moabb.datasets.Weibo2014" title="moabb.datasets.Weibo2014"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Weibo2014</span></code></a>()</td>
 <td>Motor Imagery dataset from Weibo et al 2014.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.datasets.Zhou2016.html#moabb.datasets.Zhou2016" title="moabb.datasets.Zhou2016"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Zhou2016</span></code></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.datasets.Zhou2016.html#moabb.datasets.Zhou2016" title="moabb.datasets.Zhou2016"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Zhou2016</span></code></a>()</td>
 <td>Motor Imagery dataset from Zhou et al 2016.</td>
 </tr>
 </tbody>
@@ -401,7 +413,7 @@ with an sklearn compatible estimator.</p>
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.pipelines.features.LogVariance.html#moabb.pipelines.features.LogVariance" title="moabb.pipelines.features.LogVariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.LogVariance</span></code></a></td>
 <td></td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter_bank.FilterBank</span></code></td>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.pipelines.features.FM.html#moabb.pipelines.features.FM" title="moabb.pipelines.features.FM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.FM</span></code></a>([freq])</td>
 <td></td>
 </tr>
 </tbody>
@@ -417,6 +429,85 @@ with an sklearn compatible estimator.</p>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.pipelines.utils.create_pipeline_from_config.html#moabb.pipelines.utils.create_pipeline_from_config" title="moabb.pipelines.utils.create_pipeline_from_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils.create_pipeline_from_config</span></code></a>(config)</td>
 <td>Create a pipeline from a config file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.pipelines.utils.FilterBank.html#moabb.pipelines.utils.FilterBank" title="moabb.pipelines.utils.FilterBank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils.FilterBank</span></code></a>(estimator[,&nbsp;flatten])</td>
+<td>Apply a given indentical pipeline over a bank of filter.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-moabb.analysis">
+<span id="analysis"></span><h1>Analysis<a class="headerlink" href="#module-moabb.analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="moabb.analysis.analyze">
+<code class="descclassname">moabb.analysis.</code><code class="descname">analyze</code><span class="sig-paren">(</span><em>results</em>, <em>out_path</em>, <em>name='analysis'</em>, <em>plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/moabb/analysis.html#analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.analysis.analyze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze results.</p>
+<p>Given a results dataframe, generates a folder with
+results and a dataframe of the exact data used to generate those results,
+aswell as introspection to return information on the computer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>out_path</strong> (<em>location to store analysis folder</em>)</li>
+<li><strong>results</strong> (<em>Dataframe generated from Results object</em>)</li>
+<li><strong>path</strong> (<em>string/None</em>)</li>
+<li><strong>plot</strong> (<em>whether to plot results</em>)</li>
+<li><strong>Either path or results is necessary</strong></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="plotting">
+<h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.plotting.score_plot.html#moabb.analysis.plotting.score_plot" title="moabb.analysis.plotting.score_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.score_plot</span></code></a>(data[,&nbsp;pipelines])</td>
+<td>In:     data: output of Results.to_dataframe()     pipelines: list of string|None, pipelines to include in this plot Out:     ax: pyplot Axes reference</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.plotting.paired_plot.html#moabb.analysis.plotting.paired_plot" title="moabb.analysis.plotting.paired_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.paired_plot</span></code></a>(data,&nbsp;alg1,&nbsp;alg2)</td>
+<td>returns figure with an axis that has a paired plot on it Data: dataframe from Results alg1: name of a member of column data.pipeline alg2: name of a member of column data.pipeline</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot" title="moabb.analysis.plotting.summary_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.summary_plot</span></code></a>(sig_df,&nbsp;effect_df[,&nbsp;…])</td>
+<td>Visualize significances as a heatmap with green/grey/red for significantly higher/significantly lower.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.plotting.meta_analysis_plot.html#moabb.analysis.plotting.meta_analysis_plot" title="moabb.analysis.plotting.meta_analysis_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.meta_analysis_plot</span></code></a>(stats_df,&nbsp;alg1,&nbsp;alg2)</td>
+<td>A meta-analysis style plot that shows the standardized effect with confidence intervals over all datasets for two algorithms.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.find_significant_differences.html#moabb.analysis.meta_analysis.find_significant_differences" title="moabb.analysis.meta_analysis.find_significant_differences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.find_significant_differences</span></code></a>(df)</td>
+<td>Compute matrix of p-values for all algorithms over all datasets via combined p-values method</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html#moabb.analysis.meta_analysis.compute_dataset_statistics" title="moabb.analysis.meta_analysis.compute_dataset_statistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.compute_dataset_statistics</span></code></a>(df)</td>
+<td>Returns dict of datasets to DataFrames with stats</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_effects.html#moabb.analysis.meta_analysis.combine_effects" title="moabb.analysis.meta_analysis.combine_effects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_effects</span></code></a>(effects,&nbsp;nsubs)</td>
+<td>Function that takes effects from each experiments and number of subjects to return meta-analysis effect</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_pvalues.html#moabb.analysis.meta_analysis.combine_pvalues" title="moabb.analysis.meta_analysis.combine_pvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_pvalues</span></code></a>(p,&nbsp;nsubs)</td>
+<td>Function that takes pvals from each experiments and number of subjects to return meta-analysis significance</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.meta_analysis.collapse_session_scores.html#moabb.analysis.meta_analysis.collapse_session_scores" title="moabb.analysis.meta_analysis.collapse_session_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.collapse_session_scores</span></code></a>(df)</td>
+<td></td>
 </tr>
 </tbody>
 </table>
