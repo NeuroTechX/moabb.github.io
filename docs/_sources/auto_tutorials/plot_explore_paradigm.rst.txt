@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_tutorials_plot_explore_paradigm.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_tutorials_plot_explore_paradigm.py:
 
@@ -64,7 +68,9 @@ First, lets take a example of the MotorImagery paradigm.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     N-class motor imagery.
 
@@ -123,7 +129,9 @@ preprocessed EEG data, the labels, and a dataframe with metadata.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Return the data for a list of subject.
 
@@ -191,7 +199,9 @@ one.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     (576, 22, 1001)
 
@@ -212,7 +222,9 @@ dataset, we have the 4 type of motor imagery that was performed.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     ['feet' 'left_hand' 'right_hand' 'tongue']
 
@@ -240,14 +252,18 @@ may or may not contain multiple run.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    subject    session    run
-    0        1  session_T  run_3
-    1        1  session_T  run_3
-    2        1  session_T  run_3
-    3        1  session_T  run_3
-    4        1  session_T  run_3
+ .. code-block:: none
+
+    subject  ...      run
+    0        1  ...    run_3
+    1        1  ...    run_3
+    2        1  ...    run_3
+    3        1  ...    run_3
+    4        1  ...    run_3
+
+    [5 rows x 3 columns]
 
 
 For this data, we have one subjecy, 2 sessions (2 different recording day)
@@ -266,20 +282,24 @@ and 6 run per session.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    subject    session    run
-    count     576.0        576    576
-    unique      NaN          2      6
-    top         NaN  session_E  run_4
-    freq        NaN        288     96
-    mean        1.0        NaN    NaN
-    std         0.0        NaN    NaN
-    min         1.0        NaN    NaN
-    25%         1.0        NaN    NaN
-    50%         1.0        NaN    NaN
-    75%         1.0        NaN    NaN
-    max         1.0        NaN    NaN
+ .. code-block:: none
+
+    subject  ...      run
+    count     576.0  ...      576
+    unique      NaN  ...        6
+    top         NaN  ...    run_7
+    freq        NaN  ...       96
+    mean        1.0  ...      NaN
+    std         0.0  ...      NaN
+    min         1.0  ...      NaN
+    25%         1.0  ...      NaN
+    50%         1.0  ...      NaN
+    75%         1.0  ...      NaN
+    max         1.0  ...      NaN
+
+    [11 rows x 3 columns]
 
 
 Paradigm object can also return the list of all dataset compatible. here
@@ -299,7 +319,9 @@ it will return the list all the imagery datasets from the moabb.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     ['Alexandre Motor Imagery', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'Cho2017', 'Grosse-Wentrup 2009', 'Ofner2017', 'Physionet Motor Imagery', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
@@ -326,7 +348,9 @@ before concatenating the output.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Filter bank n-class motor imagery.
 
@@ -361,7 +385,9 @@ therefore, the output X is a 4D array, with trial x channel x time x filter
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     (288, 22, 1001, 6)
 
@@ -387,7 +413,9 @@ restricted to left and right hand events.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     Motor Imagery for left hand/right hand classification
 
@@ -411,7 +439,9 @@ contains at least left and right hand events.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     ['001-2014', '004-2014', 'Cho2017', 'Grosse-Wentrup 2009', 'Physionet Motor Imagery', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
@@ -433,18 +463,24 @@ corresponding to left and right hand motor imagination.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
+
+ .. code-block:: none
 
     ['left_hand' 'right_hand']
 
 
-**Total running time of the script:** ( 0 minutes  22.846 seconds)
+**Total running time of the script:** ( 0 minutes  18.744 seconds)
 
+
+.. _sphx_glr_download_auto_tutorials_plot_explore_paradigm.py:
 
 
 .. only :: html
 
  .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download

@@ -7,8 +7,8 @@
     <title>Explore Paradigm Object &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -130,32 +130,13 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Explore Paradigm Object</a><ul>
-<li><a class="reference internal" href="#motorimagery">MotorImagery</a></li>
-<li><a class="reference internal" href="#filterbank-motorimagery">FilterBank MotorImagery</a></li>
-<li><a class="reference internal" href="#leftright-motorimagery">LeftRight MotorImagery</a></li>
-</ul>
-</li>
-</ul>
-
-<div id="sourcelink">
-  <a href="../_sources/auto_tutorials/plot_explore_paradigm.rst.txt"
-     rel="nofollow">Source</a>
-</div>
-<form action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
-  <div class="section" id="explore-paradigm-object">
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-tutorials-plot-explore-paradigm-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="explore-paradigm-object">
 <span id="sphx-glr-auto-tutorials-plot-explore-paradigm-py"></span><h1>Explore Paradigm Object<a class="headerlink" href="#explore-paradigm-object" title="Permalink to this headline">¶</a></h1>
 <p>A paradigm defines how the raw data will be converted to trials ready
 to be processed by a decoding algorithm. This is a function of the paradigm
@@ -195,44 +176,44 @@ coefficient for continuous paradigms.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="o">-</span><span class="k">class</span> <span class="nc">motor</span> <span class="n">imagery</span><span class="o">.</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>N-class motor imagery.
 
-    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc-auc&#39;</span> <span class="k">if</span> <span class="mi">2</span> <span class="n">classes</span> <span class="ow">and</span> <span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="n">more</span>
+    Metric is &#39;roc-auc&#39; if 2 classes and &#39;accuracy&#39; if more
 
-    <span class="n">Parameters</span>
-    <span class="o">-----------</span>
+    Parameters
+    -----------
 
-    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span>
-        <span class="n">event</span> <span class="n">labels</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">filter</span> <span class="n">datasets</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">if</span> <span class="n">only</span> <span class="n">motor</span> <span class="n">imagery</span> <span class="ow">is</span>
-        <span class="n">desired</span><span class="p">)</span><span class="o">.</span>
+    events: List of str
+        event labels used to filter datasets (e.g. if only motor imagery is
+        desired).
 
-    <span class="n">n_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">number</span> <span class="n">of</span> <span class="n">classes</span> <span class="n">each</span> <span class="n">dataset</span> <span class="n">must</span> <span class="n">have</span><span class="o">.</span> <span class="n">If</span> <span class="n">events</span> <span class="ow">is</span> <span class="n">given</span><span class="p">,</span>
-        <span class="n">requires</span> <span class="nb">all</span> <span class="n">imagery</span> <span class="n">sorts</span> <span class="n">to</span> <span class="n">be</span> <span class="n">within</span> <span class="n">the</span> <span class="n">events</span> <span class="nb">list</span><span class="o">.</span>
+    n_classes: int,
+        number of classes each dataset must have. If events is given,
+        requires all imagery sorts to be within the events list.
 
-    <span class="n">fmin</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mi">8</span><span class="p">)</span>
-        <span class="n">cutoff</span> <span class="n">frequency</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">high</span> <span class="k">pass</span> <span class="nb">filter</span>
+    fmin: float (default 8)
+        cutoff frequency (Hz) for the high pass filter
 
-    <span class="n">fmax</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mi">32</span><span class="p">)</span>
-        <span class="n">cutoff</span> <span class="n">frequency</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span> <span class="k">for</span> <span class="n">the</span> <span class="n">low</span> <span class="k">pass</span> <span class="nb">filter</span>
+    fmax: float (default 32)
+        cutoff frequency (Hz) for the low pass filter
 
-    <span class="n">tmin</span><span class="p">:</span> <span class="nb">float</span> <span class="p">(</span><span class="n">default</span> <span class="mf">0.0</span><span class="p">)</span>
-        <span class="n">Start</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">second</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">specific</span>
-        <span class="n">task</span> <span class="n">interval</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">tmin</span> <span class="o">=</span> <span class="mi">1</span> <span class="n">would</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">epoch</span> <span class="n">will</span> <span class="n">start</span> <span class="mi">1</span> <span class="n">second</span>
-        <span class="n">after</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span> <span class="n">task</span> <span class="k">as</span> <span class="n">defined</span> <span class="n">by</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span>
+    tmin: float (default 0.0)
+        Start time (in second) of the epoch, relative to the dataset specific
+        task interval e.g. tmin = 1 would mean the epoch will start 1 second
+        after the begining of the task as defined by the dataset.
 
-    <span class="n">tmax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">End</span> <span class="n">time</span> <span class="p">(</span><span class="ow">in</span> <span class="n">second</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">relative</span> <span class="n">to</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span>
-        <span class="n">dataset</span> <span class="n">specific</span> <span class="n">task</span> <span class="n">interval</span><span class="o">.</span> <span class="n">tmax</span> <span class="o">=</span> <span class="mi">5</span> <span class="n">would</span> <span class="n">mean</span> <span class="n">the</span> <span class="n">epoch</span> <span class="n">will</span> <span class="n">end</span>
-        <span class="mi">5</span> <span class="n">second</span> <span class="n">after</span> <span class="n">the</span> <span class="n">begining</span> <span class="n">of</span> <span class="n">the</span> <span class="n">task</span> <span class="k">as</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span> <span class="n">If</span>
-        <span class="kc">None</span><span class="p">,</span> <span class="n">use</span> <span class="n">the</span> <span class="n">dataset</span> <span class="n">value</span><span class="o">.</span>
+    tmax: float | None, (default None)
+        End time (in second) of the epoch, relative to the begining of the
+        dataset specific task interval. tmax = 5 would mean the epoch will end
+        5 second after the begining of the task as defined in the dataset. If
+        None, use the dataset value.
 
-    <span class="n">channels</span><span class="p">:</span> <span class="nb">list</span> <span class="n">of</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="nb">list</span> <span class="n">of</span> <span class="n">channel</span> <span class="n">to</span> <span class="n">select</span><span class="o">.</span> <span class="n">If</span> <span class="kc">None</span><span class="p">,</span> <span class="n">use</span> <span class="nb">all</span> <span class="n">EEG</span> <span class="n">channels</span> <span class="n">available</span> <span class="ow">in</span>
-        <span class="n">the</span> <span class="n">dataset</span><span class="o">.</span>
+    channels: list of str | None (default None)
+        list of channel to select. If None, use all EEG channels available in
+        the dataset.
 
-    <span class="n">resample</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="p">(</span><span class="n">default</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">If</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">resample</span> <span class="n">the</span> <span class="n">eeg</span> <span class="n">data</span> <span class="k">with</span> <span class="n">the</span> <span class="n">sampling</span> <span class="n">rate</span> <span class="n">provided</span><span class="o">.</span>
+    resample: float | None (default None)
+        If not None, resample the eeg data with the sampling rate provided.
 </pre></div>
 </div>
 <p>The function <cite>get_data</cite> allow you to access preprocessed data from a dataset.
@@ -242,30 +223,30 @@ preprocessed EEG data, the labels, and a dataframe with metadata.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Return</span> <span class="n">the</span> <span class="n">data</span> <span class="k">for</span> <span class="n">a</span> <span class="nb">list</span> <span class="n">of</span> <span class="n">subject</span><span class="o">.</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Return the data for a list of subject.
 
-        <span class="k">return</span> <span class="n">the</span> <span class="n">data</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">and</span> <span class="n">a</span> <span class="n">dataframe</span> <span class="k">with</span> <span class="n">metadata</span><span class="o">.</span> <span class="n">the</span> <span class="n">dataframe</span>
-        <span class="n">will</span> <span class="n">contain</span> <span class="n">at</span> <span class="n">least</span> <span class="n">the</span> <span class="n">following</span> <span class="n">columns</span>
+        return the data, labels and a dataframe with metadata. the dataframe
+        will contain at least the following columns
 
-        <span class="o">-</span> <span class="n">subject</span> <span class="p">:</span> <span class="n">the</span> <span class="n">subject</span> <span class="n">indice</span>
-        <span class="o">-</span> <span class="n">session</span> <span class="p">:</span> <span class="n">the</span> <span class="n">session</span> <span class="n">indice</span>
-        <span class="o">-</span> <span class="n">run</span> <span class="p">:</span> <span class="n">the</span> <span class="n">run</span> <span class="n">indice</span>
+        - subject : the subject indice
+        - session : the session indice
+        - run : the run indice
 
-        <span class="n">parameters</span>
-        <span class="o">----------</span>
-        <span class="n">dataset</span><span class="p">:</span>
-            <span class="n">A</span> <span class="n">dataset</span> <span class="n">instance</span><span class="o">.</span>
-        <span class="n">subjects</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">int</span>
-            <span class="n">List</span> <span class="n">of</span> <span class="n">subject</span> <span class="n">number</span>
+        parameters
+        ----------
+        dataset:
+            A dataset instance.
+        subjects: List of int
+            List of subject number
 
-        <span class="n">returns</span>
-        <span class="o">-------</span>
-        <span class="n">X</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-            <span class="n">the</span> <span class="n">data</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">used</span> <span class="k">as</span> <span class="n">features</span> <span class="k">for</span> <span class="n">the</span> <span class="n">model</span>
-        <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
-            <span class="n">the</span> <span class="n">labels</span> <span class="k">for</span> <span class="n">training</span> <span class="o">/</span> <span class="n">evaluating</span> <span class="n">the</span> <span class="n">model</span>
-        <span class="n">metadata</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
-            <span class="n">A</span> <span class="n">dataframe</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">metadata</span><span class="o">.</span>
+        returns
+        -------
+        X : np.ndarray
+            the data that will be used as features for the model
+        labels: np.ndarray
+            the labels for training / evaluating the model
+        metadata: pd.DataFrame
+            A dataframe containing the metadata.
 </pre></div>
 </div>
 <p>Lets take the example of the BNCI2014001 dataset, known as the dataset IIa
@@ -287,7 +268,7 @@ one.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">576</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(576, 22, 1001)
 </pre></div>
 </div>
 <p>Labels contains the labels corresponding to each trial. in the case of this
@@ -296,7 +277,7 @@ dataset, we have the 4 type of motor imagery that was performed.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;feet&#39;</span> <span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span> <span class="s1">&#39;tongue&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;feet&#39; &#39;left_hand&#39; &#39;right_hand&#39; &#39;tongue&#39;]
 </pre></div>
 </div>
 <p>metadata have at least 3 columns, subject, session and run.</p>
@@ -311,12 +292,14 @@ may or may not contain multiple run.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
-<span class="mi">0</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
-<span class="mi">1</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
-<span class="mi">2</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
-<span class="mi">3</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
-<span class="mi">4</span>        <span class="mi">1</span>  <span class="n">session_T</span>  <span class="n">run_3</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>subject  ...      run
+0        1  ...    run_3
+1        1  ...    run_3
+2        1  ...    run_3
+3        1  ...    run_3
+4        1  ...    run_3
+
+[5 rows x 3 columns]
 </pre></div>
 </div>
 <p>For this data, we have one subjecy, 2 sessions (2 different recording day)
@@ -325,18 +308,20 @@ and 6 run per session.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">subject</span>    <span class="n">session</span>    <span class="n">run</span>
-<span class="n">count</span>     <span class="mf">576.0</span>        <span class="mi">576</span>    <span class="mi">576</span>
-<span class="n">unique</span>      <span class="n">NaN</span>          <span class="mi">2</span>      <span class="mi">6</span>
-<span class="n">top</span>         <span class="n">NaN</span>  <span class="n">session_E</span>  <span class="n">run_4</span>
-<span class="n">freq</span>        <span class="n">NaN</span>        <span class="mi">288</span>     <span class="mi">96</span>
-<span class="n">mean</span>        <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="n">std</span>         <span class="mf">0.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="nb">min</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="mi">25</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="mi">50</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="mi">75</span><span class="o">%</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
-<span class="nb">max</span>         <span class="mf">1.0</span>        <span class="n">NaN</span>    <span class="n">NaN</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>subject  ...      run
+count     576.0  ...      576
+unique      NaN  ...        6
+top         NaN  ...    run_7
+freq        NaN  ...       96
+mean        1.0  ...      NaN
+std         0.0  ...      NaN
+min         1.0  ...      NaN
+25%         1.0  ...      NaN
+50%         1.0  ...      NaN
+75%         1.0  ...      NaN
+max         1.0  ...      NaN
+
+[11 rows x 3 columns]
 </pre></div>
 </div>
 <p>Paradigm object can also return the list of all dataset compatible. here
@@ -346,7 +331,7 @@ it will return the list all the imagery datasets from the moabb.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;Alexandre Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;002-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;001-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2015&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Ofner2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;Alexandre Motor Imagery&#39;, &#39;001-2014&#39;, &#39;002-2014&#39;, &#39;004-2014&#39;, &#39;001-2015&#39;, &#39;004-2015&#39;, &#39;Cho2017&#39;, &#39;Grosse-Wentrup 2009&#39;, &#39;Ofner2017&#39;, &#39;Physionet Motor Imagery&#39;, &#39;Shin2017A&#39;, &#39;Weibo 2014&#39;, &#39;Zhou 2016&#39;]
 </pre></div>
 </div>
 </div>
@@ -361,20 +346,20 @@ before concatenating the output.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Filter</span> <span class="n">bank</span> <span class="n">n</span><span class="o">-</span><span class="k">class</span> <span class="nc">motor</span> <span class="n">imagery</span><span class="o">.</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Filter bank n-class motor imagery.
 
-    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc-auc&#39;</span> <span class="k">if</span> <span class="mi">2</span> <span class="n">classes</span> <span class="ow">and</span> <span class="s1">&#39;accuracy&#39;</span> <span class="k">if</span> <span class="n">more</span>
+    Metric is &#39;roc-auc&#39; if 2 classes and &#39;accuracy&#39; if more
 
-    <span class="n">Parameters</span>
-    <span class="o">-----------</span>
+    Parameters
+    -----------
 
-    <span class="n">events</span><span class="p">:</span> <span class="n">List</span> <span class="n">of</span> <span class="nb">str</span>
-        <span class="n">event</span> <span class="n">labels</span> <span class="n">used</span> <span class="n">to</span> <span class="nb">filter</span> <span class="n">datasets</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="k">if</span> <span class="n">only</span> <span class="n">motor</span> <span class="n">imagery</span> <span class="ow">is</span>
-        <span class="n">desired</span><span class="p">)</span><span class="o">.</span>
+    events: List of str
+        event labels used to filter datasets (e.g. if only motor imagery is
+        desired).
 
-    <span class="n">n_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-        <span class="n">number</span> <span class="n">of</span> <span class="n">classes</span> <span class="n">each</span> <span class="n">dataset</span> <span class="n">must</span> <span class="n">have</span><span class="o">.</span> <span class="n">If</span> <span class="n">events</span> <span class="ow">is</span> <span class="n">given</span><span class="p">,</span>
-        <span class="n">requires</span> <span class="nb">all</span> <span class="n">imagery</span> <span class="n">sorts</span> <span class="n">to</span> <span class="n">be</span> <span class="n">within</span> <span class="n">the</span> <span class="n">events</span> <span class="nb">list</span><span class="o">.</span>
+    n_classes: int,
+        number of classes each dataset must have. If events is given,
+        requires all imagery sorts to be within the events list.
 </pre></div>
 </div>
 <p>therefore, the output X is a 4D array, with trial x channel x time x filter</p>
@@ -384,7 +369,7 @@ before concatenating the output.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">288</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">1001</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>(288, 22, 1001, 6)
 </pre></div>
 </div>
 </div>
@@ -398,9 +383,9 @@ restricted to left and right hand events.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Motor</span> <span class="n">Imagery</span> <span class="k">for</span> <span class="n">left</span> <span class="n">hand</span><span class="o">/</span><span class="n">right</span> <span class="n">hand</span> <span class="n">classification</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Motor Imagery for left hand/right hand classification
 
-    <span class="n">Metric</span> <span class="ow">is</span> <span class="s1">&#39;roc_auc&#39;</span>
+    Metric is &#39;roc_auc&#39;
 </pre></div>
 </div>
 <p>the compatible dataset list is a subset of motor imagery dataset that
@@ -410,7 +395,7 @@ contains at least left and right hand events.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;004-2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span> <span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span> <span class="s1">&#39;Physionet Motor Imagery&#39;</span><span class="p">,</span> <span class="s1">&#39;Shin2017A&#39;</span><span class="p">,</span> <span class="s1">&#39;Weibo 2014&#39;</span><span class="p">,</span> <span class="s1">&#39;Zhou 2016&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;001-2014&#39;, &#39;004-2014&#39;, &#39;Cho2017&#39;, &#39;Grosse-Wentrup 2009&#39;, &#39;Physionet Motor Imagery&#39;, &#39;Shin2017A&#39;, &#39;Weibo 2014&#39;, &#39;Zhou 2016&#39;]
 </pre></div>
 </div>
 <p>So if we apply this this to our original dataset, it will only return trials
@@ -421,15 +406,15 @@ corresponding to left and right hand motor imagination.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;left_hand&#39;</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">]</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;left_hand&#39; &#39;right_hand&#39;]
 </pre></div>
 </div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  22.846 seconds)</p>
-<div class="sphx-glr-footer docutils container">
+<p><strong>Total running time of the script:</strong> ( 0 minutes  18.744 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-plot-explore-paradigm-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_explore_paradigm.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/ff91020f6f905531c1788d3288d0c756/plot_explore_paradigm.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_explore_paradigm.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_explore_paradigm.ipynb</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/3b59a1e24373cba9ba5517fc91e9f9c5/plot_explore_paradigm.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_explore_paradigm.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -455,7 +440,7 @@ corresponding to left and right hand motor imagination.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

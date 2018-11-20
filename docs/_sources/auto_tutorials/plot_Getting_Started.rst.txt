@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_tutorials_plot_Getting_Started.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_tutorials_plot_Getting_Started.py:
 
@@ -136,9 +140,11 @@ Datasets can be specified in many ways: Each paradigm has a property
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f83e22bb7b8>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f83e22bb828>, <moabb.datasets.gigadb.Cho2017 object at 0x7f83dd78bba8>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f83e22b6ef0>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f83e22b6e48>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f83e22b6668>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f83dd8cea20>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f83e22b6e80>]
+ .. code-block:: none
+
+    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f7bee0e8198>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f7bee0e82b0>, <moabb.datasets.gigadb.Cho2017 object at 0x7f7bee0e8128>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f7bee0e82e8>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f7bedf7fd30>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f7c5cc92c18>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f7bedf7fba8>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f7bedf7f668>]
 
 
 Or you can run a search through the available datasets:
@@ -155,9 +161,11 @@ Or you can run a search through the available datasets:
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    [<moabb.datasets.alex_mi.AlexMI object at 0x7f83e22b6668>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f83dd9e8128>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f83dd78b898>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f83dd78bba8>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f83dd78beb8>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f83e22a1e10>, <moabb.datasets.gigadb.Cho2017 object at 0x7f83e22a1f60>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f83dda64a58>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f83dd7479b0>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f83dd747390>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f83dd826c50>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f83e38fe128>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f83e38fe208>]
+ .. code-block:: none
+
+    [<moabb.datasets.alex_mi.AlexMI object at 0x7f7bee067e80>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f7bedf2ce10>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f7bedf7fd30>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f7bedf7fba8>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f7bedf7f668>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f7bedf7feb8>, <moabb.datasets.gigadb.Cho2017 object at 0x7f7bedf7f710>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f7bedf87a90>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f7bedf6fda0>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f7bedf6fc50>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f7bee12bda0>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f7bee12bba8>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f7bee12b9b0>]
 
 
 Or you can simply make your own list (which we do here due to computational
@@ -237,30 +245,31 @@ want with them
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    score      time  samples subject    session  channels  n_sessions  \
-    0  0.801698  0.041330    144.0       1  session_E        22           2   
-    1  0.786458  0.038006    144.0       1  session_T        22           2   
-    2  0.498650  0.039390    144.0       2  session_E        22           2   
-    3  0.576582  0.048287    144.0       2  session_T        22           2   
-    4  0.945988  0.045158    144.0       3  session_E        22           2   
+ .. code-block:: none
 
-        dataset  pipeline  
-    0  001-2014  AM + LDA  
-    1  001-2014  AM + LDA  
-    2  001-2014  AM + LDA  
-    3  001-2014  AM + LDA  
-    4  001-2014  AM + LDA
+    score    ...     pipeline
+    0  0.801698    ...     AM + LDA
+    1  0.786458    ...     AM + LDA
+    2  0.498650    ...     AM + LDA
+    3  0.576582    ...     AM + LDA
+    4  0.945988    ...     AM + LDA
+
+    [5 rows x 9 columns]
 
 
-**Total running time of the script:** ( 0 minutes  37.468 seconds)
+**Total running time of the script:** ( 0 minutes  31.335 seconds)
 
+
+.. _sphx_glr_download_auto_tutorials_plot_Getting_Started.py:
 
 
 .. only :: html
 
  .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download

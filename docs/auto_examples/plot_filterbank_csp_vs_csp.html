@@ -7,8 +7,8 @@
     <title>FilterBank CSP versus CSP &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -130,32 +130,13 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">FilterBank CSP versus CSP</a><ul>
-<li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
-<li><a class="reference internal" href="#evaluation">Evaluation</a></li>
-<li><a class="reference internal" href="#plot-results">Plot Results</a></li>
-</ul>
-</li>
-</ul>
-
-<div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_filterbank_csp_vs_csp.rst.txt"
-     rel="nofollow">Source</a>
-</div>
-<form action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
-  <div class="section" id="filterbank-csp-versus-csp">
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-filterbank-csp-vs-csp-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="filterbank-csp-versus-csp">
 <span id="sphx-glr-auto-examples-plot-filterbank-csp-vs-csp-py"></span><h1>FilterBank CSP versus CSP<a class="headerlink" href="#filterbank-csp-versus-csp" title="Permalink to this headline">¶</a></h1>
 <p>This Example show a comparison of CSP versus FilterBank CSP on the
 very popular dataset 2a from the BCI competition IV.</p>
@@ -197,11 +178,6 @@ their own dict.</p>
 <span class="n">pipelines_fb</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">pipelines_fb</span><span class="p">[</span><span class="s1">&#39;FBCSP + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">FilterBank</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">4</span><span class="p">)),</span>
                                             <span class="n">LDA</span><span class="p">())</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">norm_trace</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">True</span> <span class="ow">in</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">but</span> <span class="n">will</span> <span class="n">change</span> <span class="n">to</span> <span class="kc">False</span> <span class="ow">in</span> <span class="mf">0.16</span><span class="o">.</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
-<span class="n">norm_trace</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">True</span> <span class="ow">in</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">but</span> <span class="n">will</span> <span class="n">change</span> <span class="n">to</span> <span class="kc">False</span> <span class="ow">in</span> <span class="mf">0.16</span><span class="o">.</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>
@@ -268,13 +244,13 @@ points are in its quadrant.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" class="align-center" src="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" />
-<p><strong>Total running time of the script:</strong> ( 2 minutes  44.212 seconds)</p>
-<div class="sphx-glr-footer docutils container">
+<img alt="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_filterbank_csp_vs_csp_001.png" />
+<p><strong>Total running time of the script:</strong> ( 2 minutes  17.607 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-filterbank-csp-vs-csp-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_filterbank_csp_vs_csp.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_filterbank_csp_vs_csp.py</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/a900ff16917bbb97de35c963f8964b75/plot_filterbank_csp_vs_csp.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_filterbank_csp_vs_csp.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_filterbank_csp_vs_csp.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_filterbank_csp_vs_csp.ipynb</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/31f026214c8988509b7a7d7864d9913d/plot_filterbank_csp_vs_csp.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_filterbank_csp_vs_csp.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -300,7 +276,7 @@ points are in its quadrant.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

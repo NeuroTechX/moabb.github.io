@@ -7,8 +7,8 @@
     <title>moabb.analysis &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
-    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -122,27 +122,15 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary">
-<form action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
   <h1>Source code for moabb.analysis</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">moabb.analysis</span> <span class="k">import</span> <span class="n">plotting</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># flake8: noqa</span>
-<span class="kn">from</span> <span class="nn">moabb.analysis.results</span> <span class="k">import</span> <span class="n">Results</span>  <span class="c1"># flake8: noqa</span>
-<span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="k">import</span> <span class="n">find_significant_differences</span><span class="p">,</span><span class="n">compute_dataset_statistics</span> <span class="c1"># flake8: noqa</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis</span> <span class="k">import</span> <span class="n">plotting</span> <span class="k">as</span> <span class="n">plt</span>  <span class="c1"># noqa: E501</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis.results</span> <span class="k">import</span> <span class="n">Results</span>  <span class="c1"># noqa: E501,F401</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="k">import</span> <span class="n">find_significant_differences</span><span class="p">,</span> <span class="n">compute_dataset_statistics</span>  <span class="c1"># noqa: E501</span>
 
 
 <div class="viewcode-block" id="analyze"><a class="viewcode-back" href="../../api.html#moabb.analysis.analyze">[docs]</a><span class="k">def</span> <span class="nf">analyze</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">out_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -210,7 +198,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

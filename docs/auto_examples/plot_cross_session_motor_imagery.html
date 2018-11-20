@@ -7,8 +7,8 @@
     <title>Cross Session Motor Imagery &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
-    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
@@ -130,32 +130,13 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Cross Session Motor Imagery</a><ul>
-<li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
-<li><a class="reference internal" href="#evaluation">Evaluation</a></li>
-<li><a class="reference internal" href="#plot-results">Plot Results</a></li>
-</ul>
-</li>
-</ul>
-
-<div id="sourcelink">
-  <a href="../_sources/auto_examples/plot_cross_session_motor_imagery.rst.txt"
-     rel="nofollow">Source</a>
-</div>
-<form action="../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
-  <div class="section" id="cross-session-motor-imagery">
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-cross-session-motor-imagery-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cross-session-motor-imagery">
 <span id="sphx-glr-auto-examples-plot-cross-session-motor-imagery-py"></span><h1>Cross Session Motor Imagery<a class="headerlink" href="#cross-session-motor-imagery" title="Permalink to this headline">¶</a></h1>
 <p>This Example show how to perform a cross session motor imagery analysis on the
 very popular dataset 2a from the BCI competition IV.</p>
@@ -211,10 +192,6 @@ space mapping and finaly a logistic regression for the classification.</p>
                                      <span class="n">LogisticRegression</span><span class="p">())</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">norm_trace</span> <span class="n">defaults</span> <span class="n">to</span> <span class="kc">True</span> <span class="ow">in</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">but</span> <span class="n">will</span> <span class="n">change</span> <span class="n">to</span> <span class="kc">False</span> <span class="ow">in</span> <span class="mf">0.16</span><span class="o">.</span> <span class="n">Set</span> <span class="n">it</span> <span class="n">explicitly</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">warning</span><span class="o">.</span>
-</pre></div>
-</div>
 </div>
 <div class="section" id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
@@ -236,19 +213,14 @@ be overwrited if necessary.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">score</span>      <span class="n">time</span>  <span class="n">samples</span> <span class="n">subject</span>    <span class="n">session</span>  <span class="n">channels</span>  <span class="n">n_sessions</span>  \
-<span class="mi">0</span>  <span class="mf">0.962770</span>  <span class="mf">0.871009</span>    <span class="mf">144.0</span>       <span class="mi">1</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">1</span>  <span class="mf">0.950424</span>  <span class="mf">0.858264</span>    <span class="mf">144.0</span>       <span class="mi">1</span>  <span class="n">session_T</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">2</span>  <span class="mf">0.585648</span>  <span class="mf">0.768809</span>    <span class="mf">144.0</span>       <span class="mi">2</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">3</span>  <span class="mf">0.574846</span>  <span class="mf">0.732366</span>    <span class="mf">144.0</span>       <span class="mi">2</span>  <span class="n">session_T</span>        <span class="mi">22</span>           <span class="mi">2</span>
-<span class="mi">4</span>  <span class="mf">0.998650</span>  <span class="mf">0.801272</span>    <span class="mf">144.0</span>       <span class="mi">3</span>  <span class="n">session_E</span>        <span class="mi">22</span>           <span class="mi">2</span>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>score    ...       pipeline
+0  0.955440    ...      CSP + LDA
+1  0.931713    ...      CSP + LDA
+2  0.646219    ...      CSP + LDA
+3  0.527199    ...      CSP + LDA
+4  0.996335    ...      CSP + LDA
 
-    <span class="n">dataset</span> <span class="n">pipeline</span>
-<span class="mi">0</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">RG</span> <span class="o">+</span> <span class="n">LR</span>
-<span class="mi">1</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">RG</span> <span class="o">+</span> <span class="n">LR</span>
-<span class="mi">2</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">RG</span> <span class="o">+</span> <span class="n">LR</span>
-<span class="mi">3</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">RG</span> <span class="o">+</span> <span class="n">LR</span>
-<span class="mi">4</span>  <span class="mi">001</span><span class="o">-</span><span class="mi">2014</span>  <span class="n">RG</span> <span class="o">+</span> <span class="n">LR</span>
+[5 rows x 9 columns]
 </pre></div>
 </div>
 </div>
@@ -282,13 +254,13 @@ points are in its quadrant.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" class="align-center" src="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  52.251 seconds)</p>
-<div class="sphx-glr-footer docutils container">
+<img alt="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" />
+<p><strong>Total running time of the script:</strong> ( 0 minutes  40.446 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-cross-session-motor-imagery-py">
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_cross_session_motor_imagery.py" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_motor_imagery.py</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/391d20be83473ba168eb71ddef8aca7d/plot_cross_session_motor_imagery.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_motor_imagery.py</span></code></a></div>
 <div class="sphx-glr-download docutils container">
-<a class="reference download internal" href="../_downloads/plot_cross_session_motor_imagery.ipynb" download=""><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_session_motor_imagery.ipynb</span></code></a></div>
+<a class="reference download internal" download="" href="../_downloads/10c7ba85371aa8b34d209a707036cb7a/plot_cross_session_motor_imagery.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cross_session_motor_imagery.ipynb</span></code></a></div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
@@ -314,7 +286,7 @@ points are in its quadrant.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

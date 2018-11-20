@@ -7,8 +7,8 @@
     <title>Datasets &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
-    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -151,51 +151,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Datasets</a><ul>
-<li><a class="reference internal" href="#motor-imagery-datasets">Motor Imagery Datasets</a></li>
-<li><a class="reference internal" href="#erp-datasets">ERP Datasets</a></li>
-<li><a class="reference internal" href="#ssvep-datasets">SSVEP Datasets</a></li>
-<li><a class="reference internal" href="#base-utils">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-moabb.evaluations">Evaluations</a><ul>
-<li><a class="reference internal" href="#id1">Evaluations</a></li>
-<li><a class="reference internal" href="#id2">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-moabb.paradigms">Paradigms</a><ul>
-<li><a class="reference internal" href="#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
-<li><a class="reference internal" href="#id3">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-moabb.pipelines">Pipelines</a><ul>
-<li><a class="reference internal" href="#id4">Pipelines</a></li>
-<li><a class="reference internal" href="#id5">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-moabb.analysis">Analysis</a><ul>
-<li><a class="reference internal" href="#plotting">Plotting</a></li>
-<li><a class="reference internal" href="#statistics">Statistics</a></li>
-</ul>
-</li>
-</ul>
-
-<div id="sourcelink">
-  <a href="_sources/api.rst.txt"
-     rel="nofollow">Source</a>
-</div>
-<form action="search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-        </div>
-      </div>
-    <div class="col-md-9 content">
+    <div class="col-md-12 content">
       
   <div class="section" id="module-moabb.datasets">
 <span id="datasets"></span><h1>Datasets<a class="headerlink" href="#module-moabb.datasets" title="Permalink to this headline">¶</a></h1>
@@ -472,7 +428,7 @@ aswell as introspection to return information on the computer</p>
 </colgroup>
 <tbody valign="top">
 <tr class="row-odd"><td><a class="reference internal" href="generated/moabb.analysis.plotting.score_plot.html#moabb.analysis.plotting.score_plot" title="moabb.analysis.plotting.score_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.score_plot</span></code></a>(data[,&nbsp;pipelines])</td>
-<td>In:     data: output of Results.to_dataframe()     pipelines: list of string|None, pipelines to include in this plot Out:     ax: pyplot Axes reference</td>
+<td>In:</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="generated/moabb.analysis.plotting.paired_plot.html#moabb.analysis.plotting.paired_plot" title="moabb.analysis.plotting.paired_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.paired_plot</span></code></a>(data,&nbsp;alg1,&nbsp;alg2)</td>
 <td>returns figure with an axis that has a paired plot on it Data: dataframe from Results alg1: name of a member of column data.pipeline alg2: name of a member of column data.pipeline</td>
@@ -534,7 +490,7 @@ aswell as introspection to return information on the computer</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
     </p>
   </div>
 </footer>

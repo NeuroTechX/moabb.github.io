@@ -1,4 +1,8 @@
+.. note::
+    :class: sphx-glr-download-link-note
 
+    Click :ref:`here <sphx_glr_download_auto_examples_plot_cross_session_motor_imagery.py>` to download the full example code
+.. rst-class:: sphx-glr-example-title
 
 .. _sphx_glr_auto_examples_plot_cross_session_motor_imagery.py:
 
@@ -85,11 +89,6 @@ space mapping and finaly a logistic regression for the classification.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- Out::
-
-    norm_trace defaults to True in 0.15, but will change to False in 0.16. Set it explicitly to avoid this warning.
 
 
 Evaluation
@@ -124,21 +123,18 @@ be overwrited if necessary.
 
 .. rst-class:: sphx-glr-script-out
 
- Out::
+ Out:
 
-    score      time  samples subject    session  channels  n_sessions  \
-    0  0.962770  0.871009    144.0       1  session_E        22           2   
-    1  0.950424  0.858264    144.0       1  session_T        22           2   
-    2  0.585648  0.768809    144.0       2  session_E        22           2   
-    3  0.574846  0.732366    144.0       2  session_T        22           2   
-    4  0.998650  0.801272    144.0       3  session_E        22           2   
+ .. code-block:: none
 
-        dataset pipeline  
-    0  001-2014  RG + LR  
-    1  001-2014  RG + LR  
-    2  001-2014  RG + LR  
-    3  001-2014  RG + LR  
-    4  001-2014  RG + LR
+    score    ...       pipeline
+    0  0.955440    ...      CSP + LDA
+    1  0.931713    ...      CSP + LDA
+    2  0.646219    ...      CSP + LDA
+    3  0.527199    ...      CSP + LDA
+    4  0.996335    ...      CSP + LDA
+
+    [5 rows x 9 columns]
 
 
 Plot Results
@@ -180,18 +176,22 @@ points are in its quadrant.
 
 
 .. image:: /auto_examples/images/sphx_glr_plot_cross_session_motor_imagery_001.png
-    :align: center
+    :class: sphx-glr-single-img
 
 
 
 
-**Total running time of the script:** ( 0 minutes  52.251 seconds)
+**Total running time of the script:** ( 0 minutes  40.446 seconds)
 
+
+.. _sphx_glr_download_auto_examples_plot_cross_session_motor_imagery.py:
 
 
 .. only :: html
 
  .. container:: sphx-glr-footer
+    :class: sphx-glr-footer-example
+
 
 
   .. container:: sphx-glr-download
