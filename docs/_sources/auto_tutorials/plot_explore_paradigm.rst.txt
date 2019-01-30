@@ -289,7 +289,7 @@ and 6 run per session.
     subject  ...      run
     count     576.0  ...      576
     unique      NaN  ...        6
-    top         NaN  ...    run_7
+    top         NaN  ...    run_8
     freq        NaN  ...       96
     mean        1.0  ...      NaN
     std         0.0  ...      NaN
@@ -470,7 +470,7 @@ corresponding to left and right hand motor imagination.
     ['left_hand' 'right_hand']
 
 
-**Total running time of the script:** ( 0 minutes  18.744 seconds)
+**Total running time of the script:** ( 0 minutes  20.803 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_explore_paradigm.py:

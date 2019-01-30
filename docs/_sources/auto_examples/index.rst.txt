@@ -42,6 +42,26 @@
    :hidden:
 
    /auto_examples/plot_filterbank_csp_vs_csp
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Cross Subject SSVEP">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_cross_subject_ssvep_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_cross_subject_ssvep.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_cross_subject_ssvep
 .. raw:: html
 
     <div style='clear:both'></div>

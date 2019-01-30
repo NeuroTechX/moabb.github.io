@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
     <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
@@ -202,10 +203,28 @@ dataset does not contain any of the required events.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="moabb.paradigms.LeftRightImagery.prepare_process">
+<code class="descname">prepare_process</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.LeftRightImagery.prepare_process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare processing of raw files</p>
+<p>This function allows to set parameter of the paradigm class prior to
+the preprocessing (process_raw). Does nothing by default and could be
+overloaded if needed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dataset</strong> (<em>dataset instance</em>) – The dataset corresponding to the raw file. mainly use to access
+dataset specific information.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="moabb.paradigms.LeftRightImagery.process_raw">
 <code class="descname">process_raw</code><span class="sig-paren">(</span><em>raw</em>, <em>dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.LeftRightImagery.process_raw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Process one raw data file.</p>
-<p>This function is apply the preprocessing and eventual epoching on the
+<p>This function apply the preprocessing and eventual epoching on the
 individual run, and return the data, labels and a dataframe with
 metadata.</p>
 <p>metadata is a dataframe with as many row as the length of the data
@@ -265,7 +284,7 @@ sklearn scorer.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
     </p>
   </div>
 </footer>
