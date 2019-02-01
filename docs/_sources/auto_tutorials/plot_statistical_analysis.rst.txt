@@ -26,7 +26,8 @@ they can be used.
     import moabb
     import matplotlib.pyplot as plt
     import moabb.analysis.plotting as moabb_plt
-    from moabb.analysis.meta_analysis import find_significant_differences, compute_dataset_statistics  # noqa: E501
+    from moabb.analysis.meta_analysis import (
+        find_significant_differences, compute_dataset_statistics)  # noqa: E501
 
     from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
     from sklearn.linear_model import LogisticRegression
@@ -77,19 +78,15 @@ space mapping and finaly a logistic regression for the classification.
 
     pipelines = {}
 
-    pipelines['CSP + LDA'] = make_pipeline(CSP(n_components=8),
-                                           LDA())
+    pipelines['CSP + LDA'] = make_pipeline(CSP(n_components=8), LDA())
 
-    pipelines['RG + LR'] = make_pipeline(Covariances(),
-                                         TangentSpace(),
+    pipelines['RG + LR'] = make_pipeline(Covariances(), TangentSpace(),
                                          LogisticRegression())
 
-    pipelines['CSP + LR'] = make_pipeline(CSP(n_components=8),
-                                          LogisticRegression())
+    pipelines['CSP + LR'] = make_pipeline(
+        CSP(n_components=8), LogisticRegression())
 
-    pipelines['RG + LDA'] = make_pipeline(Covariances(),
-                                          TangentSpace(),
-                                          LDA())
+    pipelines['RG + LDA'] = make_pipeline(Covariances(), TangentSpace(), LDA())
 
 
 
@@ -114,13 +111,17 @@ be overwritten if necessary.
 
 
     paradigm = LeftRightImagery()
-    datasets = [BNCI2014001()]
+    dataset = BNCI2014001()
+    dataset.subject_list = dataset.subject_list[:4]
+    datasets = [dataset]
     overwrite = False  # set to True if we want to overwrite cached results
-    evaluation = CrossSessionEvaluation(paradigm=paradigm, datasets=datasets,
-                                        suffix='examples', overwrite=overwrite)
+    evaluation = CrossSessionEvaluation(
+        paradigm=paradigm,
+        datasets=datasets,
+        suffix='examples',
+        overwrite=overwrite)
 
     results = evaluation.process(pipelines)
-
 
 
 
@@ -168,7 +169,6 @@ number of sessions.
 
 
 
-
 .. image:: /auto_tutorials/images/sphx_glr_plot_statistical_analysis_002.png
     :class: sphx-glr-single-img
 
@@ -187,7 +187,6 @@ possible.
 
 
 .. code-block:: python
-
 
 
     stats = compute_dataset_statistics(results)
@@ -209,7 +208,6 @@ meta-effect and significances both per-dataset and overall.
 
     fig = moabb_plt.meta_analysis_plot(stats, 'CSP + LDA', 'RG + LDA')
     plt.show()
-
 
 
 
@@ -239,7 +237,7 @@ the x-axis over all datasets
 
 
 
-**Total running time of the script:** ( 0 minutes  55.301 seconds)
+**Total running time of the script:** ( 0 minutes  33.170 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_statistical_analysis.py:

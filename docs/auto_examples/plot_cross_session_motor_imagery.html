@@ -190,7 +190,7 @@ space mapping and finaly a logistic regression for the classification.</p>
 
 <span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span>
                                      <span class="n">TangentSpace</span><span class="p">(),</span>
-                                     <span class="n">LogisticRegression</span><span class="p">())</span>
+                                     <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -203,7 +203,10 @@ each subject / session of the dataset, and for each pipeline.</p>
 will not run again the evaluation unless a parameter has changed. Results can
 be overwrited if necessary.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">BNCI2014001</span><span class="p">()]</span>
+<span class="c1"># Because this is being auto-generated we only use 2 subjects</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 <span class="n">overwrite</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
 <span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
                                     <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
@@ -219,7 +222,7 @@ be overwrited if necessary.</p>
 1  0.931713    ...      CSP + LDA
 2  0.646219    ...      CSP + LDA
 3  0.527199    ...      CSP + LDA
-4  0.996335    ...      CSP + LDA
+4  0.962963    ...        RG + LR
 
 [5 rows x 9 columns]
 </pre></div>
@@ -256,7 +259,7 @@ points are in its quadrant.</p>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_cross_session_motor_imagery_001.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  45.942 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  10.653 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-cross-session-motor-imagery-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" download="" href="../_downloads/391d20be83473ba168eb71ddef8aca7d/plot_cross_session_motor_imagery.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_motor_imagery.py</span></code></a></div>

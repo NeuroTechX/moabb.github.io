@@ -83,7 +83,7 @@ space mapping and finaly a logistic regression for the classification.
 
     pipelines['RG + LR'] = make_pipeline(Covariances(),
                                          TangentSpace(),
-                                         LogisticRegression())
+                                         LogisticRegression(solver='lbfgs'))
 
 
 
@@ -108,7 +108,10 @@ be overwrited if necessary.
 
 
     paradigm = LeftRightImagery()
-    datasets = [BNCI2014001()]
+    # Because this is being auto-generated we only use 2 subjects
+    dataset = BNCI2014001()
+    dataset.subject_list = dataset.subject_list[:2]
+    datasets = [dataset]
     overwrite = False  # set to True if we want to overwrite cached results
     evaluation = CrossSessionEvaluation(paradigm=paradigm, datasets=datasets,
                                         suffix='examples', overwrite=overwrite)
@@ -132,7 +135,7 @@ be overwrited if necessary.
     1  0.931713    ...      CSP + LDA
     2  0.646219    ...      CSP + LDA
     3  0.527199    ...      CSP + LDA
-    4  0.996335    ...      CSP + LDA
+    4  0.962963    ...        RG + LR
 
     [5 rows x 9 columns]
 
@@ -181,7 +184,7 @@ points are in its quadrant.
 
 
 
-**Total running time of the script:** ( 0 minutes  45.942 seconds)
+**Total running time of the script:** ( 0 minutes  10.653 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_cross_session_motor_imagery.py:

@@ -144,7 +144,7 @@ Datasets can be specified in many ways: Each paradigm has a property
 
  .. code-block:: none
 
-    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f3f6a2e8ac8>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f3f2cb6d6a0>, <moabb.datasets.gigadb.Cho2017 object at 0x7f3f0b934a20>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f3f2cb6d470>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f3f2cb6df98>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f3f2cb6de10>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f3f2cb5f128>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f3f2cb6d978>]
+    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f74fc5b1cc0>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f74fc5b1630>, <moabb.datasets.gigadb.Cho2017 object at 0x7f74fc5b1278>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f74fc5b13c8>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f74fc5b16d8>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f74fc5b1eb8>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f74fc7222e8>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f74fc5b1860>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f74fc5b1160>]
 
 
 Or you can run a search through the available datasets:
@@ -165,7 +165,7 @@ Or you can run a search through the available datasets:
 
  .. code-block:: none
 
-    [<moabb.datasets.alex_mi.AlexMI object at 0x7f3f2cb6d978>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f3f0b934a20>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f3f0b934e80>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f3f0b934b00>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f3f2cb5f128>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f3f2cb5f780>, <moabb.datasets.gigadb.Cho2017 object at 0x7f3f2cb5fe80>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f3f6a50d588>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f3f6a50d470>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f3f6a50d5c0>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f3f6a50d160>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f3f6a50d400>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f3f6a50d240>]
+    [<moabb.datasets.alex_mi.AlexMI object at 0x7f74fc5b1630>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f74fc5b13c8>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f74fc5b16d8>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f74fc5b1eb8>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f74fc5b1860>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f74fc5b1710>, <moabb.datasets.gigadb.Cho2017 object at 0x7f74fc5b1160>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f74fc5b17f0>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f74fc5b15f8>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f74fc5b1898>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f74fe0421d0>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f74fcacef28>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f750174fba8>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f74fc553ef0>]
 
 
 Or you can simply make your own list (which we do here due to computational
@@ -259,7 +259,7 @@ want with them
     [5 rows x 9 columns]
 
 
-**Total running time of the script:** ( 0 minutes  37.661 seconds)
+**Total running time of the script:** ( 0 minutes  36.445 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_Getting_Started.py:

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>moabb.datasets.BNCI2014008 &#8212; moabb  documentation</title>
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="moabb.datasets.BNCI2014009" href="moabb.datasets.BNCI2014009.html" />
+    <link rel="prev" title="moabb.datasets.bi2013a" href="moabb.datasets.bi2013a.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          moabb</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../api.html">API</a></li>
+                <li><a href="../auto_examples/index.html">Gallery</a></li>
+                <li><a href="../auto_tutorials/index.html">Tutorials</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../datasets.html">Datasets</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../datasets.html#erp-datasets">ERP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#ssvep-datasets">SSVEP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../evaluations.html">Evaluations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../evaluations.html#id1">Evaluations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../evaluations.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../pipelines.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#id1">Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pipelines.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../analysis.html">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../analysis.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../analysis.html#statistics">Statistics</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">moabb.datasets.BNCI2014008</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 content">
+      
+  <div class="section" id="moabb-datasets-bnci2014008">
+<h1>moabb.datasets.BNCI2014008<a class="headerlink" href="#moabb-datasets-bnci2014008" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="moabb.datasets.BNCI2014008">
+<em class="property">class </em><code class="descclassname">moabb.datasets.</code><code class="descname">BNCI2014008</code><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014008"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014008" title="Permalink to this definition">¶</a></dt>
+<dd><p>BNCI 2014-008 P300 dataset.</p>
+<p>Dataset from <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p><strong>Dataset description</strong></p>
+<p>This dataset represents a complete record of P300 evoked potentials
+using a paradigm originally described by Farwell and Donchin [2].
+In these sessions, 8 users with amyotrophic lateral sclerosis (ALS)
+focused on one out of 36 different characters. The objective in this
+contest is to predict the correct character in each of the provided
+character selection epochs.</p>
+<p>We included in the study a total of eight volunteers, all naïve to BCI
+training. Scalp EEG signals were recorded (g.MOBILAB, g.tec, Austria)
+from eight channels according to 10–10 standard (Fz, Cz, Pz, Oz, P3, P4,
+PO7 and PO8) using active electrodes (g.Ladybird, g.tec, Austria).
+All channels were referenced to the right earlobe and grounded to the left
+mastoid. The EEG signal was digitized at 256 Hz and band-pass filtered
+between 0.1 and 30 Hz.</p>
+<p>Participants were required to copy spell seven predefined words of five
+characters each (runs), by controlling a P300 matrix speller. Rows and
+columns on the interface were randomly intensified for 125ms, with an
+inter stimulus interval (ISI) of 125ms, yielding a 250 ms lag between the
+appearance of two stimuli (stimulus onset asynchrony, SOA).</p>
+<p>In the first three runs (15 trials in total) EEG data was stored to
+perform a calibration of the BCI classifier. Thus no feedback was provided
+to the participant up to this point. A stepwise linear discriminant
+analysis (SWLDA) was applied to the data from the three calibration runs
+(i.e., runs 1–3) to determine the classifier weights (i.e., classifier
+coefficients). These weights were then applied during the subsequent four
+testing runs (i.e., runs 4–7) when participants were provided with
+feedback.</p>
+<p class="rubric">References</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>A. Riccio, L. Simione, F. Schettini, A. Pizzimenti, M. Inghilleri,
+M. O. Belardinelli, D. Mattia, and F. Cincotti (2013). Attention
+and P300-based BCI performance in people with amyotrophic lateral
+sclerosis. Front. Hum. Neurosci., vol. 7:, pag. 732.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td>L. A. Farwell and E. Donchin, Talking off the top of your head:
+toward a mental prosthesis utilizing eventrelated
+brain potentials, Electroencephalogr. Clin. Neurophysiol.,
+vol. 70, n. 6, pagg. 510–523, 1988.</td></tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="moabb.datasets.BNCI2014008.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/bnci.html#BNCI2014008.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.datasets.BNCI2014008.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="moabb.datasets.BNCI2014008.data_path">
+<code class="descname">data_path</code><span class="sig-paren">(</span><em>subject</em>, <em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.BNCI2014008.data_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get path to local copy of a subject data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>subject</strong> (<em>int</em>) – Number of subject to use</li>
+<li><strong>path</strong> (<em>None | str</em>) – Location of where to look for the data storing location.
+If None, the environment variable or config parameter
+<code class="docutils literal notranslate"><span class="pre">MNE_DATASETS_(dataset)_PATH</span></code> is used. If it doesn’t exist, the
+“~/mne_data” directory is used. If the dataset
+is not found under the given path, the data
+will be automatically downloaded to the specified folder.</li>
+<li><strong>force_update</strong> (<em>bool</em>) – Force update of the dataset even if a local copy exists.</li>
+<li><strong>update_path</strong> (<em>bool | None</em>) – If True, set the MNE_DATASETS_(dataset)_PATH in mne-python
+config to the given path. If None, the user is prompted.</li>
+<li><strong>verbose</strong> (<em>bool, str, int, or None</em>) – If not None, override default verbose level
+(see <code class="xref py py-func docutils literal notranslate"><span class="pre">mne.verbose()</span></code>).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>path</strong> – Local path to the given data file. This path is contained inside a
+list of length one, for compatibility.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moabb.datasets.BNCI2014008.download">
+<code class="descname">download</code><span class="sig-paren">(</span><em>path=None</em>, <em>force_update=False</em>, <em>update_path=None</em>, <em>verbose=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.BNCI2014008.download" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download all data from the dataset.</p>
+<p>This function is only usefull to download all the dataset at once.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<em>None | str</em>) – Location of where to look for the data storing location.
+If None, the environment variable or config parameter
+<code class="docutils literal notranslate"><span class="pre">MNE_DATASETS_(dataset)_PATH</span></code> is used. If it doesn’t exist, the
+“~/mne_data” directory is used. If the dataset
+is not found under the given path, the data
+will be automatically downloaded to the specified folder.</li>
+<li><strong>force_update</strong> (<em>bool</em>) – Force update of the dataset even if a local copy exists.</li>
+<li><strong>update_path</strong> (<em>bool | None</em>) – If True, set the MNE_DATASETS_(dataset)_PATH in mne-python
+config to the given path. If None, the user is prompted.</li>
+<li><strong>verbose</strong> (<em>bool, str, int, or None</em>) – If not None, override default verbose level
+(see <code class="xref py py-func docutils literal notranslate"><span class="pre">mne.verbose()</span></code>).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="moabb.datasets.BNCI2014008.get_data">
+<code class="descname">get_data</code><span class="sig-paren">(</span><em>subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.BNCI2014008.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the data correspoonding to a list of subjects.</p>
+<p>The returned data is a dictionary with the folowing structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;subject_id&#39;</span> <span class="p">:</span>
+            <span class="p">{</span><span class="s1">&#39;session_id&#39;</span><span class="p">:</span>
+                <span class="p">{</span><span class="s1">&#39;run_id&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+</pre></div>
+</div>
+<p>subjects are on top, then we have sessions, then runs.
+A sessions is a recording done in a single day, without removing the
+EEG cap. A session is constitued of at least one run. A run is a single
+contigous recording. Some dataset break session in multiple runs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>subjects</strong> (<em>List of int</em>) – List of subject number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>data</strong> – dict containing the raw data</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Dict</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/generated/moabb.datasets.BNCI2014008.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018, Alexandre Barachant.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

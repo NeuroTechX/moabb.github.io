@@ -306,7 +306,7 @@
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]:</span>
         <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">004-2014/B</span><span class="si">{s:02d}{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">raws</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>  <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
+        <span class="n">raws</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
         <span class="n">sessions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">raws</span><span class="p">)</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;session_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">run</span><span class="p">}</span>
@@ -332,7 +332,9 @@
     <span class="n">run</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
     <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">raw</span><span class="p">],</span> <span class="n">event_id</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;session_0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
+
+    <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
@@ -360,7 +362,12 @@
         <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
         <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">raws</span><span class="p">,</span> <span class="n">event_id</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rawi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raws</span><span class="p">):</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">][</span><span class="s1">&#39;run_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">rawi</span>
+
+    <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
@@ -407,8 +414,6 @@
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">003-2015/s</span><span class="si">{s:d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">raws</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Non-Target&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
     <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -425,7 +430,9 @@
     <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
         <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">test</span><span class="p">]:</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">ri</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">test</span><span class="p">]):</span>
         <span class="c1"># flash events on the channel 9</span>
         <span class="n">flashs</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
         <span class="n">ix_flash</span> <span class="o">=</span> <span class="n">flashs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
@@ -446,9 +453,9 @@
 
         <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">run</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">flashs</span><span class="p">]</span>
         <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
-        <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">evd</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">raws</span><span class="p">,</span> <span class="n">event_id</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">][</span><span class="s1">&#39;run_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ri</span><span class="p">)]</span> <span class="o">=</span> <span class="n">raw</span>
+
+    <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
@@ -594,7 +601,7 @@
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
         <span class="n">run_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">run_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]]</span>
@@ -947,6 +954,121 @@
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/TNSRE.2007.906956&#39;</span><span class="p">)</span></div></div>
 
 
+<div class="viewcode-block" id="BNCI2014008"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014008.html#moabb.datasets.BNCI2014008">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014008</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-008 P300 dataset.</span>
+
+<span class="sd">    Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    This dataset represents a complete record of P300 evoked potentials</span>
+<span class="sd">    using a paradigm originally described by Farwell and Donchin [2].</span>
+<span class="sd">    In these sessions, 8 users with amyotrophic lateral sclerosis (ALS)</span>
+<span class="sd">    focused on one out of 36 different characters. The objective in this</span>
+<span class="sd">    contest is to predict the correct character in each of the provided</span>
+<span class="sd">    character selection epochs.</span>
+
+<span class="sd">    We included in the study a total of eight volunteers, all naïve to BCI</span>
+<span class="sd">    training. Scalp EEG signals were recorded (g.MOBILAB, g.tec, Austria)</span>
+<span class="sd">    from eight channels according to 10–10 standard (Fz, Cz, Pz, Oz, P3, P4,</span>
+<span class="sd">    PO7 and PO8) using active electrodes (g.Ladybird, g.tec, Austria).</span>
+<span class="sd">    All channels were referenced to the right earlobe and grounded to the left</span>
+<span class="sd">    mastoid. The EEG signal was digitized at 256 Hz and band-pass filtered</span>
+<span class="sd">    between 0.1 and 30 Hz.</span>
+
+<span class="sd">    Participants were required to copy spell seven predefined words of five</span>
+<span class="sd">    characters each (runs), by controlling a P300 matrix speller. Rows and</span>
+<span class="sd">    columns on the interface were randomly intensified for 125ms, with an</span>
+<span class="sd">    inter stimulus interval (ISI) of 125ms, yielding a 250 ms lag between the</span>
+<span class="sd">    appearance of two stimuli (stimulus onset asynchrony, SOA).</span>
+
+<span class="sd">    In the first three runs (15 trials in total) EEG data was stored to</span>
+<span class="sd">    perform a calibration of the BCI classifier. Thus no feedback was provided</span>
+<span class="sd">    to the participant up to this point. A stepwise linear discriminant</span>
+<span class="sd">    analysis (SWLDA) was applied to the data from the three calibration runs</span>
+<span class="sd">    (i.e., runs 1–3) to determine the classifier weights (i.e., classifier</span>
+<span class="sd">    coefficients). These weights were then applied during the subsequent four</span>
+<span class="sd">    testing runs (i.e., runs 4–7) when participants were provided with</span>
+<span class="sd">    feedback.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] A. Riccio, L. Simione, F. Schettini, A. Pizzimenti, M. Inghilleri,</span>
+<span class="sd">           M. O. Belardinelli, D. Mattia, and F. Cincotti (2013). Attention</span>
+<span class="sd">           and P300-based BCI performance in people with amyotrophic lateral</span>
+<span class="sd">           sclerosis. Front. Hum. Neurosci., vol. 7:, pag. 732.</span>
+<span class="sd">    .. [2] L. A. Farwell and E. Donchin, Talking off the top of your head:</span>
+<span class="sd">           toward a mental prosthesis utilizing eventrelated</span>
+<span class="sd">           brain potentials, Electroencephalogr. Clin. Neurophysiol.,</span>
+<span class="sd">           vol. 70, n. 6, pagg. 510–523, 1988.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2014008.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014008.html#moabb.datasets.BNCI2014008.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span>
+            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;008-2014&#39;</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.3389/fnhum.2013.00732&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BNCI2014009"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014009</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-009 P300 dataset.</span>
+
+<span class="sd">    Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    This dataset presents a complete record of P300 evoked potentials</span>
+<span class="sd">    using two different paradigms: a paradigm based on the P300 Speller in</span>
+<span class="sd">    overt attention condition and a paradigm based used in covert attention</span>
+<span class="sd">    condition. In these sessions, 10 healthy subjects focused on one out of 36</span>
+<span class="sd">    different characters. The objective was to predict the correct character</span>
+<span class="sd">    in each of the provided character selection epochs.</span>
+<span class="sd">    (Note: right now only the overt attention data is available via MOABB)</span>
+
+<span class="sd">    In the first interface, cues are organized in a 6×6 matrix and each</span>
+<span class="sd">    character is always visible on the screen and spatially separated from the</span>
+<span class="sd">    others. By design, no fixation cue is provided, as the subject is expected</span>
+<span class="sd">    to gaze at the target character. Stimulation consists in the</span>
+<span class="sd">    intensification of whole lines (rows or columns) of six characters.</span>
+
+<span class="sd">    Ten healthy subjects (10 female, mean age = 26.8 ± 5.6, table I) with</span>
+<span class="sd">    previous experience with P300-based BCIs attended 3 recording sessions.</span>
+<span class="sd">    Scalp EEG potentials were measured using 16 Ag/AgCl electrodes that</span>
+<span class="sd">    covered the left, right and central scalp (Fz, FCz, Cz, CPz, Pz, Oz, F3,</span>
+<span class="sd">    F4, C3, C4, CP3, CP4, P3, P4, PO7, PO8) per the 10-10 standard. Each</span>
+<span class="sd">    electrode was referenced to the linked earlobes and grounded to the</span>
+<span class="sd">    right mastoid. The EEG was acquired at 256 Hz, high pass- and low</span>
+<span class="sd">    pass-filtered with cutoff frequencies of 0.1 Hz and 20 Hz, respectively.</span>
+<span class="sd">    Each subject attended 4 recording sessions. During each session,</span>
+<span class="sd">    the subject performed three runs with each of the stimulation interfaces.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1] P Aricò, F Aloise, F Schettini, S Salinari, D Mattia and F Cincotti</span>
+<span class="sd">           (2013). Influence of P300 latency jitter on event related potential-</span>
+<span class="sd">           based brain–computer interface performance. Journal of Neural</span>
+<span class="sd">           Engineering, vol. 11, number 3.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2014009.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
+            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;009-2014&#39;</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1088/1741-2560/11/3/035008&#39;</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="BNCI2015001"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015001</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;BNCI 2015-001 Motor Imagery dataset.</span>
 
@@ -992,6 +1114,40 @@
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
             <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
             <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/tnsre.2012.2189584&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BNCI2015003"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015003.html#moabb.datasets.BNCI2015003">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015003</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2015-003 P300 dataset.</span>
+
+<span class="sd">    Dataset from [1]_.</span>
+
+<span class="sd">    **Dataset description**</span>
+
+<span class="sd">    This dataset contains recordings from 10 subjects performing a visual P300</span>
+<span class="sd">    task for spelling. Results were published in [1]. Sampling frequency was</span>
+<span class="sd">    256 Hz and there were 8 electrodes (&#39;Fz&#39;, &#39;Cz&#39;, &#39;P3&#39;, &#39;Pz&#39;, &#39;P4&#39;, &#39;PO7&#39;,</span>
+<span class="sd">    &#39;Oz&#39;, &#39;PO8&#39;) which were referenced to the right earlobe. Each subject</span>
+<span class="sd">    participated in only one session. For more information, see [1].</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    .. [1]  C. Guger, S. Daban, E. Sellers, C. Holzner, G. Krausz,</span>
+<span class="sd">            R. Carabalona, F. Gramatica, and G. Edlinger (2009). How many</span>
+<span class="sd">            people are able to control a P300-based brain-computer interface</span>
+<span class="sd">            (BCI)?. Neuroscience Letters, vol. 462, pp. 94–98.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BNCI2015003.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015003.html#moabb.datasets.BNCI2015003.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
+            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;003-2015&#39;</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1016/j.neulet.2009.06.045&#39;</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015004"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015004</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>

@@ -139,7 +139,8 @@
 
 
 <span class="n">PIPELINE_PALETTE</span> <span class="o">=</span> <span class="n">sea</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s2">&quot;husl&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">sea</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s1">&#39;serif&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="n">PIPELINE_PALETTE</span><span class="p">)</span>
+<span class="n">sea</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="s1">&#39;serif&#39;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;whitegrid&#39;</span><span class="p">,</span>
+        <span class="n">palette</span><span class="o">=</span><span class="n">PIPELINE_PALETTE</span><span class="p">,</span> <span class="n">color_codes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
 
@@ -200,15 +201,16 @@
     <span class="k">return</span> <span class="n">fig</span></div>
 
 
-<div class="viewcode-block" id="summary_plot"><a class="viewcode-back" href="../../../generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot">[docs]</a><span class="k">def</span> <span class="nf">summary_plot</span><span class="p">(</span><span class="n">sig_df</span><span class="p">,</span> <span class="n">effect_df</span><span class="p">,</span> <span class="n">p_threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<div class="viewcode-block" id="summary_plot"><a class="viewcode-back" href="../../../generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot">[docs]</a><span class="k">def</span> <span class="nf">summary_plot</span><span class="p">(</span><span class="n">sig_df</span><span class="p">,</span> <span class="n">effect_df</span><span class="p">,</span> <span class="n">p_threshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">simplify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Visualize significances as a heatmap with green/grey/red for significantly</span>
 <span class="sd">    higher/significantly lower.</span>
 <span class="sd">    sig_df is a DataFrame of pipeline x pipeline where each value is a p-value,</span>
 <span class="sd">    effect_df is a DF where each value is an effect size</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">effect_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">effect_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_simplify_names</span><span class="p">)</span>
-    <span class="n">sig_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">sig_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_simplify_names</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">simplify</span><span class="p">:</span>
+        <span class="n">effect_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">effect_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_simplify_names</span><span class="p">)</span>
+        <span class="n">sig_df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">sig_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">_simplify_names</span><span class="p">)</span>
     <span class="n">annot_df</span> <span class="o">=</span> <span class="n">effect_df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">annot_df</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">annot_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>

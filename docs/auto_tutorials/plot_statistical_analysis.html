@@ -151,7 +151,8 @@ they can be used.</p>
 <span class="kn">import</span> <span class="nn">moabb</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">moabb.analysis.plotting</span> <span class="kn">as</span> <span class="nn">moabb_plt</span>
-<span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="kn">import</span> <span class="n">find_significant_differences</span><span class="p">,</span> <span class="n">compute_dataset_statistics</span>  <span class="c1"># noqa: E501</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">find_significant_differences</span><span class="p">,</span> <span class="n">compute_dataset_statistics</span><span class="p">)</span>  <span class="c1"># noqa: E501</span>
 
 <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
 <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
@@ -187,19 +188,15 @@ usually done in the litterature.</p>
 space mapping and finaly a logistic regression for the classification.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;CSP + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
-                                       <span class="n">LDA</span><span class="p">())</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;CSP + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span> <span class="n">LDA</span><span class="p">())</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span>
-                                     <span class="n">TangentSpace</span><span class="p">(),</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span> <span class="n">TangentSpace</span><span class="p">(),</span>
                                      <span class="n">LogisticRegression</span><span class="p">())</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;CSP + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span>
-                                      <span class="n">LogisticRegression</span><span class="p">())</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;CSP + LR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">CSP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">8</span><span class="p">),</span> <span class="n">LogisticRegression</span><span class="p">())</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span>
-                                      <span class="n">TangentSpace</span><span class="p">(),</span>
-                                      <span class="n">LDA</span><span class="p">())</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Covariances</span><span class="p">(),</span> <span class="n">TangentSpace</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -212,10 +209,15 @@ each subject / session of the dataset, and for each pipeline.</p>
 will not run again the evaluation unless a parameter has changed. Results can
 be overwritten if necessary.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">BNCI2014001</span><span class="p">()]</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
+<span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 <span class="n">overwrite</span> <span class="o">=</span> <span class="bp">False</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
-                                    <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
+    <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
+    <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
 
 <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines</span><span class="p">)</span>
 </pre></div>
@@ -268,7 +270,7 @@ the x-axis over all datasets</p>
 </pre></div>
 </div>
 <img alt="../_images/sphx_glr_plot_statistical_analysis_004.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_statistical_analysis_004.png" />
-<p><strong>Total running time of the script:</strong> ( 0 minutes  55.301 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  33.170 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-plot-statistical-analysis-py">
 <div class="sphx-glr-download docutils container">
 <a class="reference download internal" download="" href="../_downloads/6dc66bd8090ef5ee4a620fd04923908b/plot_statistical_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_statistical_analysis.py</span></code></a></div>

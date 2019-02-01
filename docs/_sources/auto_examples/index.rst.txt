@@ -62,6 +62,26 @@
    :hidden:
 
    /auto_examples/plot_cross_subject_ssvep
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This Example shows how to perform a within session analysis on three different P300 datasets.">
+
+.. only:: html
+
+    .. figure:: /auto_examples/images/thumb/sphx_glr_plot_within_session_p300_thumb.png
+
+        :ref:`sphx_glr_auto_examples_plot_within_session_p300.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_examples/plot_within_session_p300
 .. raw:: html
 
     <div style='clear:both'></div>
