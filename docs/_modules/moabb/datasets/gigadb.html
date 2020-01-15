@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>moabb.datasets.gigadb &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -13,16 +12,16 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -123,27 +122,26 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <h1>Source code for moabb.datasets.gigadb</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">GigaDb Motor imagery dataset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="k">import</span> <span class="n">BaseDataset</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
 
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">create_info</span>
-<span class="kn">from</span> <span class="nn">mne.io</span> <span class="k">import</span> <span class="n">RawArray</span>
-<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="k">import</span> <span class="n">read_montage</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
+<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
+<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
-
-<span class="n">GIGA_URL</span> <span class="o">=</span> <span class="s1">&#39;ftp://penguin.genomics.cn/pub/10.5524/100001_101000/100295/mat_data/&#39;</span>  <span class="c1"># noqa</span>
+<span class="n">GIGA_URL</span> <span class="o">=</span> <span class="s1">&#39;ftp://parrot.genomics.cn/gigadb/pub/10.5524/100001_101000/100295/mat_data/&#39;</span>  <span class="c1"># noqa</span>
 
 
 <div class="viewcode-block" id="Cho2017"><a class="viewcode-back" href="../../../generated/moabb.datasets.Cho2017.html#moabb.datasets.Cho2017">[docs]</a><span class="k">class</span> <span class="nc">Cho2017</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
@@ -185,7 +183,7 @@
 <span class="sd">           GigaScience. https://doi.org/10.1093/gigascience/gix034</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Cho2017.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.Cho2017.html#moabb.datasets.Cho2017.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Cho2017.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.Cho2017.html#moabb.datasets.Cho2017.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">53</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -216,7 +214,7 @@
         <span class="n">emg_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EMG1&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG2&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG3&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG4&#39;</span><span class="p">]</span>
         <span class="n">ch_names</span> <span class="o">=</span> <span class="n">eeg_ch_names</span> <span class="o">+</span> <span class="n">emg_ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Stim&#39;</span><span class="p">]</span>
         <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;emg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
-        <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+        <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
         <span class="n">imagery_left</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span> <span class="o">-</span> \
             <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">imagery_right</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span> <span class="o">-</span> \
@@ -264,7 +262,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
     </p>
   </div>
 </footer>

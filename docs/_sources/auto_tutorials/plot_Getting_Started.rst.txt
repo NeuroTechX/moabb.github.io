@@ -17,12 +17,12 @@ next tutorial.
 
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     # Authors: Vinay Jayaram <vinayjayaram13@gmail.com>
     #
     # License: BSD (3-clause)
+
 
 
 
@@ -38,8 +38,7 @@ and a list of datasets to run it all on. You can find those in the following
 submodules; detailed tutorials are given for each of them.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from moabb.datasets import BNCI2014001
@@ -53,13 +52,13 @@ submodules; detailed tutorials are given for each of them.
 
 
 
+
 In order to create pipelines within a script, you will likely need at least
 the make_pipeline function. They can also be specified via a .yml file. Here
 we will make a couple pipelines just for convenience
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
@@ -75,15 +74,16 @@ we will make a couple pipelines just for convenience
 
 
 
+
 If you would like to specify the logging level when it is running, you can
 use the standard python logging commands through the top-level moabb module
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     import moabb
     moabb.set_log_level('info')
+
 
 
 
@@ -101,8 +101,7 @@ later in the process, the pipelines need to be in a dictionary where the key
 is the name of the pipeline and the value is the Pipeline object
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     pipelines = {}
@@ -120,6 +119,7 @@ is the name of the pipeline and the value is the Pipeline object
 
 
 
+
 Datasets
 -----------------
 
@@ -127,8 +127,7 @@ Datasets can be specified in many ways: Each paradigm has a property
 'datasets' which returns the datasets that are appropriate for that paradigm
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(LeftRightImagery().datasets)
@@ -144,16 +143,17 @@ Datasets can be specified in many ways: Each paradigm has a property
 
  .. code-block:: none
 
-    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f74fc5b1cc0>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f74fc5b1630>, <moabb.datasets.gigadb.Cho2017 object at 0x7f74fc5b1278>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f74fc5b13c8>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f74fc5b16d8>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f74fc5b1eb8>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f74fc7222e8>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f74fc5b1860>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f74fc5b1160>]
+    [<moabb.datasets.bnci.BNCI2014001 object at 0x7f7f5f3d6978>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f7f5f3d6f98>, <moabb.datasets.gigadb.Cho2017 object at 0x7f7f5f3d64e0>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f7f5f3d60f0>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f7f5f3d6080>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f7f5f3d62b0>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f7f5f3d6898>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f7f5f3d6d68>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f7f5f3d6518>]
+
+
 
 
 Or you can run a search through the available datasets:
 
 
+.. code-block:: default
 
-.. code-block:: python
-
-    print(utils.dataset_search(paradigm='imagery', total_classes=2))
+    print(utils.dataset_search(paradigm='imagery', min_subjects=6))
 
 
 
@@ -165,18 +165,20 @@ Or you can run a search through the available datasets:
 
  .. code-block:: none
 
-    [<moabb.datasets.alex_mi.AlexMI object at 0x7f74fc5b1630>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f74fc5b13c8>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f74fc5b16d8>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f74fc5b1eb8>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f74fc5b1860>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f74fc5b1710>, <moabb.datasets.gigadb.Cho2017 object at 0x7f74fc5b1160>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f74fc5b17f0>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f74fc5b15f8>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f74fc5b1898>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f74fe0421d0>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f74fcacef28>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f750174fba8>, <moabb.datasets.Zhou2016.Zhou2016 object at 0x7f74fc553ef0>]
+    [<moabb.datasets.alex_mi.AlexMI object at 0x7f7f5f3d6898>, <moabb.datasets.bnci.BNCI2014001 object at 0x7f7f5f3d6d68>, <moabb.datasets.bnci.BNCI2014002 object at 0x7f7f5f3d6518>, <moabb.datasets.bnci.BNCI2014004 object at 0x7f7f5f3d6320>, <moabb.datasets.bnci.BNCI2015001 object at 0x7f7f5f3d66a0>, <moabb.datasets.bnci.BNCI2015004 object at 0x7f7f5f3d6438>, <moabb.datasets.gigadb.Cho2017 object at 0x7f7f5f3d6e10>, <moabb.datasets.mpi_mi.MunichMI object at 0x7f7f5f3d6c50>, <moabb.datasets.upper_limb.Ofner2017 object at 0x7f7f5f3d6c18>, <moabb.datasets.physionet_mi.PhysionetMI object at 0x7f7f5f3d60b8>, <moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7f7f5f3d6fd0>, <moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7f7f5f3d6be0>, <moabb.datasets.Weibo2014.Weibo2014 object at 0x7f7f5f3d6940>]
+
+
 
 
 Or you can simply make your own list (which we do here due to computational
 constraints)
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     datasets = [BNCI2014001()]
+
 
 
 
@@ -194,13 +196,13 @@ going from continuous data to trial data of a fixed size. To learn more look
 at the tutorial Exploring Paradigms
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     fmin = 8
     fmax = 35
     paradigm = LeftRightImagery(fmin=fmin, fmax=fmax)
+
 
 
 
@@ -216,8 +218,7 @@ be cross-validated within a single recording, or across days, or sessions, or
 subjects. This also is the correct place to specify multiple threads.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     evaluation = CrossSessionEvaluation(paradigm=paradigm, datasets=datasets,
@@ -228,14 +229,58 @@ subjects. This also is the correct place to specify multiple threads.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    2020-01-15 14:36:02 a97ed8b73994 root[136] INFO Processing dataset: 001-2014
+    2020-01-15 14:36:05 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 1 | session_E: Score 0.802
+    2020-01-15 14:36:05 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 1 | session_T: Score 0.786
+    2020-01-15 14:36:06 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 1 | session_E: Score 0.774
+    2020-01-15 14:36:06 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 1 | session_T: Score 0.797
+    2020-01-15 14:36:09 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 2 | session_E: Score 0.499
+    2020-01-15 14:36:09 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 2 | session_T: Score 0.577
+    2020-01-15 14:36:09 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 2 | session_E: Score 0.471
+    2020-01-15 14:36:09 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 2 | session_T: Score 0.551
+    2020-01-15 14:36:13 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 3 | session_E: Score 0.946
+    2020-01-15 14:36:13 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 3 | session_T: Score 0.981
+    2020-01-15 14:36:13 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 3 | session_E: Score 0.958
+    2020-01-15 14:36:13 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 3 | session_T: Score 0.961
+    2020-01-15 14:36:16 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 4 | session_E: Score 0.696
+    2020-01-15 14:36:16 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 4 | session_T: Score 0.757
+    2020-01-15 14:36:16 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 4 | session_E: Score 0.692
+    2020-01-15 14:36:16 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 4 | session_T: Score 0.716
+    2020-01-15 14:36:19 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 5 | session_E: Score 0.487
+    2020-01-15 14:36:19 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 5 | session_T: Score 0.480
+    2020-01-15 14:36:19 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 5 | session_E: Score 0.505
+    2020-01-15 14:36:20 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 5 | session_T: Score 0.532
+    2020-01-15 14:36:23 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 6 | session_E: Score 0.664
+    2020-01-15 14:36:23 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 6 | session_T: Score 0.700
+    2020-01-15 14:36:23 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 6 | session_E: Score 0.676
+    2020-01-15 14:36:23 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 6 | session_T: Score 0.729
+    2020-01-15 14:36:26 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 7 | session_E: Score 0.805
+    2020-01-15 14:36:26 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 7 | session_T: Score 0.675
+    2020-01-15 14:36:26 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 7 | session_E: Score 0.773
+    2020-01-15 14:36:27 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 7 | session_T: Score 0.686
+    2020-01-15 14:36:30 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 8 | session_E: Score 0.954
+    2020-01-15 14:36:30 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 8 | session_T: Score 0.976
+    2020-01-15 14:36:30 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 8 | session_E: Score 0.972
+    2020-01-15 14:36:30 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 8 | session_T: Score 0.956
+    2020-01-15 14:36:33 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 9 | session_E: Score 0.923
+    2020-01-15 14:36:33 a97ed8b73994 root[136] INFO AM + LDA | 001-2014 | 9 | session_T: Score 0.819
+    2020-01-15 14:36:34 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 9 | session_E: Score 0.926
+    2020-01-15 14:36:34 a97ed8b73994 root[136] INFO AM + SVM | 001-2014 | 9 | session_T: Score 0.773
+
+
 
 
 Results are returned as a pandas DataFrame, and from here you can do as you
 want with them
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(results.head())
@@ -249,17 +294,22 @@ want with them
 
  .. code-block:: none
 
-    score    ...     pipeline
-    0  0.801698    ...     AM + LDA
-    1  0.786458    ...     AM + LDA
-    2  0.498650    ...     AM + LDA
-    3  0.576582    ...     AM + LDA
-    4  0.945988    ...     AM + LDA
+          score  ...  pipeline
+    0  0.801698  ...  AM + LDA
+    1  0.786458  ...  AM + LDA
+    2  0.498650  ...  AM + LDA
+    3  0.576582  ...  AM + LDA
+    4  0.945988  ...  AM + LDA
 
     [5 rows x 9 columns]
 
 
-**Total running time of the script:** ( 0 minutes  36.445 seconds)
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  31.630 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_Getting_Started.py:
@@ -287,4 +337,4 @@ want with them
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

@@ -2,8 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>moabb.datasets.bnci &#8212; moabb  documentation</title>
     <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -13,16 +12,16 @@
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="../../../_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -123,20 +122,20 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <h1>Source code for moabb.datasets.bnci</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">BNCI 2014-001 Motor imagery dataset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="k">import</span> <span class="n">BaseDataset</span>
-<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="k">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
 
-<span class="kn">from</span> <span class="nn">mne</span> <span class="k">import</span> <span class="n">create_info</span>
-<span class="kn">from</span> <span class="nn">mne.io</span> <span class="k">import</span> <span class="n">RawArray</span>
-<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="k">import</span> <span class="n">read_montage</span>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="k">import</span> <span class="n">verbose</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
+<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
+<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">verbose</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">BNCI_URL</span> <span class="o">=</span> <span class="s1">&#39;http://bnci-horizon-2020.eu/database/data-sets/&#39;</span>
@@ -327,7 +326,7 @@
 
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">008-2014/A</span><span class="si">{s:02d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">run</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
     <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
@@ -352,7 +351,7 @@
     <span class="c1"># we load only grid speller data</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">009-2014/A</span><span class="si">{s:02d}</span><span class="s1">S.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
     <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
@@ -414,7 +413,7 @@
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">003-2015/s</span><span class="si">{s:d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;s</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">]</span>
@@ -425,7 +424,7 @@
     <span class="p">]</span>
 
     <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
 
     <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
         <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
@@ -579,7 +578,7 @@
 
     <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">data_paths</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -595,7 +594,7 @@
 <span class="sd">    Processes (Graz) motor imagery data from MAT files, returns list of</span>
 <span class="sd">    recording runs.</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">runs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
@@ -635,7 +634,7 @@
     <span class="c1"># parse eeg data</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">n_chan</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">fs</span>
 
@@ -664,7 +663,7 @@
 <span class="nd">@verbose</span>
 <span class="k">def</span> <span class="nf">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert one p300 run from santa lucia file format.&quot;&quot;&quot;</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">256</span>
     <span class="n">ch_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Target stim&#39;</span><span class="p">,</span> <span class="s1">&#39;Flash stim&#39;</span><span class="p">]</span>
@@ -686,7 +685,7 @@
     <span class="sd">&quot;&quot;&quot;Convert one file in bbci format.&quot;&quot;&quot;</span>
     <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="k">import</span> <span class="n">loadmat</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]:</span>
@@ -701,7 +700,7 @@
 <span class="k">def</span> <span class="nf">_convert_run_bbci</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert one run to raw.&quot;&quot;&quot;</span>
     <span class="c1"># parse eeg data</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">fs</span>
 
@@ -732,7 +731,7 @@
     <span class="c1"># parse eeg data</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">read_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">eeg</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">SampleRate</span>
 
@@ -768,7 +767,7 @@
 
     <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                   <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;warning - datapath not implemented correctly for </span><span class="si">{self.code}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;warning - datapath not implemented correctly for </span><span class="si">{self.code}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
                          <span class="n">update_path</span><span class="o">=</span><span class="n">update_path</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
                          <span class="n">force_update</span><span class="o">=</span><span class="n">force_update</span><span class="p">)</span>
@@ -817,7 +816,7 @@
 <span class="sd">           Frontiers in neuroscience, 6, p.55.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2014001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2014001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -870,7 +869,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2014002.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2014002.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -943,7 +942,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2014004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2014004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
@@ -1005,7 +1004,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2014008.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014008.html#moabb.datasets.BNCI2014008.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2014008.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014008.html#moabb.datasets.BNCI2014008.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1058,7 +1057,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2014009.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2014009.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1104,7 +1103,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2015001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2015001.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># FIXME: some participant have 3 sessions</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)),</span>
@@ -1139,7 +1138,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2015003.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015003.html#moabb.datasets.BNCI2015003.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2015003.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015003.html#moabb.datasets.BNCI2015003.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -1204,7 +1203,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BNCI2015004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="BNCI2015004.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -1231,7 +1230,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
     </p>
   </div>
 </footer>

@@ -16,8 +16,7 @@ they can be used.
 
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     # Authors: Vinay Jayaram <vinayjayaram13@gmail.com>
     #
@@ -52,6 +51,7 @@ they can be used.
 
 
 
+
 Results Generation
 ---------------------
 
@@ -72,8 +72,7 @@ The riemannian geometry pipeline consists in covariance estimation, tangent
 space mapping and finaly a logistic regression for the classification.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     pipelines = {}
@@ -94,6 +93,7 @@ space mapping and finaly a logistic regression for the classification.
 
 
 
+
 Evaluation
 ----------
 
@@ -106,8 +106,7 @@ will not run again the evaluation unless a parameter has changed. Results can
 be overwritten if necessary.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     paradigm = LeftRightImagery()
@@ -127,6 +126,39 @@ be overwritten if necessary.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    2020-01-15 14:36:34 a97ed8b73994 root[136] INFO Processing dataset: 001-2014
+    2020-01-15 14:36:38 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 1 | session_E: Score 0.969
+    2020-01-15 14:36:40 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 1 | session_T: Score 0.954
+    2020-01-15 14:36:42 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 1 | session_E: Score 0.878
+    2020-01-15 14:36:44 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 1 | session_T: Score 0.861
+    2020-01-15 14:36:49 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 2 | session_E: Score 0.629
+    2020-01-15 14:36:50 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 2 | session_T: Score 0.537
+    2020-01-15 14:36:52 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 2 | session_E: Score 0.470
+    2020-01-15 14:36:54 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 2 | session_T: Score 0.513
+    2020-01-15 14:36:58 a97ed8b73994 root[136] INFO CSP + LDA | 001-2014 | 3 | session_E: Score 0.996
+    2020-01-15 14:36:59 a97ed8b73994 root[136] INFO CSP + LDA | 001-2014 | 3 | session_T: Score 0.994
+    2020-01-15 14:37:00 a97ed8b73994 root[136] INFO RG + LR | 001-2014 | 3 | session_E: Score 0.999
+    2020-01-15 14:37:01 a97ed8b73994 root[136] INFO RG + LR | 001-2014 | 3 | session_T: Score 0.999
+    2020-01-15 14:37:03 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 3 | session_E: Score 0.997
+    2020-01-15 14:37:04 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 3 | session_T: Score 0.994
+    2020-01-15 14:37:05 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 3 | session_E: Score 0.973
+    2020-01-15 14:37:06 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 3 | session_T: Score 0.966
+    2020-01-15 14:37:11 a97ed8b73994 root[136] INFO CSP + LDA | 001-2014 | 4 | session_E: Score 0.829
+    2020-01-15 14:37:13 a97ed8b73994 root[136] INFO CSP + LDA | 001-2014 | 4 | session_T: Score 0.829
+    2020-01-15 14:37:14 a97ed8b73994 root[136] INFO RG + LR | 001-2014 | 4 | session_E: Score 0.877
+    2020-01-15 14:37:14 a97ed8b73994 root[136] INFO RG + LR | 001-2014 | 4 | session_T: Score 0.858
+    2020-01-15 14:37:16 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 4 | session_E: Score 0.837
+    2020-01-15 14:37:18 a97ed8b73994 root[136] INFO CSP + LR | 001-2014 | 4 | session_T: Score 0.835
+    2020-01-15 14:37:18 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 4 | session_E: Score 0.721
+    2020-01-15 14:37:19 a97ed8b73994 root[136] INFO RG + LDA | 001-2014 | 4 | session_T: Score 0.690
+
+
 
 
 MOABB plotting
@@ -137,8 +169,7 @@ toolkit.  The score_plot visualizes all the data with one score per subject
 for every dataset and pipeline.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     fig = moabb_plt.score_plot(results)
@@ -153,14 +184,14 @@ for every dataset and pipeline.
 
 
 
+
 For a comparison of two algorithms, there is the paired_plot, which plots
 performance in one versus the performance in the other over all chosen
 datasets. Note that there is only one score per subject, regardless of the
 number of sessions.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     fig = moabb_plt.paired_plot(results, 'CSP + LDA', 'RG + LDA')
@@ -175,6 +206,7 @@ number of sessions.
 
 
 
+
 Statistical testing and further plots
 ----------------------------------------
 
@@ -185,12 +217,12 @@ other, the method find_significant_differences and the summary_plot are
 possible.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     stats = compute_dataset_statistics(results)
     P, T = find_significant_differences(stats)
+
 
 
 
@@ -203,8 +235,7 @@ each tested dataset for the two algorithms in question, in addition to a
 meta-effect and significances both per-dataset and overall.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     fig = moabb_plt.meta_analysis_plot(stats, 'CSP + LDA', 'RG + LDA')
     plt.show()
@@ -218,13 +249,13 @@ meta-effect and significances both per-dataset and overall.
 
 
 
+
 The summary plot shows the effect and significance related to the hypothesis
 that the algorithm on the y-axis significantly out-performed the algorithm on
 the x-axis over all datasets
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     moabb_plt.summary_plot(P, T)
     plt.show()
@@ -237,7 +268,11 @@ the x-axis over all datasets
 
 
 
-**Total running time of the script:** ( 0 minutes  33.170 seconds)
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  46.213 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_statistical_analysis.py:
@@ -265,4 +300,4 @@ the x-axis over all datasets
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

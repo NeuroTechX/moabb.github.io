@@ -28,8 +28,7 @@ This tutorial explore the paradigm object, with 3 examples of paradigm :
 
 
 
-
-.. code-block:: python
+.. code-block:: default
 
     # Authors: Alexandre Barachant <alexandre.barachant@gmail.com>
     #
@@ -48,14 +47,14 @@ This tutorial explore the paradigm object, with 3 examples of paradigm :
 
 
 
+
 MotorImagery
 -----------------
 
 First, lets take a example of the MotorImagery paradigm.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     paradigm = MotorImagery(n_classes=4)
@@ -72,7 +71,9 @@ First, lets take a example of the MotorImagery paradigm.
 
  .. code-block:: none
 
-    N-class motor imagery.
+    2020-01-15 14:35:46 a97ed8b73994 root[136] WARNING Choosing from all possible events
+
+        N-class motor imagery.
 
         Metric is 'roc-auc' if 2 classes and 'accuracy' if more
 
@@ -110,6 +111,9 @@ First, lets take a example of the MotorImagery paradigm.
 
         resample: float | None (default None)
             If not None, resample the eeg data with the sampling rate provided.
+    
+
+
 
 
 The function `get_data` allow you to access preprocessed data from a dataset.
@@ -117,8 +121,7 @@ this function will return 3 objects. A numpy array containing the
 preprocessed EEG data, the labels, and a dataframe with metadata.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(paradigm.get_data.__doc__)
@@ -133,7 +136,8 @@ preprocessed EEG data, the labels, and a dataframe with metadata.
 
  .. code-block:: none
 
-    Return the data for a list of subject.
+
+            Return the data for a list of subject.
 
             return the data, labels and a dataframe with metadata. the dataframe
             will contain at least the following columns
@@ -157,6 +161,9 @@ preprocessed EEG data, the labels, and a dataframe with metadata.
                 the labels for training / evaluating the model
             metadata: pd.DataFrame
                 A dataframe containing the metadata.
+        
+
+
 
 
 Lets take the example of the BNCI2014001 dataset, known as the dataset IIa
@@ -167,8 +174,7 @@ between 7 and 35 Hz), epoch the data (with interval specified by the dataset,
 unless superseeded by the paradigm) and return the corresponding objects.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     dataset = BNCI2014001()
@@ -182,13 +188,13 @@ unless superseeded by the paradigm) and return the corresponding objects.
 
 
 
+
 The epoched data is a 3D array, with epochs on the first dimension (here
 576 trials), channels on the second (22 channels) and time sample on the last
 one.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(X.shape)
@@ -206,12 +212,13 @@ one.
     (576, 22, 1001)
 
 
+
+
 Labels contains the labels corresponding to each trial. in the case of this
 dataset, we have the 4 type of motor imagery that was performed.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(np.unique(y))
@@ -229,6 +236,8 @@ dataset, we have the 4 type of motor imagery that was performed.
     ['feet' 'left_hand' 'right_hand' 'tongue']
 
 
+
+
 metadata have at least 3 columns, subject, session and run.
 
 - subject is the subject id of the corresponding trial
@@ -239,8 +248,7 @@ may or may not contain multiple run.
 
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
 
@@ -256,22 +264,23 @@ may or may not contain multiple run.
 
  .. code-block:: none
 
-    subject  ...      run
-    0        1  ...    run_3
-    1        1  ...    run_3
-    2        1  ...    run_3
-    3        1  ...    run_3
-    4        1  ...    run_3
+       subject  ...    run
+    0        1  ...  run_3
+    1        1  ...  run_3
+    2        1  ...  run_3
+    3        1  ...  run_3
+    4        1  ...  run_3
 
     [5 rows x 3 columns]
+
+
 
 
 For this data, we have one subjecy, 2 sessions (2 different recording day)
 and 6 run per session.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     print(metadata.describe(include='all'))
@@ -286,28 +295,29 @@ and 6 run per session.
 
  .. code-block:: none
 
-    subject  ...      run
-    count     576.0  ...      576
-    unique      NaN  ...        6
-    top         NaN  ...    run_5
-    freq        NaN  ...       96
-    mean        1.0  ...      NaN
-    std         0.0  ...      NaN
-    min         1.0  ...      NaN
-    25%         1.0  ...      NaN
-    50%         1.0  ...      NaN
-    75%         1.0  ...      NaN
-    max         1.0  ...      NaN
+            subject  ...    run
+    count     576.0  ...    576
+    unique      NaN  ...      6
+    top         NaN  ...  run_5
+    freq        NaN  ...     96
+    mean        1.0  ...    NaN
+    std         0.0  ...    NaN
+    min         1.0  ...    NaN
+    25%         1.0  ...    NaN
+    50%         1.0  ...    NaN
+    75%         1.0  ...    NaN
+    max         1.0  ...    NaN
 
     [11 rows x 3 columns]
+
+
 
 
 Paradigm object can also return the list of all dataset compatible. here
 it will return the list all the imagery datasets from the moabb.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     compatible_datasets = paradigm.datasets
@@ -326,6 +336,8 @@ it will return the list all the imagery datasets from the moabb.
     ['Alexandre Motor Imagery', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'Cho2017', 'Grosse-Wentrup 2009', 'Ofner2017', 'Physionet Motor Imagery', 'Schirrmeister2017', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
 
+
+
 FilterBank MotorImagery
 -----------------------
 
@@ -334,8 +346,7 @@ preprocessing. In this case, it apply a bank of 6 bandpass filter on the data
 before concatenating the output.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     paradigm = FilterBankMotorImagery()
@@ -352,7 +363,9 @@ before concatenating the output.
 
  .. code-block:: none
 
-    Filter bank n-class motor imagery.
+    2020-01-15 14:35:50 a97ed8b73994 root[136] WARNING Choosing from all possible events
+
+        Filter bank n-class motor imagery.
 
         Metric is 'roc-auc' if 2 classes and 'accuracy' if more
 
@@ -366,13 +379,15 @@ before concatenating the output.
         n_classes: int,
             number of classes each dataset must have. If events is given,
             requires all imagery sorts to be within the events list.
+    
+
+
 
 
 therefore, the output X is a 4D array, with trial x channel x time x filter
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     X, y, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
@@ -392,6 +407,8 @@ therefore, the output X is a 4D array, with trial x channel x time x filter
     (288, 22, 1001, 6)
 
 
+
+
 LeftRight MotorImagery
 ----------------------
 
@@ -399,8 +416,7 @@ LeftRightImagery is a variation over the BaseMotorImagery paradigm,
 restricted to left and right hand events.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     paradigm = LeftRightImagery()
@@ -421,13 +437,16 @@ restricted to left and right hand events.
 
         Metric is 'roc_auc'
 
+    
+
+
+
 
 the compatible dataset list is a subset of motor imagery dataset that
 contains at least left and right hand events.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     compatible_datasets = paradigm.datasets
@@ -446,12 +465,13 @@ contains at least left and right hand events.
     ['001-2014', '004-2014', 'Cho2017', 'Grosse-Wentrup 2009', 'Physionet Motor Imagery', 'Schirrmeister2017', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
 
 
+
+
 So if we apply this this to our original dataset, it will only return trials
 corresponding to left and right hand motor imagination.
 
 
-
-.. code-block:: python
+.. code-block:: default
 
 
     X, y, metadata = paradigm.get_data(dataset=dataset, subjects=subjects)
@@ -470,7 +490,12 @@ corresponding to left and right hand motor imagination.
     ['left_hand' 'right_hand']
 
 
-**Total running time of the script:** ( 0 minutes  21.080 seconds)
+
+
+
+.. rst-class:: sphx-glr-timing
+
+   **Total running time of the script:** ( 0 minutes  15.741 seconds)
 
 
 .. _sphx_glr_download_auto_tutorials_plot_explore_paradigm.py:
@@ -498,4 +523,4 @@ corresponding to left and right hand motor imagination.
 
  .. rst-class:: sphx-glr-signature
 
-    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.readthedocs.io>`_
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_
