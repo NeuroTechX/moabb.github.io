@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Paradigms &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paradigms &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="moabb.paradigms.MotorImagery" href="generated/moabb.paradigms.MotorImagery.html" />
@@ -38,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +76,8 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -101,6 +106,8 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Paradigms</a><ul>
 <li><a class="reference internal" href="#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li><a class="reference internal" href="#p300-paradigms">P300 Paradigms</a></li>
+<li><a class="reference internal" href="#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li><a class="reference internal" href="#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -163,6 +170,40 @@ paradigms.</p>
 </tbody>
 </table>
 </div>
+<div class="section" id="p300-paradigms">
+<h2>P300 Paradigms<a class="headerlink" href="#p300-paradigms" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.paradigms.SinglePass.html#moabb.paradigms.SinglePass" title="moabb.paradigms.SinglePass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SinglePass</span></code></a>([fmin, fmax])</p></td>
+<td><p>Single Bandpass filter P300</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.paradigms.P300.html#moabb.paradigms.P300" title="moabb.paradigms.P300"><code class="xref py py-obj docutils literal notranslate"><span class="pre">P300</span></code></a>(**kwargs)</p></td>
+<td><p>P300 for Target/NonTarget classification</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="ssvep-paradigms">
+<h2>SSVEP Paradigms<a class="headerlink" href="#ssvep-paradigms" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.paradigms.SSVEP.html#moabb.paradigms.SSVEP" title="moabb.paradigms.SSVEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SSVEP</span></code></a>([fmin, fmax])</p></td>
+<td><p>Single bandpass filter SSVEP</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.paradigms.FilterBankSSVEP.html#moabb.paradigms.FilterBankSSVEP" title="moabb.paradigms.FilterBankSSVEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FilterBankSSVEP</span></code></a>([filters])</p></td>
+<td><p>Filtered bank n-class SSVEP paradigm</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="base-utils">
 <h2>Base &amp; Utils<a class="headerlink" href="#base-utils" title="Permalink to this headline">¶</a></h2>
 <table class="longtable docutils align-default">
@@ -179,6 +220,12 @@ paradigms.</p>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.paradigms.motor_imagery.FilterBank.html#moabb.paradigms.motor_imagery.FilterBank" title="moabb.paradigms.motor_imagery.FilterBank"><code class="xref py py-obj docutils literal notranslate"><span class="pre">motor_imagery.FilterBank</span></code></a>([filters])</p></td>
 <td><p>Filter Bank MI.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.paradigms.p300.BaseP300.html#moabb.paradigms.p300.BaseP300" title="moabb.paradigms.p300.BaseP300"><code class="xref py py-obj docutils literal notranslate"><span class="pre">p300.BaseP300</span></code></a>([filters, events, tmin, tmax, …])</p></td>
+<td><p>Base P300 paradigm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.paradigms.ssvep.BaseSSVEP.html#moabb.paradigms.ssvep.BaseSSVEP" title="moabb.paradigms.ssvep.BaseSSVEP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ssvep.BaseSSVEP</span></code></a>([filters, events, …])</p></td>
+<td><p>Base SSVEP Paradigm</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.paradigms.base.BaseParadigm.html#moabb.paradigms.base.BaseParadigm" title="moabb.paradigms.base.BaseParadigm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseParadigm</span></code></a>()</p></td>
 <td><p>Base Paradigm.</p></td>
@@ -208,7 +255,7 @@ paradigms.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

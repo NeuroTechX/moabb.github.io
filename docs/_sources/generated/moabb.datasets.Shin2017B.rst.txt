@@ -1,4 +1,4 @@
-moabb.datasets.Shin2017B
+﻿moabb.datasets.Shin2017B
 ========================
 
 .. currentmodule:: moabb.datasets

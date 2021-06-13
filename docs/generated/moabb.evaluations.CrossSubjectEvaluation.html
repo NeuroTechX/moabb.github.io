@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>moabb.evaluations.CrossSubjectEvaluation &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>moabb.evaluations.CrossSubjectEvaluation &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="moabb.evaluations.base.BaseEvaluation" href="moabb.evaluations.base.BaseEvaluation.html" />
@@ -38,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +76,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -131,69 +136,16 @@
       
   <div class="section" id="moabb-evaluations-crosssubjectevaluation">
 <h1>moabb.evaluations.CrossSubjectEvaluation<a class="headerlink" href="#moabb-evaluations-crosssubjectevaluation" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="moabb.evaluations.CrossSubjectEvaluation">
-<em class="property">class </em><code class="sig-prename descclassname">moabb.evaluations.</code><code class="sig-name descname">CrossSubjectEvaluation</code><span class="sig-paren">(</span><em class="sig-param">paradigm</em>, <em class="sig-param">datasets=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">error_score='raise'</em>, <em class="sig-param">suffix=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">moabb.evaluations.</span></code><code class="sig-name descname"><span class="pre">CrossSubjectEvaluation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mne_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cross Subject evaluation Context.</p>
 <p>Evaluate performance of the pipeline trained on all subjects but one,
 concatenating sessions.</p>
-<dl class="method">
+<dl class="py method">
 <dt id="moabb.evaluations.CrossSubjectEvaluation.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">paradigm</em>, <em class="sig-param">datasets=None</em>, <em class="sig-param">random_state=None</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">error_score='raise'</em>, <em class="sig-param">suffix=''</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datasets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_jobs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'raise'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hdf5_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_columns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mne_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.evaluations.CrossSubjectEvaluation.evaluate">
-<code class="sig-name descname">evaluate</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">pipelines</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.evaluate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Evaluate results on a single dataset.</p>
-<p>This method return a generator. each results item is a dict with
-the following convension:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">Duration</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span> <span class="p">,</span>
-       <span class="s1">&#39;dataset&#39;</span><span class="p">:</span> <span class="n">dataset</span> <span class="nb">id</span><span class="p">,</span>
-       <span class="s1">&#39;subject&#39;</span><span class="p">:</span> <span class="n">subject</span> <span class="nb">id</span><span class="p">,</span>
-       <span class="s1">&#39;session&#39;</span><span class="p">:</span> <span class="n">session</span> <span class="nb">id</span><span class="p">,</span>
-       <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">score</span><span class="p">,</span>
-       <span class="s1">&#39;n_samples&#39;</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">training</span> <span class="n">examples</span><span class="p">,</span>
-       <span class="s1">&#39;n_channels&#39;</span><span class="p">:</span> <span class="n">number</span> <span class="n">of</span> <span class="n">channel</span><span class="p">,</span>
-       <span class="s1">&#39;pipeline&#39;</span><span class="p">:</span> <span class="n">pipeline</span> <span class="n">name</span><span class="p">}</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.evaluations.CrossSubjectEvaluation.is_valid">
-<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#CrossSubjectEvaluation.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.is_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verify the dataset is compatible with evaluation.</p>
-<p>This method is called to verify dataset given in the constructor
-are compatible with the evaluation context.</p>
-<p>This method should return false if the dataset does not match the
-evaluation. This is for example the case if the dataset does not
-contain enought session for a cross-session eval.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.evaluations.CrossSubjectEvaluation.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">pipelines</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.evaluations.CrossSubjectEvaluation.process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs all pipelines on all datasets.</p>
-<p>This function will apply all provided pipelines and return a dataframe
-containing the results of the evaluation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>pipelines</strong> (<em>dict of pipeline instance.</em>) – A dict containing the sklearn pipeline to evaluate.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>results</strong> – A dataframe containing the results.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
@@ -220,7 +172,7 @@ containing the results of the evaluation.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

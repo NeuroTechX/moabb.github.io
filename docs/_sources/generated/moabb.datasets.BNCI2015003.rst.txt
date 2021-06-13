@@ -1,4 +1,4 @@
-moabb.datasets.BNCI2015003
+﻿moabb.datasets.BNCI2015003
 ==========================
 
 .. currentmodule:: moabb.datasets

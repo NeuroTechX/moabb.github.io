@@ -1,4 +1,4 @@
-moabb.evaluations.CrossSessionEvaluation
+﻿moabb.evaluations.CrossSessionEvaluation
 ========================================
 
 .. currentmodule:: moabb.evaluations

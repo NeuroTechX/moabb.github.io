@@ -1,4 +1,4 @@
-moabb.evaluations.CrossSubjectEvaluation
+﻿moabb.evaluations.CrossSubjectEvaluation
 ========================================
 
 .. currentmodule:: moabb.evaluations

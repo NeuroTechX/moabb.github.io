@@ -1,4 +1,4 @@
-moabb.paradigms.FilterBankMotorImagery
+﻿moabb.paradigms.FilterBankMotorImagery
 ======================================
 
 .. currentmodule:: moabb.paradigms

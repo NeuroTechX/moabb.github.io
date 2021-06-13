@@ -1,7 +1,6 @@
-moabb.pipelines.utils.create_pipeline_from_config
+﻿moabb.pipelines.utils.create_pipeline_from_config
 =================================================
 
 .. currentmodule:: moabb.pipelines.utils
 
 .. autofunction:: create_pipeline_from_config
-

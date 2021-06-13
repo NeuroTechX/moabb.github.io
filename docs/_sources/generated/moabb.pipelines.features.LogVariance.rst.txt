@@ -1,4 +1,4 @@
-moabb.pipelines.features.LogVariance
+﻿moabb.pipelines.features.LogVariance
 ====================================
 
 .. currentmodule:: moabb.pipelines.features

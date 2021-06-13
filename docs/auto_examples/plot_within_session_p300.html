@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Within Session P300 &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Within Session P300 &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
@@ -36,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -71,6 +74,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -134,7 +139,8 @@
       
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-within-session-p300-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-plot-within-session-p300-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="within-session-p300">
 <span id="sphx-glr-auto-examples-plot-within-session-p300-py"></span><h1>Within Session P300<a class="headerlink" href="#within-session-p300" title="Permalink to this headline">¶</a></h1>
@@ -150,34 +156,35 @@ P300 datasets.</p>
 <span class="c1">#</span>
 <span class="c1"># License: BSD (3-clause)</span>
 
-<span class="c1"># getting rid of the warnings about the future (on s&#39;en fout !)</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">pyriemann.tangentspace</span> <span class="kn">import</span> <span class="n">TangentSpace</span>
-<span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <span class="n">XdawnCovariances</span><span class="p">,</span> <span class="n">Xdawn</span>
-<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <span class="n">WithinSessionEvaluation</span>
-<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">P300</span>
-<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">EPFLP300</span>
-<span class="kn">import</span> <span class="nn">moabb</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <span class="n">Xdawn</span><span class="p">,</span> <span class="n">XdawnCovariances</span>
+<span class="kn">from</span> <span class="nn">pyriemann.tangentspace</span> <span class="kn">import</span> <span class="n">TangentSpace</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
 
+<span class="kn">import</span> <span class="nn">moabb</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014009</span>
+<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <span class="n">WithinSessionEvaluation</span>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">P300</span>
+</pre></div>
+</div>
+<p>getting rid of the warnings about the future</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
 
-<span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">)</span>
-
-<span class="c1"># This is an auxiliary transformer that allows one to vectorize data</span>
-<span class="c1"># structures in a pipeline For instance, in the case of a X with dimensions</span>
-<span class="c1"># Nt x Nc x Ns, one might be interested in a new data structure with</span>
-<span class="c1"># dimensions Nt x (Nc.Ns)</span>
-
-
-<span class="k">class</span> <span class="nc">Vectorizer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
-
+<span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is an auxiliary transformer that allows one to vectorize data
+structures in a pipeline For instance, in the case of a X with dimensions
+Nt x Nc x Ns, one might be interested in a new data structure with
+dimensions Nt x (Nc.Ns)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vectorizer</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
@@ -194,25 +201,24 @@ P300 datasets.</p>
 <h2>Create pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
 <p>Pipelines must be a dict of sklearn pipeline transformer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span> <span class="o">=</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<p>we have to do this because the classes are called ‘Target’ and ‘NonTarget’
+but the evaluation function uses a LabelEncoder, transforming them
+to 0 and 1</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">labels_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Target&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;NonTarget&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
-<span class="c1"># we have to do this because the classes are called &#39;Target&#39; and &#39;NonTarget&#39;</span>
-<span class="c1"># but the evaluation function uses a LabelEncoder, transforming them</span>
-<span class="c1"># to 0 and 1</span>
-<span class="n">labels_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;RG + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s2">&quot;RG+LDA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
     <span class="n">XdawnCovariances</span><span class="p">(</span>
-        <span class="n">nfilter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">classes</span><span class="o">=</span><span class="p">[</span>
-            <span class="n">labels_dict</span><span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">]],</span>
-        <span class="n">estimator</span><span class="o">=</span><span class="s1">&#39;lwf&#39;</span><span class="p">,</span>
-        <span class="n">xdawn_estimator</span><span class="o">=</span><span class="s1">&#39;lwf&#39;</span><span class="p">),</span>
+        <span class="n">nfilter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="n">labels_dict</span><span class="p">[</span><span class="s2">&quot;Target&quot;</span><span class="p">]],</span> <span class="n">estimator</span><span class="o">=</span><span class="s2">&quot;lwf&quot;</span><span class="p">,</span> <span class="n">xdawn_estimator</span><span class="o">=</span><span class="s2">&quot;scm&quot;</span>
+    <span class="p">),</span>
     <span class="n">TangentSpace</span><span class="p">(),</span>
-    <span class="n">LDA</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lsqr&#39;</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">))</span>
+    <span class="n">LDA</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lsqr&quot;</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">),</span>
+<span class="p">)</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s1">&#39;Xdw + LDA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">Xdawn</span><span class="p">(</span><span class="n">nfilter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="s1">&#39;lwf&#39;</span><span class="p">),</span>
-                                       <span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lsqr&#39;</span><span class="p">,</span>
-                                                         <span class="n">shrinkage</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">))</span>
+<span class="n">pipelines</span><span class="p">[</span><span class="s2">&quot;Xdw+LDA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span>
+    <span class="n">Xdawn</span><span class="p">(</span><span class="n">nfilter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="s2">&quot;scm&quot;</span><span class="p">),</span> <span class="n">Vectorizer</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">(</span><span class="n">solver</span><span class="o">=</span><span class="s2">&quot;lsqr&quot;</span><span class="p">,</span> <span class="n">shrinkage</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -225,62 +231,47 @@ each subject / session of the dataset, and for each pipeline.</p>
 will not run again the evaluation unless a parameter has changed. Results can
 be overwritten if necessary.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">P300</span><span class="p">(</span><span class="n">resample</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">EPFLP300</span><span class="p">()</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014009</span><span class="p">()</span>
 <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
 <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 <span class="n">overwrite</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
-<span class="n">evaluation</span> <span class="o">=</span> <span class="n">WithinSessionEvaluation</span><span class="p">(</span><span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
-                                     <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span>
-                                     <span class="n">suffix</span><span class="o">=</span><span class="s1">&#39;examples&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span>
+<span class="n">evaluation</span> <span class="o">=</span> <span class="n">WithinSessionEvaluation</span><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span>
+<span class="p">)</span>
 <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines</span><span class="p">)</span>
-</pre></div>
-</div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2020-01-15 14:25:43 a97ed8b73994 root[136] INFO Processing dataset: EPFL P300 dataset
-unzip /home/circleci/mne_data/MNE-epflp300-data/groups/m/mm/mmspg/www/BCI/p300/subject1.zip
-2020-01-15 14:29:50 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 1 | session_1: Score 0.776
-2020-01-15 14:29:54 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 1 | session_1: Score 0.799
-2020-01-15 14:29:57 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 1 | session_2: Score 0.792
-2020-01-15 14:30:01 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 1 | session_2: Score 0.821
-2020-01-15 14:30:04 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 1 | session_3: Score 0.757
-2020-01-15 14:30:08 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 1 | session_3: Score 0.757
-2020-01-15 14:30:11 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 1 | session_4: Score 0.696
-2020-01-15 14:30:17 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 1 | session_4: Score 0.666
-unzip /home/circleci/mne_data/MNE-epflp300-data/groups/m/mm/mmspg/www/BCI/p300/subject2.zip
-2020-01-15 14:35:02 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 2 | session_1: Score 0.678
-2020-01-15 14:35:08 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 2 | session_1: Score 0.677
-2020-01-15 14:35:11 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 2 | session_2: Score 0.678
-2020-01-15 14:35:22 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 2 | session_2: Score 0.698
-2020-01-15 14:35:25 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 2 | session_3: Score 0.616
-2020-01-15 14:35:38 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 2 | session_3: Score 0.598
-2020-01-15 14:35:41 a97ed8b73994 root[136] INFO RG + LDA | EPFL P300 dataset | 2 | session_4: Score 0.594
-2020-01-15 14:35:46 a97ed8b73994 root[136] INFO Xdw + LDA | EPFL P300 dataset | 2 | session_4: Score 0.687
 </pre></div>
 </div>
 </div>
 <div class="section" id="plot-results">
 <h2>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this headline">¶</a></h2>
 <p>Here we plot the results.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
-<span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;pipeline&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">jitter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-              <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">pointplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;pipeline&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
-              <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;pipeline&quot;</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">jitter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">pointplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">results</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;pipeline&quot;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set1&quot;</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;ROC AUC&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;ROC AUC&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="../_images/sphx_glr_plot_within_session_p300_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_within_session_p300_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 10 minutes  3.459 seconds)</p>
+<img alt="plot within session p300" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_within_session_p300_001.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  21.188 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-within-session-p300-py">
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/39844aaaee383c2803c6ac93e64037d5/plot_within_session_p300.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_within_session_p300.py</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/321fdb18266d890de5e5f577f03c2c73/plot_within_session_p300.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_within_session_p300.ipynb</span></code></a></p>
 </div>
 </div>
@@ -308,7 +299,7 @@ unzip /home/circleci/mne_data/MNE-epflp300-data/groups/m/mm/mmspg/www/BCI/p300/s
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

@@ -1,4 +1,4 @@
-moabb.datasets.utils.dataset_search
+﻿moabb.datasets.utils.dataset_search
 ===================================
 
 .. currentmodule:: moabb.datasets.utils

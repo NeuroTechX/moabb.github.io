@@ -1,4 +1,4 @@
-moabb.datasets.Ofner2017
+﻿moabb.datasets.Ofner2017
 ========================
 
 .. currentmodule:: moabb.datasets

@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>&lt;no title&gt; &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
 <meta charset='utf-8'>
@@ -36,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -71,6 +74,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -126,30 +131,42 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="sphx-glr-thumbcontainer" tooltip="A paradigm defines how the raw data will be converted to trials ready to be processed by a deco..."><div class="figure align-default" id="id1">
-<img alt="../_images/sphx_glr_plot_explore_paradigm_thumb.png" src="../_images/sphx_glr_plot_explore_paradigm_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_explore_paradigm.html#sphx-glr-auto-tutorials-plot-explore-paradigm-py"><span class="std std-ref">Explore Paradigm Object</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+  <div class="sphx-glr-thumbcontainer" tooltip="This tutorial takes you through a basic working example of how to use this codebase, including ..."><div class="figure align-default" id="id1">
+<img alt="Getting Started" src="../_images/sphx_glr_plot_Getting_Started_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_Getting_Started.html#sphx-glr-auto-tutorials-plot-getting-started-py"><span class="std std-ref">Getting Started</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="This tutorial takes you through a basic working example of how to use this codebase, including ..."><div class="figure align-default" id="id2">
-<img alt="../_images/sphx_glr_plot_Getting_Started_thumb.png" src="../_images/sphx_glr_plot_Getting_Started_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_Getting_Started.html#sphx-glr-auto-tutorials-plot-getting-started-py"><span class="std std-ref">Getting Started</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="In this example, we will go through all the steps to make a simple BCI classification task, dow..."><div class="figure align-default" id="id2">
+<img alt="Tutorial 1: Simple Motor Imagery" src="../_images/sphx_glr_tutorial_1_simple_example_motor_imagery_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tutorial_1_simple_example_motor_imagery.html#sphx-glr-auto-tutorials-tutorial-1-simple-example-motor-imagery-py"><span class="std std-ref">Tutorial 1: Simple Motor Imagery</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
-<div class="sphx-glr-thumbcontainer" tooltip="The MOABB codebase comes with convenience plotting utilities and some statistical testing. This..."><div class="figure align-default" id="id3">
-<img alt="../_images/sphx_glr_plot_statistical_analysis_thumb.png" src="../_images/sphx_glr_plot_statistical_analysis_thumb.png" />
-<p class="caption"><span class="caption-text"><a class="reference internal" href="plot_statistical_analysis.html#sphx-glr-auto-tutorials-plot-statistical-analysis-py"><span class="std std-ref">Statistical Analysis</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+<div class="sphx-glr-thumbcontainer" tooltip="We extend the previous example to a case where we want to analyze the score of a classifier wit..."><div class="figure align-default" id="id3">
+<img alt="Tutorial 2: Using multiple datasets" src="../_images/sphx_glr_tutorial_2_using_mulitple_datasets_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tutorial_2_using_mulitple_datasets.html#sphx-glr-auto-tutorials-tutorial-2-using-mulitple-datasets-py"><span class="std std-ref">Tutorial 2: Using multiple datasets</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="In this last part, we extend the previous example by assessing the classification score of not ..."><div class="figure align-default" id="id4">
+<img alt="Tutorial 3: Benchmarking mulitple pipelines" src="../_images/sphx_glr_tutorial_3_benchmarking_multiple_pipelines_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tutorial_3_benchmarking_multiple_pipelines.html#sphx-glr-auto-tutorials-tutorial-3-benchmarking-multiple-pipelines-py"><span class="std std-ref">Tutorial 3: Benchmarking mulitple pipelines</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Tutorial 4: Creating a dataset class"><div class="figure align-default" id="id5">
+<img alt="Tutorial 4: Creating a dataset class" src="../_images/sphx_glr_tutorial_4_adding_a_dataset_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="tutorial_4_adding_a_dataset.html#sphx-glr-auto-tutorials-tutorial-4-adding-a-dataset-py"><span class="std std-ref">Tutorial 4: Creating a dataset class</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
 </div>
 </div><div class="toctree-wrapper compound">
 </div>
 <div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
-<div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/aab63e8b05f671adf46b628683f12dc9/auto_tutorials_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_tutorials_python.zip</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/cab7a090c4183ca69dc0cd84d3b04413/auto_tutorials_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">auto_tutorials_python.zip</span></code></a></p>
 </div>
-<div class="sphx-glr-download docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/ff99e0f708bf11ffebd620ea90f0bd0a/auto_tutorials_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_tutorials_jupyter.zip</span></code></a></p>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/97a1de59bce682890841bb846e3dd09c/auto_tutorials_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">auto_tutorials_jupyter.zip</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
@@ -174,7 +191,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

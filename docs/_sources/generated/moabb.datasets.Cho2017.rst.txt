@@ -1,4 +1,4 @@
-moabb.datasets.Cho2017
+﻿moabb.datasets.Cho2017
 ======================
 
 .. currentmodule:: moabb.datasets

@@ -1,4 +1,4 @@
-moabb.datasets.base.BaseDataset
+﻿moabb.datasets.base.BaseDataset
 ===============================
 
 .. currentmodule:: moabb.datasets.base

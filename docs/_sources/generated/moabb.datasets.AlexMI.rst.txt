@@ -1,4 +1,4 @@
-moabb.datasets.AlexMI
+﻿moabb.datasets.AlexMI
 =====================
 
 .. currentmodule:: moabb.datasets

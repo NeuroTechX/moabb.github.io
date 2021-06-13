@@ -1,4 +1,4 @@
-moabb.evaluations.base.BaseEvaluation
+﻿moabb.evaluations.base.BaseEvaluation
 =====================================
 
 .. currentmodule:: moabb.evaluations.base

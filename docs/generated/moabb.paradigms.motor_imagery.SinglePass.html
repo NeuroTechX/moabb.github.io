@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>moabb.paradigms.motor_imagery.SinglePass &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>moabb.paradigms.motor_imagery.SinglePass &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="moabb.paradigms.motor_imagery.FilterBank" href="moabb.paradigms.motor_imagery.FilterBank.html" />
@@ -38,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +76,8 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../paradigms.html">Paradigms</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -131,9 +136,9 @@
       
   <div class="section" id="moabb-paradigms-motor-imagery-singlepass">
 <h1>moabb.paradigms.motor_imagery.SinglePass<a class="headerlink" href="#moabb-paradigms-motor-imagery-singlepass" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+<dl class="py class">
 <dt id="moabb.paradigms.motor_imagery.SinglePass">
-<em class="property">class </em><code class="sig-prename descclassname">moabb.paradigms.motor_imagery.</code><code class="sig-name descname">SinglePass</code><span class="sig-paren">(</span><em class="sig-param">fmin=8</em>, <em class="sig-param">fmax=32</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#SinglePass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">moabb.paradigms.motor_imagery.</span></code><code class="sig-name descname"><span class="pre">SinglePass</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#SinglePass"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass" title="Permalink to this definition">¶</a></dt>
 <dd><p>Single Bandpass filter motot Imagery.</p>
 <p>Motor imagery paradigm with only one bandpass filter (default 8 to 32 Hz)</p>
 <dl class="field-list simple">
@@ -150,119 +155,22 @@ after the begining of the task as defined by the dataset.</p></li>
 dataset specific task interval. tmax = 5 would mean the epoch will end
 5 second after the begining of the task as defined in the dataset. If
 None, use the dataset value.</p></li>
+<li><p><strong>baseline</strong> (<em>None | tuple of length 2</em>) – The time interval to consider as “baseline” when applying baseline
+correction. If None, do not apply baseline correction.
+If a tuple (a, b), the interval is between a and b (in seconds),
+including the endpoints.
+Correction is applied by computing the mean of the baseline period
+and subtracting it from the data (see mne.Epochs)</p></li>
 <li><p><strong>channels</strong> (<em>list of str | None (default None)</em>) – list of channel to select. If None, use all EEG channels available in
 the dataset.</p></li>
 <li><p><strong>resample</strong> (<em>float | None (default None)</em>) – If not None, resample the eeg data with the sampling rate provided.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="method">
+<dl class="py method">
 <dt id="moabb.paradigms.motor_imagery.SinglePass.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">fmin=8</em>, <em class="sig-param">fmax=32</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#SinglePass.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/paradigms/motor_imagery.html#SinglePass.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.datasets">
-<em class="property">property </em><code class="sig-name descname">datasets</code><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.datasets" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property that define the list of compatible datasets</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.get_data">
-<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><em class="sig-param">dataset</em>, <em class="sig-param">subjects=None</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.get_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the data for a list of subject.</p>
-<p>return the data, labels and a dataframe with metadata. the dataframe
-will contain at least the following columns</p>
-<ul class="simple">
-<li><p>subject : the subject indice</p></li>
-<li><p>session : the session indice</p></li>
-<li><p>run : the run indice</p></li>
-</ul>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>dataset</strong> – A dataset instance.</p></li>
-<li><p><strong>subjects</strong> (<em>List of int</em>) – List of subject number</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>X</strong> (<em>np.ndarray</em>) – the data that will be used as features for the model</p></li>
-<li><p><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</p></li>
-<li><p><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata.</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.is_valid">
-<code class="sig-name descname">is_valid</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.is_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Verify the dataset is compatible with the paradigm.</p>
-<p>This method is called to verify dataset is compatible with the
-paradigm.</p>
-<p>This method should raise an error if the dataset is not compatible
-with the paradigm. This is for example the case if the
-dataset is an ERP dataset for motor imagery paradigm, or if the
-dataset does not contain any of the required events.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset instance</em>) – The dataset to verify.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.prepare_process">
-<code class="sig-name descname">prepare_process</code><span class="sig-paren">(</span><em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.prepare_process" title="Permalink to this definition">¶</a></dt>
-<dd><p>Prepare processing of raw files</p>
-<p>This function allows to set parameter of the paradigm class prior to
-the preprocessing (process_raw). Does nothing by default and could be
-overloaded if needed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataset</strong> (<em>dataset instance</em>) – The dataset corresponding to the raw file. mainly use to access
-dataset specific information.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.process_raw">
-<code class="sig-name descname">process_raw</code><span class="sig-paren">(</span><em class="sig-param">raw</em>, <em class="sig-param">dataset</em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.process_raw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Process one raw data file.</p>
-<p>This function apply the preprocessing and eventual epoching on the
-individual run, and return the data, labels and a dataframe with
-metadata.</p>
-<p>metadata is a dataframe with as many row as the length of the data
-and labels.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>raw</strong> (<em>mne.Raw instance</em>) – the raw EEG data.</p></li>
-<li><p><strong>dataset</strong> (<em>dataset instance</em>) – The dataset corresponding to the raw file. mainly use to access
-dataset specific information.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>X</strong> (<em>np.ndarray</em>) – the data that will be used as features for the model</p></li>
-<li><p><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</p></li>
-<li><p><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="moabb.paradigms.motor_imagery.SinglePass.scoring">
-<em class="property">property </em><code class="sig-name descname">scoring</code><a class="headerlink" href="#moabb.paradigms.motor_imagery.SinglePass.scoring" title="Permalink to this definition">¶</a></dt>
-<dd><p>Property that defines scoring metric (e.g. ROC-AUC or accuracy
-or f-score), given as a sklearn-compatible string or a compatible
-sklearn scorer.</p>
 </dd></dl>
 
 </dd></dl>
@@ -289,7 +197,7 @@ sklearn scorer.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

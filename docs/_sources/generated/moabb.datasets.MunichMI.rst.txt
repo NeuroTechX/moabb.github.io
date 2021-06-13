@@ -1,4 +1,4 @@
-moabb.datasets.MunichMI
+﻿moabb.datasets.MunichMI
 =======================
 
 .. currentmodule:: moabb.datasets

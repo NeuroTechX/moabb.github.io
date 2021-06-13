@@ -1,4 +1,4 @@
-moabb.datasets.Weibo2014
+﻿moabb.datasets.Weibo2014
 ========================
 
 .. currentmodule:: moabb.datasets

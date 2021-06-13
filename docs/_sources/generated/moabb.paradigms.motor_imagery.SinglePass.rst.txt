@@ -1,4 +1,4 @@
-moabb.paradigms.motor_imagery.SinglePass
+﻿moabb.paradigms.motor_imagery.SinglePass
 ========================================
 
 .. currentmodule:: moabb.paradigms.motor_imagery

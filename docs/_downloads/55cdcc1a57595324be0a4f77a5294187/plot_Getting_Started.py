@@ -20,28 +20,29 @@ next tutorial.
 # and a list of datasets to run it all on. You can find those in the following
 # submodules; detailed tutorials are given for each of them.
 
-from moabb.datasets import BNCI2014001
-from moabb.paradigms import LeftRightImagery
+import numpy as np
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import make_pipeline
+from sklearn.svm import SVC
+
+##########################################################################
+# If you would like to specify the logging level when it is running, you can
+# use the standard python logging commands through the top-level moabb module
+import moabb
+from moabb.datasets import BNCI2014001, utils
 from moabb.evaluations import CrossSessionEvaluation
-from moabb.datasets import utils
+from moabb.paradigms import LeftRightImagery
+from moabb.pipelines.features import LogVariance
+
 
 ##########################################################################
 # In order to create pipelines within a script, you will likely need at least
 # the make_pipeline function. They can also be specified via a .yml file. Here
 # we will make a couple pipelines just for convenience
 
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.pipeline import make_pipeline
-from sklearn.svm import SVC
-from sklearn.model_selection import GridSearchCV
-from moabb.pipelines.features import LogVariance
-import numpy as np
 
-##########################################################################
-# If you would like to specify the logging level when it is running, you can
-# use the standard python logging commands through the top-level moabb module
-import moabb
-moabb.set_log_level('info')
+moabb.set_log_level("info")
 
 ##############################################################################
 # Create pipelines
@@ -54,13 +55,12 @@ moabb.set_log_level('info')
 # is the name of the pipeline and the value is the Pipeline object
 
 pipelines = {}
-pipelines['AM + LDA'] = make_pipeline(LogVariance(),
-                                      LDA())
-parameters = {'C': np.logspace(-2, 2, 10)}
-clf = GridSearchCV(SVC(kernel='linear'), parameters)
+pipelines["AM+LDA"] = make_pipeline(LogVariance(), LDA())
+parameters = {"C": np.logspace(-2, 2, 10)}
+clf = GridSearchCV(SVC(kernel="linear"), parameters)
 pipe = make_pipeline(LogVariance(), clf)
 
-pipelines['AM + SVM'] = pipe
+pipelines["AM+SVM"] = pipe
 
 ##############################################################################
 # Datasets
@@ -74,13 +74,15 @@ print(LeftRightImagery().datasets)
 
 ##########################################################################
 # Or you can run a search through the available datasets:
-print(utils.dataset_search(paradigm='imagery', min_subjects=6))
+print(utils.dataset_search(paradigm="imagery", min_subjects=6))
 
 ##########################################################################
 # Or you can simply make your own list (which we do here due to computational
 # constraints)
 
-datasets = [BNCI2014001()]
+dataset = BNCI2014001()
+dataset.subject_list = dataset.subject_list[:2]
+datasets = [dataset]
 
 ##########################################################################
 # Paradigm
@@ -104,8 +106,9 @@ paradigm = LeftRightImagery(fmin=fmin, fmax=fmax)
 # be cross-validated within a single recording, or across days, or sessions, or
 # subjects. This also is the correct place to specify multiple threads.
 
-evaluation = CrossSessionEvaluation(paradigm=paradigm, datasets=datasets,
-                                    suffix='examples', overwrite=False)
+evaluation = CrossSessionEvaluation(
+    paradigm=paradigm, datasets=datasets, suffix="examples", overwrite=False
+)
 results = evaluation.process(pipelines)
 
 ##########################################################################

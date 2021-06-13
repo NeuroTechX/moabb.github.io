@@ -1,4 +1,4 @@
-moabb.datasets.SSVEPExo
+﻿moabb.datasets.SSVEPExo
 =======================
 
 .. currentmodule:: moabb.datasets

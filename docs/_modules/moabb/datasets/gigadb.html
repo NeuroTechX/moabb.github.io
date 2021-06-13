@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>moabb.datasets.gigadb &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>moabb.datasets.gigadb &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
@@ -36,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -71,6 +74,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -129,19 +134,20 @@
 <span class="sd">GigaDb Motor imagery dataset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
-
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
-<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
-<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 
-<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
-<span class="n">GIGA_URL</span> <span class="o">=</span> <span class="s1">&#39;ftp://parrot.genomics.cn/gigadb/pub/10.5524/100001_101000/100295/mat_data/&#39;</span>  <span class="c1"># noqa</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
+<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
+<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
+
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="n">GIGA_URL</span> <span class="o">=</span> <span class="s2">&quot;ftp://parrot.genomics.cn/gigadb/pub/10.5524/100001_101000/100295/mat_data/&quot;</span>
 
 
 <div class="viewcode-block" id="Cho2017"><a class="viewcode-back" href="../../../generated/moabb.datasets.Cho2017.html#moabb.datasets.Cho2017">[docs]</a><span class="k">class</span> <span class="nc">Cho2017</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
@@ -188,10 +194,11 @@
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">53</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">left_hand</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">right_hand</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;Cho2017&#39;</span><span class="p">,</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;Cho2017&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>  <span class="c1"># full trial is 0-3s, but edge effects</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.5524/100295&#39;</span><span class="p">)</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.5524/100295&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
 
         <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span> <span class="mi">49</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">subject_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span></div>
@@ -200,51 +207,59 @@
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>
         <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">subject</span><span class="p">)</span>
 
-        <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                       <span class="n">verify_compressed_data_integrity</span><span class="o">=</span><span class="kc">False</span><span class="p">)[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span>
+            <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">verify_compressed_data_integrity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span>
 
-        <span class="n">eeg_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fp1&#39;</span><span class="p">,</span> <span class="s1">&#39;AF7&#39;</span><span class="p">,</span> <span class="s1">&#39;AF3&#39;</span><span class="p">,</span> <span class="s1">&#39;F1&#39;</span><span class="p">,</span> <span class="s1">&#39;F3&#39;</span><span class="p">,</span> <span class="s1">&#39;F5&#39;</span><span class="p">,</span> <span class="s1">&#39;F7&#39;</span><span class="p">,</span> <span class="s1">&#39;FT7&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;FC5&#39;</span><span class="p">,</span> <span class="s1">&#39;FC3&#39;</span><span class="p">,</span> <span class="s1">&#39;FC1&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C5&#39;</span><span class="p">,</span> <span class="s1">&#39;T7&#39;</span><span class="p">,</span> <span class="s1">&#39;TP7&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;CP5&#39;</span><span class="p">,</span> <span class="s1">&#39;CP3&#39;</span><span class="p">,</span> <span class="s1">&#39;CP1&#39;</span><span class="p">,</span> <span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;P5&#39;</span><span class="p">,</span> <span class="s1">&#39;P7&#39;</span><span class="p">,</span> <span class="s1">&#39;P9&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;PO7&#39;</span><span class="p">,</span> <span class="s1">&#39;PO3&#39;</span><span class="p">,</span> <span class="s1">&#39;O1&#39;</span><span class="p">,</span> <span class="s1">&#39;Iz&#39;</span><span class="p">,</span> <span class="s1">&#39;Oz&#39;</span><span class="p">,</span> <span class="s1">&#39;POz&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;CPz&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;FPz&#39;</span><span class="p">,</span> <span class="s1">&#39;FP2&#39;</span><span class="p">,</span> <span class="s1">&#39;AF8&#39;</span><span class="p">,</span> <span class="s1">&#39;AF4&#39;</span><span class="p">,</span> <span class="s1">&#39;AFz&#39;</span><span class="p">,</span> <span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;F2&#39;</span><span class="p">,</span> <span class="s1">&#39;F4&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;F6&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">,</span> <span class="s1">&#39;FT8&#39;</span><span class="p">,</span> <span class="s1">&#39;FC6&#39;</span><span class="p">,</span> <span class="s1">&#39;FC4&#39;</span><span class="p">,</span> <span class="s1">&#39;FC2&#39;</span><span class="p">,</span> <span class="s1">&#39;FCz&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;C2&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;C6&#39;</span><span class="p">,</span> <span class="s1">&#39;T8&#39;</span><span class="p">,</span> <span class="s1">&#39;TP8&#39;</span><span class="p">,</span> <span class="s1">&#39;CP6&#39;</span><span class="p">,</span> <span class="s1">&#39;CP4&#39;</span><span class="p">,</span> <span class="s1">&#39;CP2&#39;</span><span class="p">,</span>
-                        <span class="s1">&#39;P2&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">,</span> <span class="s1">&#39;P6&#39;</span><span class="p">,</span> <span class="s1">&#39;P8&#39;</span><span class="p">,</span> <span class="s1">&#39;P10&#39;</span><span class="p">,</span> <span class="s1">&#39;PO8&#39;</span><span class="p">,</span> <span class="s1">&#39;PO4&#39;</span><span class="p">,</span> <span class="s1">&#39;O2&#39;</span><span class="p">]</span>
-        <span class="n">emg_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EMG1&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG2&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG3&#39;</span><span class="p">,</span> <span class="s1">&#39;EMG4&#39;</span><span class="p">]</span>
-        <span class="n">ch_names</span> <span class="o">=</span> <span class="n">eeg_ch_names</span> <span class="o">+</span> <span class="n">emg_ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Stim&#39;</span><span class="p">]</span>
-        <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;emg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
-        <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
-        <span class="n">imagery_left</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span> <span class="o">-</span> \
-            <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">imagery_right</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span> <span class="o">-</span> \
-            <span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># fmt: off</span>
+        <span class="n">eeg_ch_names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;Fp1&quot;</span><span class="p">,</span> <span class="s2">&quot;AF7&quot;</span><span class="p">,</span> <span class="s2">&quot;AF3&quot;</span><span class="p">,</span> <span class="s2">&quot;F1&quot;</span><span class="p">,</span> <span class="s2">&quot;F3&quot;</span><span class="p">,</span> <span class="s2">&quot;F5&quot;</span><span class="p">,</span> <span class="s2">&quot;F7&quot;</span><span class="p">,</span> <span class="s2">&quot;FT7&quot;</span><span class="p">,</span> <span class="s2">&quot;FC5&quot;</span><span class="p">,</span> <span class="s2">&quot;FC3&quot;</span><span class="p">,</span> <span class="s2">&quot;FC1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="s2">&quot;C5&quot;</span><span class="p">,</span> <span class="s2">&quot;T7&quot;</span><span class="p">,</span> <span class="s2">&quot;TP7&quot;</span><span class="p">,</span> <span class="s2">&quot;CP5&quot;</span><span class="p">,</span> <span class="s2">&quot;CP3&quot;</span><span class="p">,</span> <span class="s2">&quot;CP1&quot;</span><span class="p">,</span> <span class="s2">&quot;P1&quot;</span><span class="p">,</span> <span class="s2">&quot;P3&quot;</span><span class="p">,</span> <span class="s2">&quot;P5&quot;</span><span class="p">,</span> <span class="s2">&quot;P7&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;P9&quot;</span><span class="p">,</span> <span class="s2">&quot;PO7&quot;</span><span class="p">,</span> <span class="s2">&quot;PO3&quot;</span><span class="p">,</span> <span class="s2">&quot;O1&quot;</span><span class="p">,</span> <span class="s2">&quot;Iz&quot;</span><span class="p">,</span> <span class="s2">&quot;Oz&quot;</span><span class="p">,</span> <span class="s2">&quot;POz&quot;</span><span class="p">,</span> <span class="s2">&quot;Pz&quot;</span><span class="p">,</span> <span class="s2">&quot;CPz&quot;</span><span class="p">,</span> <span class="s2">&quot;Fpz&quot;</span><span class="p">,</span> <span class="s2">&quot;Fp2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;AF8&quot;</span><span class="p">,</span> <span class="s2">&quot;AF4&quot;</span><span class="p">,</span> <span class="s2">&quot;AFz&quot;</span><span class="p">,</span> <span class="s2">&quot;Fz&quot;</span><span class="p">,</span> <span class="s2">&quot;F2&quot;</span><span class="p">,</span> <span class="s2">&quot;F4&quot;</span><span class="p">,</span> <span class="s2">&quot;F6&quot;</span><span class="p">,</span> <span class="s2">&quot;F8&quot;</span><span class="p">,</span> <span class="s2">&quot;FT8&quot;</span><span class="p">,</span> <span class="s2">&quot;FC6&quot;</span><span class="p">,</span> <span class="s2">&quot;FC4&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;FC2&quot;</span><span class="p">,</span> <span class="s2">&quot;FCz&quot;</span><span class="p">,</span> <span class="s2">&quot;Cz&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;C6&quot;</span><span class="p">,</span> <span class="s2">&quot;T8&quot;</span><span class="p">,</span> <span class="s2">&quot;TP8&quot;</span><span class="p">,</span> <span class="s2">&quot;CP6&quot;</span><span class="p">,</span> <span class="s2">&quot;CP4&quot;</span><span class="p">,</span> <span class="s2">&quot;CP2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;P2&quot;</span><span class="p">,</span> <span class="s2">&quot;P4&quot;</span><span class="p">,</span> <span class="s2">&quot;P6&quot;</span><span class="p">,</span> <span class="s2">&quot;P8&quot;</span><span class="p">,</span> <span class="s2">&quot;P10&quot;</span><span class="p">,</span> <span class="s2">&quot;PO8&quot;</span><span class="p">,</span> <span class="s2">&quot;PO4&quot;</span><span class="p">,</span> <span class="s2">&quot;O2&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="c1"># fmt: on</span>
+        <span class="n">emg_ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EMG1&quot;</span><span class="p">,</span> <span class="s2">&quot;EMG2&quot;</span><span class="p">,</span> <span class="s2">&quot;EMG3&quot;</span><span class="p">,</span> <span class="s2">&quot;EMG4&quot;</span><span class="p">]</span>
+        <span class="n">ch_names</span> <span class="o">=</span> <span class="n">eeg_ch_names</span> <span class="o">+</span> <span class="n">emg_ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Stim&quot;</span><span class="p">]</span>
+        <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">64</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;emg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
+        <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
+        <span class="n">imagery_left</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_left</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">imagery_right</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span> <span class="o">-</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_right</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
 
         <span class="n">eeg_data_l</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">imagery_left</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_event</span><span class="p">])</span>
-        <span class="n">eeg_data_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">imagery_right</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span>
-                                <span class="n">data</span><span class="o">.</span><span class="n">imagery_event</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">eeg_data_r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">imagery_right</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">imagery_event</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span>
 
         <span class="c1"># trials are already non continuous. edge artifact can appears but</span>
         <span class="c1"># are likely to be present during rest / inter-trial activity</span>
-        <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">eeg_data_l</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">eeg_data_l</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">500</span><span class="p">)),</span>
-                              <span class="n">eeg_data_r</span><span class="p">])</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Trials demeaned and stacked with zero buffer to create &quot;</span>
-                    <span class="s2">&quot;continuous data -- edge effects present&quot;</span><span class="p">)</span>
+        <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">eeg_data_l</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">eeg_data_l</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">500</span><span class="p">)),</span> <span class="n">eeg_data_r</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">&quot;Trials demeaned and stacked with zero buffer to create &quot;</span>
+            <span class="s2">&quot;continuous data -- edge effects present&quot;</span>
+        <span class="p">)</span>
 
-        <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span>
-                           <span class="n">sfreq</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">srate</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">srate</span><span class="p">)</span>
         <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;session_0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;session_0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
 
-<div class="viewcode-block" id="Cho2017.data_path"><a class="viewcode-back" href="../../../generated/moabb.datasets.Cho2017.html#moabb.datasets.Cho2017.data_path">[docs]</a>    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                  <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="n">subject</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid subject number&quot;</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid subject number&quot;</span><span class="p">))</span>
 
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:s}</span><span class="s1">s</span><span class="si">{:02d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">GIGA_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;GIGADB&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span>
-                            <span class="n">verbose</span><span class="p">)</span></div></div>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">s</span><span class="si">{:02d}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">GIGA_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_dl</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;GIGADB&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
 </pre></div>
 
     </div>
@@ -262,7 +277,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

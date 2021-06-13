@@ -1,4 +1,4 @@
-moabb.datasets.bi2013a
+﻿moabb.datasets.bi2013a
 ======================
 
 .. currentmodule:: moabb.datasets

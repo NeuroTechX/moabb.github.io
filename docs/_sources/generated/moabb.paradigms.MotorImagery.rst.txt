@@ -1,4 +1,4 @@
-moabb.paradigms.MotorImagery
+﻿moabb.paradigms.MotorImagery
 ============================
 
 .. currentmodule:: moabb.paradigms

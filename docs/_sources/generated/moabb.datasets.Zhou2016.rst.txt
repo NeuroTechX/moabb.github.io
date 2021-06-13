@@ -1,4 +1,4 @@
-moabb.datasets.Zhou2016
+﻿moabb.datasets.Zhou2016
 =======================
 
 .. currentmodule:: moabb.datasets

@@ -1,4 +1,4 @@
-moabb.paradigms.FilterBankLeftRightImagery
+﻿moabb.paradigms.FilterBankLeftRightImagery
 ==========================================
 
 .. currentmodule:: moabb.paradigms

@@ -1,4 +1,4 @@
-moabb.paradigms.motor_imagery.FilterBank
+﻿moabb.paradigms.motor_imagery.FilterBank
 ========================================
 
 .. currentmodule:: moabb.paradigms.motor_imagery

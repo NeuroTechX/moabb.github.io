@@ -1,4 +1,4 @@
-moabb.evaluations.WithinSessionEvaluation
+﻿moabb.evaluations.WithinSessionEvaluation
 =========================================
 
 .. currentmodule:: moabb.evaluations

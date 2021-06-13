@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Analysis &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="moabb.analysis.plotting.score_plot" href="generated/moabb.analysis.plotting.score_plot.html" />
@@ -38,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +76,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -135,26 +140,6 @@
       
   <div class="section" id="module-moabb.analysis">
 <span id="analysis"></span><h1>Analysis<a class="headerlink" href="#module-moabb.analysis" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="moabb.analysis.analyze">
-<code class="sig-prename descclassname">moabb.analysis.</code><code class="sig-name descname">analyze</code><span class="sig-paren">(</span><em class="sig-param">results</em>, <em class="sig-param">out_path</em>, <em class="sig-param">name='analysis'</em>, <em class="sig-param">plot=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/moabb/analysis.html#analyze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#moabb.analysis.analyze" title="Permalink to this definition">¶</a></dt>
-<dd><p>Analyze results.</p>
-<p>Given a results dataframe, generates a folder with
-results and a dataframe of the exact data used to generate those results,
-aswell as introspection to return information on the computer</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>out_path</strong> (<em>location to store analysis folder</em>)</p></li>
-<li><p><strong>results</strong> (<em>Dataframe generated from Results object</em>)</p></li>
-<li><p><strong>path</strong> (<em>string/None</em>)</p></li>
-<li><p><strong>plot</strong> (<em>whether to plot results</em>)</p></li>
-<li><p><strong>Either path or results is necessary</strong></p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 <div class="section" id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h2>
 <table class="longtable docutils align-default">
@@ -164,16 +149,16 @@ aswell as introspection to return information on the computer</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.analysis.plotting.score_plot.html#moabb.analysis.plotting.score_plot" title="moabb.analysis.plotting.score_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.score_plot</span></code></a>(data[, pipelines])</p></td>
-<td><p>In:</p></td>
+<td><p>Plot scores for all pipelines and all datasets</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.analysis.plotting.paired_plot.html#moabb.analysis.plotting.paired_plot" title="moabb.analysis.plotting.paired_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.paired_plot</span></code></a>(data, alg1, alg2)</p></td>
-<td><p>returns figure with an axis that has a paired plot on it Data: dataframe from Results alg1: name of a member of column data.pipeline alg2: name of a member of column data.pipeline</p></td>
+<td><p>Generate a figure with a paired plot</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot" title="moabb.analysis.plotting.summary_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.summary_plot</span></code></a>(sig_df, effect_df[, …])</p></td>
-<td><p>Visualize significances as a heatmap with green/grey/red for significantly higher/significantly lower.</p></td>
+<td><p>Significance matrix to compare pipelines</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.analysis.plotting.meta_analysis_plot.html#moabb.analysis.plotting.meta_analysis_plot" title="moabb.analysis.plotting.meta_analysis_plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting.meta_analysis_plot</span></code></a>(stats_df, alg1, alg2)</p></td>
-<td><p>A meta-analysis style plot that shows the standardized effect with confidence intervals over all datasets for two algorithms.</p></td>
+<td><p>Meta-analysis to compare two algorithms across several datasets</p></td>
 </tr>
 </tbody>
 </table>
@@ -187,19 +172,19 @@ aswell as introspection to return information on the computer</p>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.analysis.meta_analysis.find_significant_differences.html#moabb.analysis.meta_analysis.find_significant_differences" title="moabb.analysis.meta_analysis.find_significant_differences"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.find_significant_differences</span></code></a>(df)</p></td>
-<td><p>Compute matrix of p-values for all algorithms over all datasets via combined p-values method</p></td>
+<td><p>Compute differences between pipelines across datasets</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html#moabb.analysis.meta_analysis.compute_dataset_statistics" title="moabb.analysis.meta_analysis.compute_dataset_statistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.compute_dataset_statistics</span></code></a>(df)</p></td>
-<td><p>Returns dict of datasets to DataFrames with stats</p></td>
+<td><p>Compute meta-analysis statistics from results dataframe</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_effects.html#moabb.analysis.meta_analysis.combine_effects" title="moabb.analysis.meta_analysis.combine_effects"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_effects</span></code></a>(effects, nsubs)</p></td>
-<td><p>Function that takes effects from each experiments and number of subjects to return meta-analysis effect</p></td>
+<td><p>Combining effects for meta-analysis statistics</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.analysis.meta_analysis.combine_pvalues.html#moabb.analysis.meta_analysis.combine_pvalues" title="moabb.analysis.meta_analysis.combine_pvalues"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.combine_pvalues</span></code></a>(p, nsubs)</p></td>
-<td><p>Function that takes pvals from each experiments and number of subjects to return meta-analysis significance</p></td>
+<td><p>Combining p-values for meta-analysis statistics</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.analysis.meta_analysis.collapse_session_scores.html#moabb.analysis.meta_analysis.collapse_session_scores" title="moabb.analysis.meta_analysis.collapse_session_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">meta_analysis.collapse_session_scores</span></code></a>(df)</p></td>
-<td><p></p></td>
+<td><p>Prepare results dataframe for computing statistics</p></td>
 </tr>
 </tbody>
 </table>
@@ -226,7 +211,7 @@ aswell as introspection to return information on the computer</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

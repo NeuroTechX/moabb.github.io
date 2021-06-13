@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>moabb.datasets.mpi_mi &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>moabb.datasets.mpi_mi &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
@@ -36,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -71,6 +74,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -129,12 +134,14 @@
 <span class="sd">Munich MI dataset</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
 <span class="kn">import</span> <span class="nn">mne</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
 
-<span class="n">DOWNLOAD_URL</span> <span class="o">=</span> <span class="s1">&#39;https://zenodo.org/record/1217449/files/&#39;</span>
+
+<span class="n">DOWNLOAD_URL</span> <span class="o">=</span> <span class="s2">&quot;https://zenodo.org/record/1217449/files/&quot;</span>
 
 
 <div class="viewcode-block" id="MunichMI"><a class="viewcode-back" href="../../../generated/moabb.datasets.MunichMI.html#moabb.datasets.MunichMI">[docs]</a><span class="k">class</span> <span class="nc">MunichMI</span><span class="p">(</span><span class="n">BaseDataset</span><span class="p">):</span>
@@ -186,31 +193,37 @@
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">left_hand</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;Grosse-Wentrup 2009&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/TBME.2008.2009768&#39;</span><span class="p">)</span></div>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;Grosse-Wentrup 2009&quot;</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1109/TBME.2008.2009768&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>
-        <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_eeglab</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">subject</span><span class="p">),</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                                     <span class="n">verbose</span><span class="o">=</span><span class="s1">&#39;ERROR&#39;</span><span class="p">)</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">mne</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_raw_eeglab</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">subject</span><span class="p">),</span> <span class="n">preload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span>
+        <span class="p">)</span>
+        <span class="n">stim</span> <span class="o">=</span> <span class="n">raw</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">description</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="s2">&quot;&lt;10U&quot;</span><span class="p">))</span>
+
+        <span class="n">stim</span><span class="p">[</span><span class="n">stim</span> <span class="o">==</span> <span class="s2">&quot;20&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;right_hand&quot;</span>
+        <span class="n">stim</span><span class="p">[</span><span class="n">stim</span> <span class="o">==</span> <span class="s2">&quot;10&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;left_hand&quot;</span>
+        <span class="n">raw</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">stim</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;session_0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
 
-<div class="viewcode-block" id="MunichMI.data_path"><a class="viewcode-back" href="../../../generated/moabb.datasets.MunichMI.html#moabb.datasets.MunichMI.data_path">[docs]</a>    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                  <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
         <span class="k">if</span> <span class="n">subject</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">subject_list</span><span class="p">:</span>
-            <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid subject number&quot;</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid subject number&quot;</span><span class="p">))</span>
 
         <span class="c1"># download .set</span>
-        <span class="n">_set</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:s}</span><span class="s1">subject</span><span class="si">{:d}</span><span class="s1">.set&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">DOWNLOAD_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-        <span class="n">set_local</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">_set</span><span class="p">,</span> <span class="s1">&#39;MUNICHMI&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span>
-                                 <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="n">_set</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">subject</span><span class="si">{:d}</span><span class="s2">.set&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">DOWNLOAD_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+        <span class="n">set_local</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_dl</span><span class="p">(</span><span class="n">_set</span><span class="p">,</span> <span class="s2">&quot;MUNICHMI&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="c1"># download .fdt</span>
-        <span class="n">_fdt</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{:s}</span><span class="s1">subject</span><span class="si">{:d}</span><span class="s1">.fdt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">DOWNLOAD_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
-        <span class="n">dl</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">_fdt</span><span class="p">,</span> <span class="s1">&#39;MUNICHMI&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span>
-                     <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">set_local</span></div></div>
+        <span class="n">_fdt</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">subject</span><span class="si">{:d}</span><span class="s2">.fdt&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">DOWNLOAD_URL</span><span class="p">,</span> <span class="n">subject</span><span class="p">)</span>
+        <span class="n">dl</span><span class="o">.</span><span class="n">data_dl</span><span class="p">(</span><span class="n">_fdt</span><span class="p">,</span> <span class="s2">&quot;MUNICHMI&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">set_local</span></div>
 </pre></div>
 
     </div>
@@ -228,7 +241,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

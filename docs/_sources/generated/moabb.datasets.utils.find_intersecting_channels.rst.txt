@@ -1,4 +1,4 @@
-moabb.datasets.utils.find_intersecting_channels
+﻿moabb.datasets.utils.find_intersecting_channels
 ===============================================
 
 .. currentmodule:: moabb.datasets.utils

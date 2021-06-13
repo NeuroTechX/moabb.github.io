@@ -1,4 +1,4 @@
-moabb.datasets.EPFLP300
+﻿moabb.datasets.EPFLP300
 =======================
 
 .. currentmodule:: moabb.datasets

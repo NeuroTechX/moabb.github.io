@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>moabb.datasets.bnci &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>moabb.datasets.bnci &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <meta charset='utf-8'>
@@ -36,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -71,6 +74,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -129,37 +134,35 @@
 <span class="sd">BNCI 2014-001 Motor imagery dataset.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
-<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
-
-<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
-<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
-<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">verbose</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">mne</span> <span class="kn">import</span> <span class="n">create_info</span>
+<span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
+<span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
+<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">verbose</span>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
-<span class="n">BNCI_URL</span> <span class="o">=</span> <span class="s1">&#39;http://bnci-horizon-2020.eu/database/data-sets/&#39;</span>
-<span class="n">BBCI_URL</span> <span class="o">=</span> <span class="s1">&#39;http://doc.ml.tu-berlin.de/bbci/&#39;</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
 
 
-<span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span>
-              <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span>
-        <span class="n">dl</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;BNCI&#39;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
-    <span class="p">]</span>
+<span class="n">BNCI_URL</span> <span class="o">=</span> <span class="s2">&quot;http://bnci-horizon-2020.eu/database/data-sets/&quot;</span>
+<span class="n">BBCI_URL</span> <span class="o">=</span> <span class="s2">&quot;http://doc.ml.tu-berlin.de/bbci/&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">dl</span><span class="o">.</span><span class="n">data_dl</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;BNCI&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)]</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-              <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span>
-              <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-              <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-              <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-              <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>  <span class="c1"># noqa: D301</span>
+<span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;001-2014&quot;</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>  <span class="c1"># noqa: D301</span>
     <span class="sd">&quot;&quot;&quot;Get paths to local copies of a BNCI dataset files.</span>
 
 <span class="sd">    This will fetch data for a given BNCI dataset. Report to the bnci website</span>
@@ -196,241 +199,252 @@
 <span class="sd">        dictonary containing events and their code.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dataset_list</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;001-2014&#39;</span><span class="p">:</span> <span class="n">_load_data_001_2014</span><span class="p">,</span>
-        <span class="s1">&#39;002-2014&#39;</span><span class="p">:</span> <span class="n">_load_data_002_2014</span><span class="p">,</span>
-        <span class="s1">&#39;004-2014&#39;</span><span class="p">:</span> <span class="n">_load_data_004_2014</span><span class="p">,</span>
-        <span class="s1">&#39;008-2014&#39;</span><span class="p">:</span> <span class="n">_load_data_008_2014</span><span class="p">,</span>
-        <span class="s1">&#39;009-2014&#39;</span><span class="p">:</span> <span class="n">_load_data_009_2014</span><span class="p">,</span>
-        <span class="s1">&#39;001-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_001_2015</span><span class="p">,</span>
-        <span class="s1">&#39;003-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_003_2015</span><span class="p">,</span>
-        <span class="s1">&#39;004-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_004_2015</span><span class="p">,</span>
-        <span class="s1">&#39;009-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_009_2015</span><span class="p">,</span>
-        <span class="s1">&#39;010-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_010_2015</span><span class="p">,</span>
-        <span class="s1">&#39;012-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_012_2015</span><span class="p">,</span>
-        <span class="s1">&#39;013-2015&#39;</span><span class="p">:</span> <span class="n">_load_data_013_2015</span>
+        <span class="s2">&quot;001-2014&quot;</span><span class="p">:</span> <span class="n">_load_data_001_2014</span><span class="p">,</span>
+        <span class="s2">&quot;002-2014&quot;</span><span class="p">:</span> <span class="n">_load_data_002_2014</span><span class="p">,</span>
+        <span class="s2">&quot;004-2014&quot;</span><span class="p">:</span> <span class="n">_load_data_004_2014</span><span class="p">,</span>
+        <span class="s2">&quot;008-2014&quot;</span><span class="p">:</span> <span class="n">_load_data_008_2014</span><span class="p">,</span>
+        <span class="s2">&quot;009-2014&quot;</span><span class="p">:</span> <span class="n">_load_data_009_2014</span><span class="p">,</span>
+        <span class="s2">&quot;001-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_001_2015</span><span class="p">,</span>
+        <span class="s2">&quot;003-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_003_2015</span><span class="p">,</span>
+        <span class="s2">&quot;004-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_004_2015</span><span class="p">,</span>
+        <span class="s2">&quot;009-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_009_2015</span><span class="p">,</span>
+        <span class="s2">&quot;010-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_010_2015</span><span class="p">,</span>
+        <span class="s2">&quot;012-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_012_2015</span><span class="p">,</span>
+        <span class="s2">&quot;013-2015&quot;</span><span class="p">:</span> <span class="n">_load_data_013_2015</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="n">baseurl_list</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;001-2014&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;002-2014&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;001-2015&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;004-2014&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;008-2014&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;009-2014&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;003-2015&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;004-2015&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;009-2015&#39;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;010-2015&#39;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;012-2015&#39;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
-        <span class="s1">&#39;013-2015&#39;</span><span class="p">:</span> <span class="n">BNCI_URL</span>
+        <span class="s2">&quot;001-2014&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;002-2014&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;001-2015&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;004-2014&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;008-2014&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;009-2014&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;003-2015&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;004-2015&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;009-2015&quot;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;010-2015&quot;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;012-2015&quot;</span><span class="p">:</span> <span class="n">BBCI_URL</span><span class="p">,</span>
+        <span class="s2">&quot;013-2015&quot;</span><span class="p">:</span> <span class="n">BNCI_URL</span><span class="p">,</span>
     <span class="p">}</span>
 
     <span class="k">if</span> <span class="n">dataset</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dataset_list</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dataset &#39;</span><span class="si">%s</span><span class="s2">&#39; is not a valid BNCI dataset ID. &quot;</span>
-                         <span class="s2">&quot;Valid dataset are </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span>
-                         <span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_list</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Dataset &#39;</span><span class="si">%s</span><span class="s2">&#39; is not a valid BNCI dataset ID. &quot;</span>
+            <span class="s2">&quot;Valid dataset are </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dataset_list</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">dataset_list</span><span class="p">[</span><span class="n">dataset</span><span class="p">](</span><span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span>
-                                 <span class="n">baseurl_list</span><span class="p">[</span><span class="n">dataset</span><span class="p">],</span> <span class="n">verbose</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dataset_list</span><span class="p">[</span><span class="n">dataset</span><span class="p">](</span>
+        <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">,</span> <span class="n">baseurl_list</span><span class="p">[</span><span class="n">dataset</span><span class="p">],</span> <span class="n">verbose</span>
+    <span class="p">)</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_001_2014</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_001_2014</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 001-2014 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 9. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;FC3&#39;</span><span class="p">,</span> <span class="s1">&#39;FC1&#39;</span><span class="p">,</span> <span class="s1">&#39;FCz&#39;</span><span class="p">,</span> <span class="s1">&#39;FC2&#39;</span><span class="p">,</span> <span class="s1">&#39;FC4&#39;</span><span class="p">,</span> <span class="s1">&#39;C5&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;C6&#39;</span><span class="p">,</span> <span class="s1">&#39;CP3&#39;</span><span class="p">,</span> <span class="s1">&#39;CP1&#39;</span><span class="p">,</span> <span class="s1">&#39;CPz&#39;</span><span class="p">,</span> <span class="s1">&#39;CP2&#39;</span><span class="p">,</span> <span class="s1">&#39;CP4&#39;</span><span class="p">,</span> <span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;P2&#39;</span><span class="p">,</span> <span class="s1">&#39;POz&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;EOG1&#39;</span><span class="p">,</span> <span class="s1">&#39;EOG2&#39;</span><span class="p">,</span> <span class="s1">&#39;EOG3&#39;</span>
+        <span class="s2">&quot;Fz&quot;</span><span class="p">,</span> <span class="s2">&quot;FC3&quot;</span><span class="p">,</span> <span class="s2">&quot;FC1&quot;</span><span class="p">,</span> <span class="s2">&quot;FCz&quot;</span><span class="p">,</span> <span class="s2">&quot;FC2&quot;</span><span class="p">,</span> <span class="s2">&quot;FC4&quot;</span><span class="p">,</span> <span class="s2">&quot;C5&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cz&quot;</span><span class="p">,</span> <span class="s2">&quot;C2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;C6&quot;</span><span class="p">,</span> <span class="s2">&quot;CP3&quot;</span><span class="p">,</span> <span class="s2">&quot;CP1&quot;</span><span class="p">,</span> <span class="s2">&quot;CPz&quot;</span><span class="p">,</span> <span class="s2">&quot;CP2&quot;</span><span class="p">,</span> <span class="s2">&quot;CP4&quot;</span><span class="p">,</span> <span class="s2">&quot;P1&quot;</span><span class="p">,</span> <span class="s2">&quot;Pz&quot;</span><span class="p">,</span> <span class="s2">&quot;P2&quot;</span><span class="p">,</span> <span class="s2">&quot;POz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;EOG1&quot;</span><span class="p">,</span> <span class="s2">&quot;EOG2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOG3&quot;</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">22</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;eog&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="c1"># fmt: on</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">22</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;eog&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">001-2014/A</span><span class="si">{s:02d}{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">]:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">001-2014/A</span><span class="si">{s:02d}{r}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)</span>
         <span class="n">runs</span><span class="p">,</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
         <span class="c1"># FIXME: deal with run with no event (1:3) and name them</span>
-        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;run_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span>
-                                      <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s2">&quot;session_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;run_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_002_2014</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_002_2014</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 002-2014 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">14</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 14. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
     <span class="n">runs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">002-2014/S</span><span class="si">{s:02d}{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">]:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">002-2014/S</span><span class="si">{s:02d}{r}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="c1"># FIXME: electrode position and name are not provided directly.</span>
-        <span class="n">raws</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="n">raws</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>
         <span class="n">runs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">raws</span><span class="p">)</span>
 
-    <span class="n">runs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;run_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;session_0&#39;</span><span class="p">:</span> <span class="n">runs</span><span class="p">}</span>
+    <span class="n">runs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;run_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;session_0&quot;</span><span class="p">:</span> <span class="n">runs</span><span class="p">}</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_004_2014</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_004_2014</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 004-2014 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 9. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;EOG1&#39;</span><span class="p">,</span> <span class="s1">&#39;EOG2&#39;</span><span class="p">,</span> <span class="s1">&#39;EOG3&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;eog&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="s2">&quot;Cz&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;EOG1&quot;</span><span class="p">,</span> <span class="s2">&quot;EOG2&quot;</span><span class="p">,</span> <span class="s2">&quot;EOG3&quot;</span><span class="p">]</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;eog&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">]:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">004-2014/B</span><span class="si">{s:02d}{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">]:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">004-2014/B</span><span class="si">{s:02d}{r}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">raws</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
         <span class="n">sessions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">raws</span><span class="p">)</span>
 
-    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;session_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">run</span><span class="p">}</span>
-                <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sessions</span><span class="p">)}</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;session_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">run</span><span class="p">}</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sessions</span><span class="p">)}</span>
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_008_2014</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_008_2014</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 008-2014 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 8. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">008-2014/A</span><span class="si">{s:02d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">008-2014/A</span><span class="si">{s:02d}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
-    <span class="n">run</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="n">run</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
     <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span> <span class="o">=</span> <span class="n">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
 
-    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;session_0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;session_0&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">raw</span><span class="p">}}</span>
 
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_009_2014</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_009_2014</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 009-2014 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 10. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
     <span class="c1"># FIXME there is two type of speller, grid speller and geo-speller.</span>
     <span class="c1"># we load only grid speller data</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">009-2014/A</span><span class="si">{s:02d}</span><span class="s1">S.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">009-2014/A</span><span class="si">{s:02d}</span><span class="s2">S.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
-    <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+    <span class="n">sess</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">raw</span><span class="p">,</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+        <span class="n">sess</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
         <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ev</span><span class="p">)</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rawi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raws</span><span class="p">):</span>
-        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">][</span><span class="s1">&#39;run_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">rawi</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sessi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sess</span><span class="p">):</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s2">&quot;session_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">sessi</span><span class="p">}</span>
 
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_001_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_001_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 001-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 12. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">subject</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">]:</span>
-        <span class="n">ses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]</span>  <span class="c1"># 3 sessions for those subjects</span>
+        <span class="n">ses</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">]</span>  <span class="c1"># 3 sessions for those subjects</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">ses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">]</span>
+        <span class="n">ses</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]</span>
 
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;FC3&#39;</span><span class="p">,</span> <span class="s1">&#39;FCz&#39;</span><span class="p">,</span> <span class="s1">&#39;FC4&#39;</span><span class="p">,</span> <span class="s1">&#39;C5&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;C6&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;CP3&#39;</span><span class="p">,</span> <span class="s1">&#39;CPz&#39;</span><span class="p">,</span> <span class="s1">&#39;CP4&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">13</span>
+    <span class="c1"># fmt: off</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;FC3&quot;</span><span class="p">,</span> <span class="s2">&quot;FCz&quot;</span><span class="p">,</span> <span class="s2">&quot;FC4&quot;</span><span class="p">,</span> <span class="s2">&quot;C5&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">,</span> <span class="s2">&quot;C1&quot;</span><span class="p">,</span> <span class="s2">&quot;Cz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;C2&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;C6&quot;</span><span class="p">,</span> <span class="s2">&quot;CP3&quot;</span><span class="p">,</span> <span class="s2">&quot;CPz&quot;</span><span class="p">,</span> <span class="s2">&quot;CP4&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="c1"># fmt: on</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">13</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">ses</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">001-2015/S</span><span class="si">{s:02d}{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">001-2015/S</span><span class="si">{s:02d}{r}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)</span>
         <span class="n">runs</span><span class="p">,</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
-        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;run_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span>
-                                      <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s2">&quot;session_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;run_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="n">run</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">runs</span><span class="p">)}</span>
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_003_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_003_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 003-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 12. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">003-2015/s</span><span class="si">{s:d}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">003-2015/s</span><span class="si">{s:d}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;s</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">]</span>
-    <span class="n">sfreq</span> <span class="o">=</span> <span class="mf">256.</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;s</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">]</span>
+    <span class="n">sfreq</span> <span class="o">=</span> <span class="mf">256.0</span>
 
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">,</span> <span class="s1">&#39;PO7&#39;</span><span class="p">,</span> <span class="s1">&#39;Oz&#39;</span><span class="p">,</span> <span class="s1">&#39;PO8&#39;</span><span class="p">,</span> <span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Flash&#39;</span>
-    <span class="p">]</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Fz&quot;</span><span class="p">,</span> <span class="s2">&quot;Cz&quot;</span><span class="p">,</span> <span class="s2">&quot;P3&quot;</span><span class="p">,</span> <span class="s2">&quot;Pz&quot;</span><span class="p">,</span> <span class="s2">&quot;P4&quot;</span><span class="p">,</span> <span class="s2">&quot;PO7&quot;</span><span class="p">,</span> <span class="s2">&quot;Oz&quot;</span><span class="p">,</span> <span class="s2">&quot;PO8&quot;</span><span class="p">,</span> <span class="s2">&quot;Target&quot;</span><span class="p">,</span> <span class="s2">&quot;Flash&quot;</span><span class="p">]</span>
 
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
-        <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
 
     <span class="n">sessions</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sessions</span><span class="p">[</span><span class="s2">&quot;session_0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">ri</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">train</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">test</span><span class="p">]):</span>
         <span class="c1"># flash events on the channel 9</span>
         <span class="n">flashs</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="mi">9</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -440,11 +454,11 @@
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">flash_code</span><span class="p">)</span> <span class="o">==</span> <span class="mi">36</span><span class="p">:</span>
             <span class="c1"># char mode</span>
-            <span class="n">evd</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Char</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">37</span><span class="p">)}</span>
+            <span class="n">evd</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Char</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">37</span><span class="p">)}</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># row / column mode</span>
-            <span class="n">evd</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Col</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)}</span>
-            <span class="n">evd</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;Row</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)})</span>
+            <span class="n">evd</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Col</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)}</span>
+            <span class="n">evd</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;Row</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)})</span>
 
         <span class="c1"># target events are on channel 10</span>
         <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">flashs</span><span class="p">)</span>
@@ -452,137 +466,148 @@
 
         <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">r_</span><span class="p">[</span><span class="n">run</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">flashs</span><span class="p">]</span>
         <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
-        <span class="n">sessions</span><span class="p">[</span><span class="s1">&#39;session_0&#39;</span><span class="p">][</span><span class="s1">&#39;run_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ri</span><span class="p">)]</span> <span class="o">=</span> <span class="n">raw</span>
+        <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
+        <span class="n">sessions</span><span class="p">[</span><span class="s2">&quot;session_0&quot;</span><span class="p">][</span><span class="s2">&quot;run_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ri</span><span class="p">)]</span> <span class="o">=</span> <span class="n">raw</span>
 
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_004_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_004_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 004-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">9</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 9. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
-    <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="s1">&#39;E&#39;</span><span class="p">,</span> <span class="s1">&#39;F&#39;</span><span class="p">,</span> <span class="s1">&#39;G&#39;</span><span class="p">,</span> <span class="s1">&#39;H&#39;</span><span class="p">,</span> <span class="s1">&#39;J&#39;</span><span class="p">,</span> <span class="s1">&#39;L&#39;</span><span class="p">]</span>
+    <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;G&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">]</span>
 
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">004-2015/</span><span class="si">{s}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subjects</span><span class="p">[</span><span class="n">subject</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">004-2015/</span><span class="si">{s}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subjects</span><span class="p">[</span><span class="n">subject</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;AFz&#39;</span><span class="p">,</span> <span class="s1">&#39;F7&#39;</span><span class="p">,</span> <span class="s1">&#39;F3&#39;</span><span class="p">,</span> <span class="s1">&#39;Fz&#39;</span><span class="p">,</span> <span class="s1">&#39;F4&#39;</span><span class="p">,</span> <span class="s1">&#39;F8&#39;</span><span class="p">,</span> <span class="s1">&#39;FC3&#39;</span><span class="p">,</span> <span class="s1">&#39;FCz&#39;</span><span class="p">,</span> <span class="s1">&#39;FC4&#39;</span><span class="p">,</span> <span class="s1">&#39;T3&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;Cz&#39;</span><span class="p">,</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span> <span class="s1">&#39;T4&#39;</span><span class="p">,</span> <span class="s1">&#39;CP3&#39;</span><span class="p">,</span> <span class="s1">&#39;CPz&#39;</span><span class="p">,</span> <span class="s1">&#39;CP4&#39;</span><span class="p">,</span> <span class="s1">&#39;P7&#39;</span><span class="p">,</span> <span class="s1">&#39;P5&#39;</span><span class="p">,</span> <span class="s1">&#39;P3&#39;</span><span class="p">,</span> <span class="s1">&#39;P1&#39;</span><span class="p">,</span> <span class="s1">&#39;Pz&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;P2&#39;</span><span class="p">,</span> <span class="s1">&#39;P4&#39;</span><span class="p">,</span> <span class="s1">&#39;P6&#39;</span><span class="p">,</span> <span class="s1">&#39;P8&#39;</span><span class="p">,</span> <span class="s1">&#39;PO3&#39;</span><span class="p">,</span> <span class="s1">&#39;PO4&#39;</span><span class="p">,</span> <span class="s1">&#39;O1&#39;</span><span class="p">,</span> <span class="s1">&#39;O2&#39;</span>
+        <span class="s2">&quot;AFz&quot;</span><span class="p">,</span> <span class="s2">&quot;F7&quot;</span><span class="p">,</span> <span class="s2">&quot;F3&quot;</span><span class="p">,</span> <span class="s2">&quot;Fz&quot;</span><span class="p">,</span> <span class="s2">&quot;F4&quot;</span><span class="p">,</span> <span class="s2">&quot;F8&quot;</span><span class="p">,</span> <span class="s2">&quot;FC3&quot;</span><span class="p">,</span> <span class="s2">&quot;FCz&quot;</span><span class="p">,</span> <span class="s2">&quot;FC4&quot;</span><span class="p">,</span> <span class="s2">&quot;T3&quot;</span><span class="p">,</span> <span class="s2">&quot;C3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Cz&quot;</span><span class="p">,</span> <span class="s2">&quot;C4&quot;</span><span class="p">,</span> <span class="s2">&quot;T4&quot;</span><span class="p">,</span> <span class="s2">&quot;CP3&quot;</span><span class="p">,</span> <span class="s2">&quot;CPz&quot;</span><span class="p">,</span> <span class="s2">&quot;CP4&quot;</span><span class="p">,</span> <span class="s2">&quot;P7&quot;</span><span class="p">,</span> <span class="s2">&quot;P5&quot;</span><span class="p">,</span> <span class="s2">&quot;P3&quot;</span><span class="p">,</span> <span class="s2">&quot;P1&quot;</span><span class="p">,</span> <span class="s2">&quot;Pz&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;P2&quot;</span><span class="p">,</span> <span class="s2">&quot;P4&quot;</span><span class="p">,</span> <span class="s2">&quot;P6&quot;</span><span class="p">,</span> <span class="s2">&quot;P8&quot;</span><span class="p">,</span> <span class="s2">&quot;PO3&quot;</span><span class="p">,</span> <span class="s2">&quot;PO4&quot;</span><span class="p">,</span> <span class="s2">&quot;O1&quot;</span><span class="p">,</span> <span class="s2">&quot;O2&quot;</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span>
+    <span class="c1"># fmt: on</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">30</span>
     <span class="n">raws</span><span class="p">,</span> <span class="n">ev</span> <span class="o">=</span> <span class="n">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">)</span>
-    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;session_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;run_0&#39;</span><span class="p">:</span> <span class="n">run</span><span class="p">}</span>
-                <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raws</span><span class="p">)}</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;session_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ii</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;run_0&quot;</span><span class="p">:</span> <span class="n">run</span><span class="p">}</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">run</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">raws</span><span class="p">)}</span>
     <span class="k">return</span> <span class="n">sessions</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_009_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_009_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 009-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">21</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 21. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;fce&#39;</span><span class="p">,</span> <span class="s1">&#39;kw&#39;</span><span class="p">,</span> <span class="s1">&#39;faz&#39;</span><span class="p">,</span> <span class="s1">&#39;fcj&#39;</span><span class="p">,</span> <span class="s1">&#39;fcg&#39;</span><span class="p">,</span> <span class="s1">&#39;far&#39;</span><span class="p">,</span> <span class="s1">&#39;faw&#39;</span><span class="p">,</span> <span class="s1">&#39;fax&#39;</span><span class="p">,</span> <span class="s1">&#39;fcc&#39;</span><span class="p">,</span> <span class="s1">&#39;fcm&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fas&#39;</span><span class="p">,</span> <span class="s1">&#39;fch&#39;</span><span class="p">,</span> <span class="s1">&#39;fcd&#39;</span><span class="p">,</span> <span class="s1">&#39;fca&#39;</span><span class="p">,</span> <span class="s1">&#39;fcb&#39;</span><span class="p">,</span> <span class="s1">&#39;fau&#39;</span><span class="p">,</span> <span class="s1">&#39;fci&#39;</span><span class="p">,</span> <span class="s1">&#39;fav&#39;</span><span class="p">,</span> <span class="s1">&#39;fat&#39;</span><span class="p">,</span> <span class="s1">&#39;fcl&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fck&#39;</span>
+        <span class="s2">&quot;fce&quot;</span><span class="p">,</span> <span class="s2">&quot;kw&quot;</span><span class="p">,</span> <span class="s2">&quot;faz&quot;</span><span class="p">,</span> <span class="s2">&quot;fcj&quot;</span><span class="p">,</span> <span class="s2">&quot;fcg&quot;</span><span class="p">,</span> <span class="s2">&quot;far&quot;</span><span class="p">,</span> <span class="s2">&quot;faw&quot;</span><span class="p">,</span> <span class="s2">&quot;fax&quot;</span><span class="p">,</span> <span class="s2">&quot;fcc&quot;</span><span class="p">,</span> <span class="s2">&quot;fcm&quot;</span><span class="p">,</span> <span class="s2">&quot;fas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fch&quot;</span><span class="p">,</span> <span class="s2">&quot;fcd&quot;</span><span class="p">,</span> <span class="s2">&quot;fca&quot;</span><span class="p">,</span> <span class="s2">&quot;fcb&quot;</span><span class="p">,</span> <span class="s2">&quot;fau&quot;</span><span class="p">,</span> <span class="s2">&quot;fci&quot;</span><span class="p">,</span> <span class="s2">&quot;fav&quot;</span><span class="p">,</span> <span class="s2">&quot;fat&quot;</span><span class="p">,</span> <span class="s2">&quot;fcl&quot;</span><span class="p">,</span> <span class="s2">&quot;fck&quot;</span><span class="p">,</span>
     <span class="p">]</span>
+    <span class="c1"># fmt: on</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">BNCIHorizon2020-AMUSE/AMUSE_VP</span><span class="si">{s}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">BNCIHorizon2020-AMUSE/AMUSE_VP</span><span class="si">{s}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;eog&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;eog&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
 
     <span class="k">return</span> <span class="n">_convert_bbci</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_010_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_010_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 010-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 12. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
+    <span class="c1"># fmt: off</span>
     <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;fat&#39;</span><span class="p">,</span> <span class="s1">&#39;gcb&#39;</span><span class="p">,</span> <span class="s1">&#39;gcc&#39;</span><span class="p">,</span> <span class="s1">&#39;gcd&#39;</span><span class="p">,</span> <span class="s1">&#39;gce&#39;</span><span class="p">,</span> <span class="s1">&#39;gcf&#39;</span><span class="p">,</span> <span class="s1">&#39;gcg&#39;</span><span class="p">,</span> <span class="s1">&#39;gch&#39;</span><span class="p">,</span> <span class="s1">&#39;iay&#39;</span><span class="p">,</span> <span class="s1">&#39;icn&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;icr&#39;</span><span class="p">,</span> <span class="s1">&#39;pia&#39;</span>
+        <span class="s2">&quot;fat&quot;</span><span class="p">,</span> <span class="s2">&quot;gcb&quot;</span><span class="p">,</span> <span class="s2">&quot;gcc&quot;</span><span class="p">,</span> <span class="s2">&quot;gcd&quot;</span><span class="p">,</span> <span class="s2">&quot;gce&quot;</span><span class="p">,</span> <span class="s2">&quot;gcf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gcg&quot;</span><span class="p">,</span> <span class="s2">&quot;gch&quot;</span><span class="p">,</span> <span class="s2">&quot;iay&quot;</span><span class="p">,</span> <span class="s2">&quot;icn&quot;</span><span class="p">,</span> <span class="s2">&quot;icr&quot;</span><span class="p">,</span> <span class="s2">&quot;pia&quot;</span><span class="p">,</span>
     <span class="p">]</span>
+    <span class="c1"># fmt: on</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">BNCIHorizon2020-RSVP/RSVP_VP</span><span class="si">{s}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">BNCIHorizon2020-RSVP/RSVP_VP</span><span class="si">{s}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">63</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">63</span>
 
     <span class="k">return</span> <span class="n">_convert_bbci</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_012_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_012_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BBCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 012-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 12. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
-    <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;nv&#39;</span><span class="p">,</span> <span class="s1">&#39;nw&#39;</span><span class="p">,</span> <span class="s1">&#39;nx&#39;</span><span class="p">,</span> <span class="s1">&#39;ny&#39;</span><span class="p">,</span> <span class="s1">&#39;nz&#39;</span><span class="p">,</span> <span class="s1">&#39;mg&#39;</span><span class="p">,</span> <span class="s1">&#39;oa&#39;</span><span class="p">,</span> <span class="s1">&#39;ob&#39;</span><span class="p">,</span> <span class="s1">&#39;oc&#39;</span><span class="p">,</span> <span class="s1">&#39;od&#39;</span><span class="p">,</span> <span class="s1">&#39;ja&#39;</span><span class="p">,</span> <span class="s1">&#39;oe&#39;</span>
-    <span class="p">]</span>
+    <span class="n">subjects</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;nv&quot;</span><span class="p">,</span> <span class="s2">&quot;nw&quot;</span><span class="p">,</span> <span class="s2">&quot;nx&quot;</span><span class="p">,</span> <span class="s2">&quot;ny&quot;</span><span class="p">,</span> <span class="s2">&quot;nz&quot;</span><span class="p">,</span> <span class="s2">&quot;mg&quot;</span><span class="p">,</span> <span class="s2">&quot;oa&quot;</span><span class="p">,</span> <span class="s2">&quot;ob&quot;</span><span class="p">,</span> <span class="s2">&quot;oc&quot;</span><span class="p">,</span> <span class="s2">&quot;od&quot;</span><span class="p">,</span> <span class="s2">&quot;ja&quot;</span><span class="p">,</span> <span class="s2">&quot;oe&quot;</span><span class="p">]</span>
 
     <span class="n">s</span> <span class="o">=</span> <span class="n">subjects</span><span class="p">[</span><span class="n">subject</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">BNCIHorizon2020-PASS2D/PASS2D_VP</span><span class="si">{s}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">BNCIHorizon2020-PASS2D/PASS2D_VP</span><span class="si">{s}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">)</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">63</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">63</span>
 
     <span class="k">return</span> <span class="n">_convert_bbci</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
 
 <span class="nd">@verbose</span>
-<span class="k">def</span> <span class="nf">_load_data_013_2015</span><span class="p">(</span><span class="n">subject</span><span class="p">,</span>
-                        <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                        <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                        <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
-                        <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_load_data_013_2015</span><span class="p">(</span>
+    <span class="n">subject</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">BNCI_URL</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Load data for 013-2015 dataset.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">subject</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subject must be between 1 and 6. Got </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">subject</span><span class="p">)</span>
 
     <span class="n">data_paths</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;s1&#39;</span><span class="p">,</span> <span class="s1">&#39;s2&#39;</span><span class="p">]:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{u}</span><span class="s1">013-2015/Subject</span><span class="si">{s:02d}</span><span class="s1">_</span><span class="si">{r}</span><span class="s1">.mat&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;s1&quot;</span><span class="p">,</span> <span class="s2">&quot;s2&quot;</span><span class="p">]:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{u}</span><span class="s2">013-2015/Subject</span><span class="si">{s:02d}</span><span class="s2">_</span><span class="si">{r}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u</span><span class="o">=</span><span class="n">base_url</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">)</span>
         <span class="n">data_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">force_update</span><span class="p">,</span> <span class="n">update_path</span><span class="p">))</span>
 
     <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">data_paths</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;run&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]:</span>
             <span class="n">raw</span><span class="p">,</span> <span class="n">evd</span> <span class="o">=</span> <span class="n">_convert_run_epfl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
             <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
             <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">evd</span><span class="p">)</span>
@@ -590,23 +615,23 @@
 
 
 <span class="k">def</span> <span class="nf">_convert_mi</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Processes (Graz) motor imagery data from MAT files, returns list of</span>
 <span class="sd">    recording runs.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
-
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">runs</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="n">run_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="n">run_array</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">run_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]]</span>
+        <span class="n">run_array</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]]</span>
 
     <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">run_array</span><span class="p">:</span>
         <span class="n">raw</span><span class="p">,</span> <span class="n">evd</span> <span class="o">=</span> <span class="n">_convert_run</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">raw</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">runs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
         <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">evd</span><span class="p">)</span>
     <span class="c1"># change labels to match rest</span>
@@ -615,14 +640,16 @@
 
 
 <span class="k">def</span> <span class="nf">standardize_keys</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-    <span class="n">master_list</span> <span class="o">=</span> <span class="p">[[</span><span class="s1">&#39;both feet&#39;</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;left hand&#39;</span><span class="p">,</span> <span class="s1">&#39;left_hand&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;right hand&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;FEET&#39;</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;HAND&#39;</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;NAV&#39;</span><span class="p">,</span> <span class="s1">&#39;navigation&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;SUB&#39;</span><span class="p">,</span> <span class="s1">&#39;subtraction&#39;</span><span class="p">],</span>
-                   <span class="p">[</span><span class="s1">&#39;WORD&#39;</span><span class="p">,</span> <span class="s1">&#39;word_ass&#39;</span><span class="p">]]</span>
+    <span class="n">master_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span><span class="s2">&quot;both feet&quot;</span><span class="p">,</span> <span class="s2">&quot;feet&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;left hand&quot;</span><span class="p">,</span> <span class="s2">&quot;left_hand&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;right hand&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;FEET&quot;</span><span class="p">,</span> <span class="s2">&quot;feet&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;HAND&quot;</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;NAV&quot;</span><span class="p">,</span> <span class="s2">&quot;navigation&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;SUB&quot;</span><span class="p">,</span> <span class="s2">&quot;subtraction&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;WORD&quot;</span><span class="p">,</span> <span class="s2">&quot;word_ass&quot;</span><span class="p">],</span>
+    <span class="p">]</span>
     <span class="k">for</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span> <span class="ow">in</span> <span class="n">master_list</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">old</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
             <span class="n">d</span><span class="p">[</span><span class="n">new</span><span class="p">]</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">old</span><span class="p">)</span>
@@ -634,49 +661,51 @@
     <span class="c1"># parse eeg data</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">n_chan</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">fs</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ch_names</span><span class="p">:</span>
-        <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EEG</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_chan</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+        <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EEG</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_chan</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
         <span class="n">montage</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># no montage</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">ch_types</span><span class="p">:</span>
-        <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_chan</span>
+        <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_chan</span>
 
     <span class="n">trigger</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">eeg_data</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
     <span class="c1"># some runs does not contains trials i.e baseline runs</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">trial</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">trigger</span><span class="p">[</span><span class="n">run</span><span class="o">.</span><span class="n">trial</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">y</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">trigger</span><span class="p">]</span>
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">ev</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">classes</span><span class="p">)}</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
-        <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span>
 
 
 <span class="nd">@verbose</span>
 <span class="k">def</span> <span class="nf">_convert_run_p300_sl</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert one p300 run from santa lucia file format.&quot;&quot;&quot;</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="mi">256</span>
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Target stim&#39;</span><span class="p">,</span> <span class="s1">&#39;Flash stim&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Target stim&quot;</span><span class="p">,</span> <span class="s2">&quot;Flash stim&quot;</span><span class="p">]</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">channels</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
 
     <span class="n">flash_stim</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">y_stim</span>
     <span class="n">flash_stim</span><span class="p">[</span><span class="n">flash_stim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">2</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">run</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">flash_stim</span><span class="p">]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">ev</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">classes</span><span class="p">)}</span>
     <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">ev</span><span class="p">:</span> <span class="p">(</span><span class="n">ii</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">ev</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">classes_stim</span><span class="p">)})</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
-        <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span>
 
 
@@ -685,10 +714,9 @@
     <span class="sd">&quot;&quot;&quot;Convert one file in bbci format.&quot;&quot;&quot;</span>
     <span class="n">raws</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">loadmat</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">struct_as_record</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">squeeze_me</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]:</span>
         <span class="n">raw</span><span class="p">,</span> <span class="n">evd</span> <span class="o">=</span> <span class="n">_convert_run_bbci</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span>
         <span class="n">raws</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
         <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">evd</span><span class="p">)</span>
@@ -700,7 +728,7 @@
 <span class="k">def</span> <span class="nf">_convert_run_bbci</span><span class="p">(</span><span class="n">run</span><span class="p">,</span> <span class="n">ch_types</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert one run to raw.&quot;&quot;&quot;</span>
     <span class="c1"># parse eeg data</span>
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">X</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">fs</span>
 
@@ -712,16 +740,16 @@
 
     <span class="n">flash</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">eeg_data</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">flash</span><span class="p">[</span><span class="n">run</span><span class="o">.</span><span class="n">trial</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">y_stim</span> <span class="o">+</span> <span class="mi">2</span>
-    <span class="n">ev_fl</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Stim</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stim</span><span class="p">):</span> <span class="p">(</span><span class="n">stim</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">y_stim</span><span class="p">)}</span>
+    <span class="n">ev_fl</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Stim</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">stim</span><span class="p">):</span> <span class="p">(</span><span class="n">stim</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">stim</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">y_stim</span><span class="p">)}</span>
     <span class="n">event_id</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">ev_fl</span><span class="p">)</span>
 
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">trigger</span><span class="p">,</span> <span class="n">flash</span><span class="p">]</span>
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="s1">&#39;Flash&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Target&quot;</span><span class="p">,</span> <span class="s2">&quot;Flash&quot;</span><span class="p">]</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
-        <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span>
 
 
@@ -731,12 +759,12 @@
     <span class="c1"># parse eeg data</span>
     <span class="n">event_id</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s1">&#39;standard_1005&#39;</span><span class="p">)</span>
+    <span class="n">montage</span> <span class="o">=</span> <span class="n">make_standard_montage</span><span class="p">(</span><span class="s2">&quot;standard_1005&quot;</span><span class="p">)</span>
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="mf">1e-6</span> <span class="o">*</span> <span class="n">run</span><span class="o">.</span><span class="n">eeg</span>
     <span class="n">sfreq</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">SampleRate</span>
 
     <span class="n">ch_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">run</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">Label</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;eeg&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;eeg&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">ch_names</span><span class="p">)</span>
 
     <span class="n">trigger</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">eeg_data</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
 
@@ -747,13 +775,13 @@
             <span class="n">trigger</span><span class="p">[</span><span class="n">run</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">EVENT</span><span class="o">.</span><span class="n">POS</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 
     <span class="n">eeg_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">c_</span><span class="p">[</span><span class="n">eeg_data</span><span class="p">,</span> <span class="n">trigger</span><span class="p">]</span>
-    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
-    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span>
-    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;correct&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+    <span class="n">ch_names</span> <span class="o">=</span> <span class="n">ch_names</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
+    <span class="n">ch_types</span> <span class="o">=</span> <span class="n">ch_types</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
+    <span class="n">event_id</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;correct&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 
-    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span>
-        <span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">,</span> <span class="n">montage</span><span class="o">=</span><span class="n">montage</span><span class="p">)</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">create_info</span><span class="p">(</span><span class="n">ch_names</span><span class="o">=</span><span class="n">ch_names</span><span class="p">,</span> <span class="n">ch_types</span><span class="o">=</span><span class="n">ch_types</span><span class="p">,</span> <span class="n">sfreq</span><span class="o">=</span><span class="n">sfreq</span><span class="p">)</span>
     <span class="n">raw</span> <span class="o">=</span> <span class="n">RawArray</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">eeg_data</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="n">info</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">)</span>
+    <span class="n">raw</span><span class="o">.</span><span class="n">set_montage</span><span class="p">(</span><span class="n">montage</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">raw</span><span class="p">,</span> <span class="n">event_id</span>
 
 
@@ -765,12 +793,17 @@
         <span class="n">sessions</span> <span class="o">=</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sessions</span>
 
-    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                  <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;warning - datapath not implemented correctly for </span><span class="si">{self.code}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">load_data</span><span class="p">(</span><span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
-                         <span class="n">update_path</span><span class="o">=</span><span class="n">update_path</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
-                         <span class="n">force_update</span><span class="o">=</span><span class="n">force_update</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">load_data</span><span class="p">(</span>
+            <span class="n">subject</span><span class="o">=</span><span class="n">subject</span><span class="p">,</span>
+            <span class="n">dataset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">code</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">update_path</span><span class="o">=</span><span class="n">update_path</span><span class="p">,</span>
+            <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
+            <span class="n">force_update</span><span class="o">=</span><span class="n">force_update</span><span class="p">,</span>
+        <span class="p">)</span>
 
 
 <div class="viewcode-block" id="BNCI2014001"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014001</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -820,11 +853,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;left_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;tongue&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;001-2014&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;left_hand&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;feet&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;tongue&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;001-2014&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.3389/fnins.2012.00055&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.3389/fnins.2012.00055&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014002"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014002.html#moabb.datasets.BNCI2014002">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014002</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -873,11 +907,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">15</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;002-2014&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;right_hand&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;feet&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;002-2014&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1515/bmt-2014-0117&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1515/bmt-2014-0117&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014004"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014004.html#moabb.datasets.BNCI2014004">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014004</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -946,22 +981,23 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;left_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;004-2014&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;left_hand&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;right_hand&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;004-2014&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/TNSRE.2007.906956&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1109/TNSRE.2007.906956&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014008"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014008.html#moabb.datasets.BNCI2014008">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014008</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;BNCI 2014-008 P300 dataset.</span>
+    <span class="sd">&quot;&quot;&quot;BNCI 2014-008 P300 dataset</span>
 
 <span class="sd">    Dataset from [1]_.</span>
 
 <span class="sd">    **Dataset description**</span>
 
 <span class="sd">    This dataset represents a complete record of P300 evoked potentials</span>
-<span class="sd">    using a paradigm originally described by Farwell and Donchin [2].</span>
+<span class="sd">    using a paradigm originally described by Farwell and Donchin [2]_.</span>
 <span class="sd">    In these sessions, 8 users with amyotrophic lateral sclerosis (ALS)</span>
 <span class="sd">    focused on one out of 36 different characters. The objective in this</span>
 <span class="sd">    contest is to predict the correct character in each of the provided</span>
@@ -992,7 +1028,6 @@
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
-
 <span class="sd">    .. [1] A. Riccio, L. Simione, F. Schettini, A. Pizzimenti, M. Inghilleri,</span>
 <span class="sd">           M. O. Belardinelli, D. Mattia, and F. Cincotti (2013). Attention</span>
 <span class="sd">           and P300-based BCI performance in people with amyotrophic lateral</span>
@@ -1008,11 +1043,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;008-2014&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Target&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;NonTarget&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;008-2014&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.3389/fnhum.2013.00732&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;p300&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.3389/fnhum.2013.00732&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2014009"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009">[docs]</a><span class="k">class</span> <span class="nc">BNCI2014009</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -1060,12 +1096,13 @@
 <div class="viewcode-block" id="BNCI2014009.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2014009.html#moabb.datasets.BNCI2014009.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
-            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;009-2014&#39;</span><span class="p">,</span>
+            <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Target&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;NonTarget&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;009-2014&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1088/1741-2560/11/3/035008&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;p300&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1088/1741-2560/11/3/035008&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015001"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015001.html#moabb.datasets.BNCI2015001">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015001</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -1108,11 +1145,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;right_hand&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;feet&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;001-2015&#39;</span><span class="p">,</span>
-            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1109/tnsre.2012.2189584&#39;</span><span class="p">)</span></div></div>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;right_hand&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;feet&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;001-2015&quot;</span><span class="p">,</span>
+            <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1109/tnsre.2012.2189584&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015003"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015003.html#moabb.datasets.BNCI2015003">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015003</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -1123,10 +1161,10 @@
 <span class="sd">    **Dataset description**</span>
 
 <span class="sd">    This dataset contains recordings from 10 subjects performing a visual P300</span>
-<span class="sd">    task for spelling. Results were published in [1]. Sampling frequency was</span>
+<span class="sd">    task for spelling. Results were published in [1]_. Sampling frequency was</span>
 <span class="sd">    256 Hz and there were 8 electrodes (&#39;Fz&#39;, &#39;Cz&#39;, &#39;P3&#39;, &#39;Pz&#39;, &#39;P4&#39;, &#39;PO7&#39;,</span>
 <span class="sd">    &#39;Oz&#39;, &#39;PO8&#39;) which were referenced to the right earlobe. Each subject</span>
-<span class="sd">    participated in only one session. For more information, see [1].</span>
+<span class="sd">    participated in only one session. For more information, see [1]_.</span>
 
 <span class="sd">    References</span>
 <span class="sd">    ----------</span>
@@ -1142,11 +1180,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Target&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;NonTarget&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;003-2015&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Target&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;NonTarget&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;003-2015&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;p300&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1016/j.neulet.2009.06.045&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;p300&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1016/j.neulet.2009.06.045&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="BNCI2015004"><a class="viewcode-back" href="../../../generated/moabb.datasets.BNCI2015004.html#moabb.datasets.BNCI2015004">[docs]</a><span class="k">class</span> <span class="nc">BNCI2015004</span><span class="p">(</span><span class="n">MNEBNCI</span><span class="p">):</span>
@@ -1207,12 +1246,12 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-            <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">feet</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">navigation</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">subtraction</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-                        <span class="n">word_ass</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">code</span><span class="o">=</span><span class="s1">&#39;004-2015&#39;</span><span class="p">,</span>
+            <span class="n">events</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">right_hand</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">feet</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">navigation</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">subtraction</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">word_ass</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">code</span><span class="o">=</span><span class="s2">&quot;004-2015&quot;</span><span class="p">,</span>
             <span class="n">interval</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
-            <span class="n">paradigm</span><span class="o">=</span><span class="s1">&#39;imagery&#39;</span><span class="p">,</span>
-            <span class="n">doi</span><span class="o">=</span><span class="s1">&#39;10.1371/journal.pone.0123727&#39;</span><span class="p">)</span></div></div>
+            <span class="n">paradigm</span><span class="o">=</span><span class="s2">&quot;imagery&quot;</span><span class="p">,</span>
+            <span class="n">doi</span><span class="o">=</span><span class="s2">&quot;10.1371/journal.pone.0123727&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
 </pre></div>
 
     </div>
@@ -1230,7 +1269,7 @@
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

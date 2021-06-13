@@ -1,4 +1,4 @@
-moabb.paradigms.LeftRightImagery
+﻿moabb.paradigms.LeftRightImagery
 ================================
 
 .. currentmodule:: moabb.paradigms

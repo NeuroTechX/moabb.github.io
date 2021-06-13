@@ -1,4 +1,4 @@
-moabb.datasets.Schirrmeister2017
+﻿moabb.datasets.Schirrmeister2017
 ================================
 
 .. currentmodule:: moabb.datasets

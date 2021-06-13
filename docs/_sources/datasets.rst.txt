@@ -21,6 +21,8 @@ Motor Imagery Datasets
     BNCI2015001
     BNCI2015004
     Cho2017
+    DemonsP300
+    Lee2019_MI
     MunichMI
     Ofner2017
     PhysionetMI
@@ -29,7 +31,6 @@ Motor Imagery Datasets
     Shin2017B
     Weibo2014
     Zhou2016
-    SSVEPExo
 
 
 ------------
@@ -46,6 +47,7 @@ ERP Datasets
     BNCI2015003
     EPFLP300
 
+
 --------------
 SSVEP Datasets
 --------------
@@ -55,6 +57,12 @@ SSVEP Datasets
     :template: class.rst
 
     SSVEPExo
+    Nakanishi2015
+    Wang2016
+    MAMEM1
+    MAMEM2
+    MAMEM3
+
 
 ------------
 Base & Utils
@@ -66,5 +74,11 @@ Base & Utils
 
     base.BaseDataset
     download.data_path
+	 download.data_dl
+	 download.fs_issue_request
+	 download.fs_get_file_list
+	 download.fs_get_file_hash
+	 download.fs_get_file_id
+	 download.fs_get_file_name
     utils.dataset_search
     utils.find_intersecting_channels

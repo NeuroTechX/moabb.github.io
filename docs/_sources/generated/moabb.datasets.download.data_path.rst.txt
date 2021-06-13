@@ -1,4 +1,4 @@
-moabb.datasets.download.data_path
+﻿moabb.datasets.download.data_path
 =================================
 
 .. currentmodule:: moabb.datasets.download

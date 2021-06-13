@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Pipelines &#8212; moabb  documentation</title>
-    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pipelines &#8212; moabb 0.3.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="moabb.pipelines.features.LogVariance" href="generated/moabb.pipelines.features.LogVariance.html" />
@@ -38,7 +41,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b></b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.3.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -73,6 +76,8 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="paradigms.html">Paradigms</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
 <li class="toctree-l2"><a class="reference internal" href="paradigms.html#base-utils">Base &amp; Utils</a></li>
 </ul>
 </li>
@@ -146,11 +151,20 @@ with an sklearn compatible estimator.</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.pipelines.features.LogVariance.html#moabb.pipelines.features.LogVariance" title="moabb.pipelines.features.LogVariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.LogVariance</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.pipelines.features.LogVariance.html#moabb.pipelines.features.LogVariance" title="moabb.pipelines.features.LogVariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.LogVariance</span></code></a>()</p></td>
+<td><p>LogVariance transformer</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.pipelines.features.FM.html#moabb.pipelines.features.FM" title="moabb.pipelines.features.FM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.FM</span></code></a>([freq])</p></td>
-<td><p></p></td>
+<td><p>Transformer to scale sampling frequency</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.pipelines.features.ExtendedSSVEPSignal.html#moabb.pipelines.features.ExtendedSSVEPSignal" title="moabb.pipelines.features.ExtendedSSVEPSignal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">features.ExtendedSSVEPSignal</span></code></a>()</p></td>
+<td><p>Prepare FilterBank SSVEP EEG signal for estimating extended covariances</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/moabb.pipelines.csp.TRCSP.html#moabb.pipelines.csp.TRCSP" title="moabb.pipelines.csp.TRCSP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">csp.TRCSP</span></code></a>([nfilter, metric, log, alpha])</p></td>
+<td><p>Weighted Tikhonov-regularized CSP as described in Lotte and Guan 2011</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/moabb.pipelines.classification.SSVEP_CCA.html#moabb.pipelines.classification.SSVEP_CCA" title="moabb.pipelines.classification.SSVEP_CCA"><code class="xref py py-obj docutils literal notranslate"><span class="pre">classification.SSVEP_CCA</span></code></a>(interval, freqs[, …])</p></td>
+<td><p>Classifier based on Canonical Correlation Analysis for SSVEP</p></td>
 </tr>
 </tbody>
 </table>
@@ -194,7 +208,7 @@ with an sklearn compatible estimator.</p>
     </p>
     <p>
         &copy; Copyright 2018, Alexandre Barachant.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
 </footer>

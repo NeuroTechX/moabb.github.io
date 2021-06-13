@@ -1,4 +1,4 @@
-moabb.datasets.PhysionetMI
+﻿moabb.datasets.PhysionetMI
 ==========================
 
 .. currentmodule:: moabb.datasets

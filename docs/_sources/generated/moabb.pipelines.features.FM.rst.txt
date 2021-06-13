@@ -1,4 +1,4 @@
-moabb.pipelines.features.FM
+﻿moabb.pipelines.features.FM
 ===========================
 
 .. currentmodule:: moabb.pipelines.features

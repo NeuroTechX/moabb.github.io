@@ -1,4 +1,4 @@
-moabb.paradigms.base.BaseParadigm
+﻿moabb.paradigms.base.BaseParadigm
 =================================
 
 .. currentmodule:: moabb.paradigms.base
