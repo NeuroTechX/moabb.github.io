@@ -58,7 +58,16 @@
      href="../../../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../datasets.html">Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
@@ -238,7 +247,7 @@
 <span class="sd">           19(1), 35-53.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="bi2013a.__init__"><a class="viewcode-back" href="../../../generated/moabb.datasets.bi2013a.html#moabb.datasets.bi2013a.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NonAdaptive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">Adaptive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">Training</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">Online</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">NonAdaptive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">Adaptive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">Training</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">Online</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">subjects</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)),</span>
             <span class="n">sessions_per_subject</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -252,7 +261,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">adaptive</span> <span class="o">=</span> <span class="n">Adaptive</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nonadaptive</span> <span class="o">=</span> <span class="n">NonAdaptive</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">training</span> <span class="o">=</span> <span class="n">Training</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">online</span> <span class="o">=</span> <span class="n">Online</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">online</span> <span class="o">=</span> <span class="n">Online</span>
 
     <span class="k">def</span> <span class="nf">_get_single_subject_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>
@@ -279,7 +288,7 @@
 
         <span class="k">return</span> <span class="n">sessions</span>
 
-    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span>
+<div class="viewcode-block" id="bi2013a.data_path"><a class="viewcode-back" href="../../../generated/moabb.datasets.bi2013a.html#moabb.datasets.bi2013a.data_path">[docs]</a>    <span class="k">def</span> <span class="nf">data_path</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">update_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">None</span>
     <span class="p">):</span>
 
@@ -327,7 +336,7 @@
                     <span class="n">path_folder</span><span class="p">,</span> <span class="s2">&quot;subject</span><span class="si">{:d}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">subject</span><span class="p">),</span> <span class="s2">&quot;Session*&quot;</span><span class="p">,</span> <span class="n">filename</span>
                 <span class="p">)</span>
             <span class="p">)</span>  <span class="c1"># noqa</span>
-        <span class="k">return</span> <span class="n">subject_paths</span></div>
+        <span class="k">return</span> <span class="n">subject_paths</span></div></div>
 </pre></div>
 
     </div>
@@ -344,7 +353,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, Alexandre Barachant.<br/>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>

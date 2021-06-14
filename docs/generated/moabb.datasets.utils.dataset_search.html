@@ -60,7 +60,16 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../datasets.html">Datasets</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
@@ -104,7 +113,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">moabb.datasets.utils.dataset_search</a></li>
+<li><a class="reference internal" href="#">moabb.datasets.utils.dataset_search</a><ul>
+<li><a class="reference internal" href="#examples-using-moabb-datasets-utils-dataset-search">Examples using <code class="docutils literal notranslate"><span class="pre">moabb.datasets.utils.dataset_search</span></code></a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -136,9 +148,9 @@
       
   <div class="section" id="moabb-datasets-utils-dataset-search">
 <h1>moabb.datasets.utils.dataset_search<a class="headerlink" href="#moabb-datasets-utils-dataset-search" title="Permalink to this headline">¶</a></h1>
-<dl class="py class">
+<dl class="py function">
 <dt id="moabb.datasets.utils.dataset_search">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">moabb.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">dataset_search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_all_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_subjects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/datasets/utils.html#dataset_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.datasets.utils.dataset_search" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">moabb.datasets.utils.</span></code><code class="sig-name descname"><span class="pre">dataset_search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paradigm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">multi_session</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_all_events</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_subjects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/datasets/utils.py#L17-L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/datasets/utils.html#dataset_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.datasets.utils.dataset_search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of datasets that match a given criteria</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -155,14 +167,15 @@ paradigm</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="moabb.datasets.utils.dataset_search.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#moabb.datasets.utils.dataset_search.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
-</dd></dl>
-
+<div class="section" id="examples-using-moabb-datasets-utils-dataset-search">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">moabb.datasets.utils.dataset_search</span></code><a class="headerlink" href="#examples-using-moabb-datasets-utils-dataset-search" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="This tutorial takes you through a basic working example of how to use this codebase, including ..."><div class="figure align-default" id="id1">
+<img alt="Getting Started" src="../_images/sphx_glr_plot_Getting_Started_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../auto_tutorials/plot_Getting_Started.html#sphx-glr-auto-tutorials-plot-getting-started-py"><span class="std std-ref">Getting Started</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
 </div>
 
 
@@ -184,7 +197,7 @@ paradigm</p></li>
       
     </p>
     <p>
-        &copy; Copyright 2018, Alexandre Barachant.<br/>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>

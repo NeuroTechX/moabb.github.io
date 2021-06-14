@@ -58,7 +58,16 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
@@ -161,19 +170,19 @@ next tutorial.</p>
 and a list of datasets to run it all on. You can find those in the following
 submodules; detailed tutorials are given for each of them.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <span class="n">LDA</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">LinearDiscriminantAnalysis</span> <span class="k">as</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis" class="sphx-glr-backref-module-sklearn-discriminant_analysis sphx-glr-backref-type-py-class"><span class="n">LDA</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">GridSearchCV</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a>
 </pre></div>
 </div>
 <p>If you would like to specify the logging level when it is running, you can
 use the standard python logging commands through the top-level moabb module</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">moabb</span>
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014001</span><span class="p">,</span> <span class="n">utils</span>
-<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <span class="n">CrossSessionEvaluation</span>
+<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a>
 <span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">LeftRightImagery</span>
-<span class="kn">from</span> <span class="nn">moabb.pipelines.features</span> <span class="kn">import</span> <span class="n">LogVariance</span>
+<span class="kn">from</span> <span class="nn">moabb.pipelines.features</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">LogVariance</span></a>
 </pre></div>
 </div>
 <p>In order to create pipelines within a script, you will likely need at least
@@ -190,13 +199,13 @@ channel-wise log variance followed by a cross-validated SVM (note that a
 cross-validation via scikit-learn cannot be described in a .yml file). For
 later in the process, the pipelines need to be in a dictionary where the key
 is the name of the pipeline and the value is the Pipeline object</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipelines</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">pipelines</span><span class="p">[</span><span class="s2">&quot;AM+LDA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">LogVariance</span><span class="p">(),</span> <span class="n">LDA</span><span class="p">())</span>
-<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
-<span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">),</span> <span class="n">parameters</span><span class="p">)</span>
-<span class="n">pipe</span> <span class="o">=</span> <span class="n">make_pipeline</span><span class="p">(</span><span class="n">LogVariance</span><span class="p">(),</span> <span class="n">clf</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a> <span class="o">=</span> <span class="p">{}</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">[</span><span class="s2">&quot;AM+LDA&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">LogVariance</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis" class="sphx-glr-backref-module-sklearn-discriminant_analysis sphx-glr-backref-type-py-class"><span class="n">LDA</span></a><span class="p">())</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">parameters</span></a> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.logspace.html#numpy.logspace" title="numpy.logspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">logspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class"><span class="n">GridSearchCV</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC" title="sklearn.svm.SVC" class="sphx-glr-backref-module-sklearn-svm sphx-glr-backref-type-py-class"><span class="n">SVC</span></a><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">),</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">parameters</span></a><span class="p">)</span>
+<a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">LogVariance</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html#sklearn.model_selection.GridSearchCV" title="sklearn.model_selection.GridSearchCV" class="sphx-glr-backref-module-sklearn-model_selection sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">clf</span></a><span class="p">)</span>
 
-<span class="n">pipelines</span><span class="p">[</span><span class="s2">&quot;AM+SVM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pipe</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">[</span><span class="s2">&quot;AM+SVM&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html#sklearn.pipeline.Pipeline" title="sklearn.pipeline.Pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipe</span></a>
 </pre></div>
 </div>
 </div>
@@ -204,11 +213,11 @@ is the name of the pipeline and the value is the Pipeline object</p>
 <h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
 <p>Datasets can be specified in many ways: Each paradigm has a property
 ‘datasets’ which returns the datasets that are appropriate for that paradigm</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">()</span><span class="o">.</span><span class="n">datasets</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">LeftRightImagery</span><span class="p">()</span><span class="o">.</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;moabb.datasets.bnci.BNCI2014001 object at 0x7fd39b8757b8&gt;, &lt;moabb.datasets.bnci.BNCI2014004 object at 0x7fd39b875748&gt;, &lt;moabb.datasets.gigadb.Cho2017 object at 0x7fd39b8756a0&gt;, &lt;moabb.datasets.Lee2019.Lee2019_MI object at 0x7fd39b875828&gt;, &lt;moabb.datasets.mpi_mi.MunichMI object at 0x7fd39b875630&gt;, &lt;moabb.datasets.physionet_mi.PhysionetMI object at 0x7fd39b875668&gt;, &lt;moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7fd39b875710&gt;, &lt;moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7fd39b8755f8&gt;, &lt;moabb.datasets.Weibo2014.Weibo2014 object at 0x7fd39b8756d8&gt;, &lt;moabb.datasets.Zhou2016.Zhou2016 object at 0x7fd39b875780&gt;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;moabb.datasets.bnci.BNCI2014001 object at 0x7fc14b6a5080&gt;, &lt;moabb.datasets.bnci.BNCI2014004 object at 0x7fc14b6a5dd8&gt;, &lt;moabb.datasets.gigadb.Cho2017 object at 0x7fc14b6a56d8&gt;, &lt;moabb.datasets.Lee2019.Lee2019_MI object at 0x7fc14b6a5eb8&gt;, &lt;moabb.datasets.mpi_mi.MunichMI object at 0x7fc14b6a52e8&gt;, &lt;moabb.datasets.physionet_mi.PhysionetMI object at 0x7fc14b6a5f28&gt;, &lt;moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7fc14b6a5588&gt;, &lt;moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7fc14b6a57f0&gt;, &lt;moabb.datasets.Weibo2014.Weibo2014 object at 0x7fc14b6a5710&gt;, &lt;moabb.datasets.Zhou2016.Zhou2016 object at 0x7fc14b6a5ba8&gt;]
 </pre></div>
 </div>
 <p>Or you can run a search through the available datasets:</p>
@@ -216,14 +225,14 @@ is the name of the pipeline and the value is the Pipeline object</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;moabb.datasets.alex_mi.AlexMI object at 0x7fd39b875710&gt;, &lt;moabb.datasets.bnci.BNCI2014001 object at 0x7fd39b8755f8&gt;, &lt;moabb.datasets.bnci.BNCI2014002 object at 0x7fd39b8756d8&gt;, &lt;moabb.datasets.bnci.BNCI2014004 object at 0x7fd39b875780&gt;, &lt;moabb.datasets.bnci.BNCI2015001 object at 0x7fd39b8757f0&gt;, &lt;moabb.datasets.bnci.BNCI2015004 object at 0x7fd39b8754e0&gt;, &lt;moabb.datasets.gigadb.Cho2017 object at 0x7fd39b8755c0&gt;, &lt;moabb.datasets.Lee2019.Lee2019_MI object at 0x7fd39b875470&gt;, &lt;moabb.datasets.mpi_mi.MunichMI object at 0x7fd39b875c18&gt;, &lt;moabb.datasets.upper_limb.Ofner2017 object at 0x7fd39b8754a8&gt;, &lt;moabb.datasets.physionet_mi.PhysionetMI object at 0x7fd39b875438&gt;, &lt;moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7fd39b875518&gt;, &lt;moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7fd39b875400&gt;, &lt;moabb.datasets.Weibo2014.Weibo2014 object at 0x7fd39b875588&gt;]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;moabb.datasets.alex_mi.AlexMI object at 0x7fc14b6a5588&gt;, &lt;moabb.datasets.bnci.BNCI2014001 object at 0x7fc14b6a57f0&gt;, &lt;moabb.datasets.bnci.BNCI2014002 object at 0x7fc14b6a5710&gt;, &lt;moabb.datasets.bnci.BNCI2014004 object at 0x7fc14b6a5ba8&gt;, &lt;moabb.datasets.bnci.BNCI2015001 object at 0x7fc14b6a5780&gt;, &lt;moabb.datasets.bnci.BNCI2015004 object at 0x7fc14b6a5cc0&gt;, &lt;moabb.datasets.gigadb.Cho2017 object at 0x7fc14b6a5208&gt;, &lt;moabb.datasets.Lee2019.Lee2019_MI object at 0x7fc14b6a59e8&gt;, &lt;moabb.datasets.mpi_mi.MunichMI object at 0x7fc14b6a5940&gt;, &lt;moabb.datasets.upper_limb.Ofner2017 object at 0x7fc14b6a5860&gt;, &lt;moabb.datasets.physionet_mi.PhysionetMI object at 0x7fc14b6a5898&gt;, &lt;moabb.datasets.schirrmeister2017.Schirrmeister2017 object at 0x7fc14b6a5668&gt;, &lt;moabb.datasets.bbci_eeg_fnirs.Shin2017A object at 0x7fc14b6a5e10&gt;, &lt;moabb.datasets.Weibo2014.Weibo2014 object at 0x7fc14b6a5cf8&gt;]
 </pre></div>
 </div>
 <p>Or you can simply make your own list (which we do here due to computational
 constraints)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
-<span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-<span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -234,9 +243,9 @@ parameters. They have defaults that you can read in the documentation, or you
 can simply set them as we do here. A single paradigm defines a method for
 going from continuous data to trial data of a fixed size. To learn more look
 at the tutorial Exploring Paradigms</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fmin</span> <span class="o">=</span> <span class="mi">8</span>
-<span class="n">fmax</span> <span class="o">=</span> <span class="mi">35</span>
-<span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="n">fmin</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="n">fmax</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmin</span></a> <span class="o">=</span> <span class="mi">8</span>
+<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmax</span></a> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmin</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmin</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmax</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fmax</span></a><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -245,10 +254,10 @@ at the tutorial Exploring Paradigms</p>
 <p>An evaluation defines how the training and test sets are chosen. This could
 be cross-validated within a single recording, or across days, or sessions, or
 subjects. This also is the correct place to specify multiple threads.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evaluation</span> <span class="o">=</span> <span class="n">CrossSessionEvaluation</span><span class="p">(</span>
-    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <span class="n">datasets</span><span class="o">=</span><span class="n">datasets</span><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evaluation</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">)</span>
-<span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">pipelines</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">)</span>
 </pre></div>
 </div>
 <p>Results are returned as a pandas DataFrame, and from here you can do as you
@@ -258,16 +267,16 @@ want with them</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>      score      time  samples subject  ... channels  n_sessions   dataset pipeline
-0  0.801698  0.047771    144.0       1  ...       22           2  001-2014   AM+LDA
-1  0.786458  0.038376    144.0       1  ...       22           2  001-2014   AM+LDA
-2  0.498650  0.048180    144.0       2  ...       22           2  001-2014   AM+LDA
-3  0.576582  0.038334    144.0       2  ...       22           2  001-2014   AM+LDA
-4  0.773920  0.179690    144.0       1  ...       22           2  001-2014   AM+SVM
+0  0.801698  0.054277    144.0       1  ...       22           2  001-2014   AM+LDA
+1  0.786458  0.043803    144.0       1  ...       22           2  001-2014   AM+LDA
+2  0.498650  0.067059    144.0       2  ...       22           2  001-2014   AM+LDA
+3  0.576582  0.066721    144.0       2  ...       22           2  001-2014   AM+LDA
+4  0.773920  0.205037    144.0       1  ...       22           2  001-2014   AM+SVM
 
 [5 rows x 9 columns]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  8.614 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.318 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-plot-getting-started-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/55cdcc1a57595324be0a4f77a5294187/plot_Getting_Started.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_Getting_Started.py</span></code></a></p>
@@ -299,7 +308,7 @@ want with them</p>
       
     </p>
     <p>
-        &copy; Copyright 2018, Alexandre Barachant.<br/>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>

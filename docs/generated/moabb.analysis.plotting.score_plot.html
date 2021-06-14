@@ -60,7 +60,16 @@
      href="../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../datasets.html">Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
@@ -104,7 +113,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">moabb.analysis.plotting.score_plot</a></li>
+<li><a class="reference internal" href="#">moabb.analysis.plotting.score_plot</a><ul>
+<li><a class="reference internal" href="#examples-using-moabb-analysis-plotting-score-plot">Examples using <code class="docutils literal notranslate"><span class="pre">moabb.analysis.plotting.score_plot</span></code></a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -138,7 +150,7 @@
 <h1>moabb.analysis.plotting.score_plot<a class="headerlink" href="#moabb-analysis-plotting-score-plot" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="moabb.analysis.plotting.score_plot">
-<code class="sig-prename descclassname"><span class="pre">moabb.analysis.plotting.</span></code><code class="sig-name descname"><span class="pre">score_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipelines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/moabb/analysis/plotting.html#score_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.analysis.plotting.score_plot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">moabb.analysis.plotting.</span></code><code class="sig-name descname"><span class="pre">score_plot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipelines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/analysis/plotting.py#L30-L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/analysis/plotting.html#score_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.analysis.plotting.score_plot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot scores for all pipelines and all datasets</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -157,6 +169,13 @@
 </dl>
 </dd></dl>
 
+<div class="section" id="examples-using-moabb-analysis-plotting-score-plot">
+<h2>Examples using <code class="docutils literal notranslate"><span class="pre">moabb.analysis.plotting.score_plot</span></code><a class="headerlink" href="#examples-using-moabb-analysis-plotting-score-plot" title="Permalink to this headline">¶</a></h2>
+<div class="sphx-glr-thumbcontainer" tooltip="The MOABB codebase comes with convenience plotting utilities and some statistical testing. This..."><div class="figure align-default" id="id1">
+<img alt="Statistical Analysis" src="../_images/sphx_glr_plot_statistical_analysis_thumb.png" />
+<p class="caption"><span class="caption-text"><a class="reference internal" href="../auto_examples/advanced_examples/plot_statistical_analysis.html#sphx-glr-auto-examples-advanced-examples-plot-statistical-analysis-py"><span class="std std-ref">Statistical Analysis</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style='clear:both'></div></div>
 </div>
 
 
@@ -178,7 +197,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, Alexandre Barachant.<br/>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>

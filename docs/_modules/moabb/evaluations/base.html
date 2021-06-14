@@ -58,7 +58,16 @@
      href="../../../index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../datasets.html">Datasets</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
@@ -176,7 +185,7 @@
 <span class="sd">        if returning MNE epoch, use original dataset label if True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="BaseEvaluation.__init__"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.base.BaseEvaluation.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">paradigm</span><span class="p">,</span>
         <span class="n">datasets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -253,9 +262,9 @@
             <span class="n">suffix</span><span class="o">=</span><span class="n">suffix</span><span class="p">,</span>
             <span class="n">hdf5_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hdf5_path</span><span class="p">,</span>
             <span class="n">additional_columns</span><span class="o">=</span><span class="n">additional_columns</span><span class="p">,</span>
-        <span class="p">)</span></div>
+        <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
+<div class="viewcode-block" id="BaseEvaluation.process"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.base.BaseEvaluation.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Runs all pipelines on all datasets.</span>
 
 <span class="sd">        This function will apply all provided pipelines and return a dataframe</span>
@@ -266,8 +275,8 @@
 <span class="sd">        pipelines : dict of pipeline instance.</span>
 <span class="sd">            A dict containing the sklearn pipeline to evaluate.</span>
 
-<span class="sd">        Return</span>
-<span class="sd">        ------</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
 <span class="sd">        results: pd.DataFrame</span>
 <span class="sd">            A dataframe containing the results.</span>
 
@@ -287,7 +296,7 @@
             <span class="k">for</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">push_result</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">(</span><span class="n">pipelines</span><span class="o">=</span><span class="n">pipelines</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="nf">push_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">res</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> | &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s2">&quot;pipeline&quot;</span><span class="p">])</span>
@@ -301,7 +310,7 @@
     <span class="k">def</span> <span class="nf">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
 
-    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseEvaluation.evaluate"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.base.BaseEvaluation.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">pipelines</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Evaluate results on a single dataset.</span>
 
@@ -317,9 +326,9 @@
 <span class="sd">                   &#39;n_channels&#39;: number of channel,</span>
 <span class="sd">                   &#39;pipeline&#39;: pipeline name}</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>
+        <span class="k">pass</span></div>
 
-    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="BaseEvaluation.is_valid"><a class="viewcode-back" href="../../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.base.BaseEvaluation.is_valid">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Verify the dataset is compatible with evaluation.</span>
 
@@ -335,7 +344,7 @@
 <span class="sd">        dataset : dataset instance</span>
 <span class="sd">            The dataset to verify.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span></div>
+<span class="sd">        &quot;&quot;&quot;</span></div></div>
 </pre></div>
 
     </div>
@@ -352,7 +361,7 @@
       
     </p>
     <p>
-        &copy; Copyright 2018, Alexandre Barachant.<br/>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
     </p>
   </div>
