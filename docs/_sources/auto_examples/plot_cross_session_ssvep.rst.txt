@@ -194,11 +194,11 @@ each subject / session of the dataset, and for each pipeline.
  .. code-block:: none
 
           score      time  samples  ... n_sessions       dataset  pipeline
-    0  0.777778  0.105846     36.0  ...          5  SSVEP MAMEM3       CCA
-    1  0.666667  0.070263     36.0  ...          5  SSVEP MAMEM3       CCA
-    2  1.000000  0.070172     36.0  ...          5  SSVEP MAMEM3       CCA
-    3  0.333333  0.072843     36.0  ...          5  SSVEP MAMEM3       CCA
-    4  0.666667  0.068599     36.0  ...          5  SSVEP MAMEM3       CCA
+    0  0.777778  0.103750     36.0  ...          5  SSVEP MAMEM3       CCA
+    1  0.666667  0.075199     36.0  ...          5  SSVEP MAMEM3       CCA
+    2  1.000000  0.072498     36.0  ...          5  SSVEP MAMEM3       CCA
+    3  0.333333  0.077667     36.0  ...          5  SSVEP MAMEM3       CCA
+    4  0.666667  0.070116     36.0  ...          5  SSVEP MAMEM3       CCA
 
     [5 rows x 9 columns]
 
@@ -235,7 +235,7 @@ Here we plot the results, indicating the score for each session and subject
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  34.505 seconds)
+   **Total running time of the script:** ( 0 minutes  35.298 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_cross_session_ssvep.py:
