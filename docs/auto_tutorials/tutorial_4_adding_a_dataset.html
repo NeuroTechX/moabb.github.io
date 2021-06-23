@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tutorial 4: Creating a dataset class &#8212; moabb 0.4.1 documentation</title>
+    <title>Tutorial 4: Creating a dataset class &#8212; moabb 0.4.2 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -162,7 +162,7 @@ to download the full example code</p>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pyriemann.classification</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">MDM</span></a>
 <span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">Covariances</span></a>
-<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.loadmat.html#scipy.io.loadmat" title="scipy.io.loadmat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">loadmat</span></a><span class="p">,</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.savemat.html#scipy.io.savemat" title="scipy.io.savemat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">savemat</span></a>
+<span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.io.loadmat.html#scipy.io.loadmat" title="scipy.io.loadmat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">loadmat</span></a><span class="p">,</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.io.savemat.html#scipy.io.savemat" title="scipy.io.savemat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">savemat</span></a>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
 
 <span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">download</span> <span class="k">as</span> <span class="n">dl</span>
@@ -211,7 +211,7 @@ The fake dataset is available on the
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mdict</span></a> <span class="o">=</span> <span class="p">{}</span>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mdict</span></a><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a>
     <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mdict</span></a><span class="p">[</span><span class="s2">&quot;fs&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fs</span></a>
-    <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.savemat.html#scipy.io.savemat" title="scipy.io.savemat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">savemat</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">filename</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mdict</span></a><span class="p">)</span>
+    <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.io.savemat.html#scipy.io.savemat" title="scipy.io.savemat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">savemat</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">filename</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mdict</span></a><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -261,7 +261,7 @@ have been downloaded</p></li>
         <span class="sd">&quot;&quot;&quot;return data for a single subject&quot;&quot;&quot;</span>
         <span class="n">file_path_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject</span></a><span class="p">)</span>
 
-        <span class="n">data</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.io.loadmat.html#scipy.io.loadmat" title="scipy.io.loadmat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">loadmat</span></a><span class="p">(</span><span class="n">file_path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">data</span> <span class="o">=</span> <a href="https://docs.scipy.org/doc/scipy/reference/reference/generated/scipy.io.loadmat.html#scipy.io.loadmat" title="scipy.io.loadmat" class="sphx-glr-backref-module-scipy-io sphx-glr-backref-type-py-function"><span class="n">loadmat</span></a><span class="p">(</span><span class="n">file_path_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x</span></a> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
         <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fs</span></a> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;fs&quot;</span><span class="p">]</span>
         <span class="n">ch_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ch&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;stim&quot;</span><span class="p">]</span>
@@ -308,9 +308,9 @@ The rest of the code follows the steps described in the previous tutorials.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>   score      time  samples  ... n_sessions          dataset  pipeline
-0    1.0  0.037919     40.0  ...          1  Example dataset       MDM
-1    1.0  0.037552     40.0  ...          1  Example dataset       MDM
-2    1.0  0.038205     40.0  ...          1  Example dataset       MDM
+0    1.0  0.031463     40.0  ...          1  Example dataset       MDM
+1    1.0  0.032139     40.0  ...          1  Example dataset       MDM
+2    1.0  0.031088     40.0  ...          1  Example dataset       MDM
 
 [3 rows x 9 columns]
 </pre></div>
@@ -322,7 +322,7 @@ The rest of the code follows the steps described in the previous tutorials.</p>
 your data on public server (like Zenodo or Figshare) and signal that you
 want to add your dataset to MOABB in the  <a class="reference external" href="https://github.com/NeuroTechX/moabb/issues/1">dedicated issue</a>.  # noqa: E501
 You could then follow the instructions on <a class="reference external" href="https://github.com/NeuroTechX/moabb/blob/master/CONTRIBUTING.md">how to contribute</a>  # noqa: E501</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  6.561 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.007 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-tutorial-4-adding-a-dataset-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/1ce8a4c577491f8abfb105c7b1aba3d2/tutorial_4_adding_a_dataset.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tutorial_4_adding_a_dataset.py</span></code></a></p>
