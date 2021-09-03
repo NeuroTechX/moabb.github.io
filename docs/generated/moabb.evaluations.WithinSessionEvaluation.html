@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>moabb.evaluations.WithinSessionEvaluation &#8212; moabb 0.4.2 documentation</title>
+    <title>moabb.evaluations.WithinSessionEvaluation &#8212; moabb 0.4.3 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -41,12 +41,13 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
+                <li><a href="../whats_new.html">What's new</a></li>
                 <li><a href="../api.html">API</a></li>
                 <li><a href="../auto_examples/index.html">Gallery</a></li>
                 <li><a href="../auto_tutorials/index.html">Tutorials</a></li>
@@ -62,8 +63,12 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#develop-branch">Develop branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-3-0">Version 0.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
 </ul>
@@ -150,7 +155,7 @@
 <h1>moabb.evaluations.WithinSessionEvaluation<a class="headerlink" href="#moabb-evaluations-withinsessionevaluation" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
 <dt id="moabb.evaluations.WithinSessionEvaluation">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">moabb.evaluations.</span></code><code class="sig-name descname"><span class="pre">WithinSessionEvaluation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_perms</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><span class="pre">tuple</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L28-L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">moabb.evaluations.</span></code><code class="sig-name descname"><span class="pre">WithinSessionEvaluation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_perms</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><span class="pre">tuple</span></a><span class="p"><span class="pre">,</span> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_size</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L28-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Within Session evaluation.</p>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
@@ -192,7 +197,7 @@
 </table>
 <dl class="py method">
 <dt id="moabb.evaluations.WithinSessionEvaluation.evaluate">
-<code class="sig-name descname"><span class="pre">evaluate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipelines</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L281-L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation.evaluate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">evaluate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pipelines</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L282-L286"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation.evaluate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate results on a single dataset.</p>
 <p>This method return a generator. each results item is a dict with
 the following convension:</p>
@@ -210,7 +215,7 @@ the following convension:</p>
 
 <dl class="py method">
 <dt id="moabb.evaluations.WithinSessionEvaluation.is_valid">
-<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L287-L288"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation.is_valid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_valid</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../moabb/evaluations/evaluations.py#L288-L289"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="reference internal" href="../_modules/moabb/evaluations/evaluations.html#WithinSessionEvaluation.is_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.evaluations.WithinSessionEvaluation.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Verify the dataset is compatible with evaluation.</p>
 <p>This method is called to verify dataset given in the constructor
 are compatible with the evaluation context.</p>

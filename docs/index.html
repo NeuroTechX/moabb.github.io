@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mother of all BCI Benchmarks &#8212; moabb 0.4.2 documentation</title>
+    <title>Mother of all BCI Benchmarks &#8212; moabb 0.4.3 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -40,12 +40,13 @@
         </button>
         <a class="navbar-brand" href="#">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
+                <li><a href="whats_new.html">What's new</a></li>
                 <li><a href="api.html">API</a></li>
                 <li><a href="auto_examples/index.html">Gallery</a></li>
                 <li><a href="auto_tutorials/index.html">Tutorials</a></li>
@@ -61,8 +62,12 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#develop-branch">Develop branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-3-0">Version 0.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-2-1">Version 0.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-2-0">Version 0.2.0</a></li>
 </ul>
@@ -190,7 +195,7 @@
 <h1>Mother of all BCI Benchmarks<a class="headerlink" href="#mother-of-all-bci-benchmarks" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="images/M.png"><img alt="banner" src="_images/M.png" /></a>
 <p align=center>
-  Build a comprehensive benchmark of popular BCI algorithms applied on an extensive list of freely available EEG datasets.
+  Build a comprehensive benchmark of popular Brain-Computer Interface ([BCI](https://en.wikipedia.org/wiki/Brain%E2%80%93computer_interface)) algorithms applied on an extensive list of freely available EEG datasets.
 </p><div class="section" id="disclaimer">
 <h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
 <p><strong>This is an open science project that may evolve depending on the need of the
@@ -198,7 +203,7 @@ community.</strong></p>
 <a class="reference external image-reference" href="https://github.com/NeuroTechX/moabb/actions?query=branch%3Amaster"><img alt="Build Status" src="https://github.com/NeuroTechX/moabb/workflows/Test/badge.svg" /></a>
 <a class="reference external image-reference" href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a>
 <a class="reference external image-reference" href="https://img.shields.io/pypi/v/moabb"><img alt="PyPI" src="https://img.shields.io/pypi/v/moabb?color=blue&amp;style=plastic" /></a>
-<a class="reference external image-reference" href="https://img.shields.io/pypi/dm/moabb"><img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/moabb?color=brightgreen&amp;style=plastic" /></a>
+<a class="reference external image-reference" href="https://pepy.tech/project/moabb"><img alt="Downloads" src="https://pepy.tech/badge/moabb" /></a>
 </div>
 <div class="section" id="welcome">
 <h2>Welcome!<a class="headerlink" href="#welcome" title="Permalink to this headline">¶</a></h2>
@@ -222,6 +227,11 @@ one of the sections below, or just scroll down to find out more.</p>
 <h2>What are we doing?<a class="headerlink" href="#what-are-we-doing" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="the-problem">
 <h3>The problem<a class="headerlink" href="#the-problem" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Brain%E2%80%93computer_interface">Brain-Computer Interfaces</a>
+allow to interact with a computer using brain signals. In this project, we focus mostly on
+electroencephalographic signals
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Electroencephalography">EEG</a>), that is a very active
+research domain, with worldwide scientific contributions. Still:</p>
 <ul class="simple">
 <li><p>Reproducible Research in BCI has a long way to go.</p></li>
 <li><p>While many BCI datasets are made freely available, researchers do not publish code, and
@@ -423,8 +433,12 @@ BCI algorithms applied on an extensive list of freely available EEG datasets.</p
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="whats_new.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="whats_new.html#dev-0-4-0dev">Dev - 0.4.0dev</a></li>
-<li class="toctree-l2"><a class="reference internal" href="whats_new.html#current-0-3-0">Current - 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#develop-branch">Develop branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-3-0">Version 0.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-2-1">Version 0.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="whats_new.html#version-0-2-0">Version 0.2.0</a></li>
 </ul>
