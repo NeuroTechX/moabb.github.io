@@ -21,9 +21,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -287,7 +287,7 @@ have been downloaded</p></li>
             <span class="k">raise</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid subject number&quot;</span><span class="p">))</span>
 
         <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{:s}</span><span class="s2">subject_0</span><span class="si">{:d}</span><span class="s2">.mat&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ExampleDataset_URL</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject</span></a><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_path</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;ExampleDataset&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">dl</span><span class="o">.</span><span class="n">data_dl</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;ExampleDataset&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span>  <span class="c1"># it has to return a list</span>
 </pre></div>
 </div>
@@ -313,9 +313,9 @@ The rest of the code follows the steps described in the previous tutorials.</p>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>   score      time  samples  ... n_sessions          dataset  pipeline
-0    1.0  0.038816     40.0  ...          1  Example dataset       MDM
-1    1.0  0.037642     40.0  ...          1  Example dataset       MDM
-2    1.0  0.036499     40.0  ...          1  Example dataset       MDM
+0    1.0  0.050935     40.0  ...          1  Example dataset       MDM
+1    1.0  0.047236     40.0  ...          1  Example dataset       MDM
+2    1.0  0.045505     40.0  ...          1  Example dataset       MDM
 
 [3 rows x 9 columns]
 </pre></div>
@@ -327,7 +327,7 @@ The rest of the code follows the steps described in the previous tutorials.</p>
 your data on public server (like Zenodo or Figshare) and signal that you
 want to add your dataset to MOABB in the  <a class="reference external" href="https://github.com/NeuroTechX/moabb/issues/1">dedicated issue</a>.  # noqa: E501
 You could then follow the instructions on <a class="reference external" href="https://github.com/NeuroTechX/moabb/blob/master/CONTRIBUTING.md">how to contribute</a>  # noqa: E501</p>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  4.994 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  5.401 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-tutorial-4-adding-a-dataset-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/1ce8a4c577491f8abfb105c7b1aba3d2/tutorial_4_adding_a_dataset.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">tutorial_4_adding_a_dataset.py</span></code></a></p>

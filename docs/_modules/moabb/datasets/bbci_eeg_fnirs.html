@@ -21,9 +21,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../../../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../../../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -157,7 +157,7 @@
 <span class="kn">from</span> <span class="nn">mne.channels</span> <span class="kn">import</span> <span class="n">make_standard_montage</span>
 <span class="kn">from</span> <span class="nn">mne.datasets.utils</span> <span class="kn">import</span> <span class="n">_get_path</span>
 <span class="kn">from</span> <span class="nn">mne.io</span> <span class="kn">import</span> <span class="n">RawArray</span>
-<span class="kn">from</span> <span class="nn">mne.utils</span> <span class="kn">import</span> <span class="n">_fetch_file</span>
+<span class="kn">from</span> <span class="nn">pooch</span> <span class="kn">import</span> <span class="n">retrieve</span>
 <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">loadmat</span>
 
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseDataset</span>
@@ -182,10 +182,11 @@
                             <span class="s2">&quot;You must accept licence term to download this dataset,&quot;</span>
                             <span class="s2">&quot;set accept=True when instanciating the dataset.&quot;</span>
                         <span class="p">)</span>
-                    <span class="n">_fetch_file</span><span class="p">(</span>
+                    <span class="n">retrieve</span><span class="p">(</span>
                         <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">/EEG/EEG_</span><span class="si">{:02d}</span><span class="s2">-</span><span class="si">{:02d}</span><span class="s2">.zip&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">SHIN_URL</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">),</span>
-                        <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;EEG.zip&quot;</span><span class="p">),</span>
-                        <span class="n">print_destination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                        <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;EEG.zip&quot;</span><span class="p">,</span>
+                        <span class="n">path</span><span class="o">=</span><span class="n">base_path</span><span class="p">,</span>
                     <span class="p">)</span>
                 <span class="k">with</span> <span class="n">z</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;EEG.zip&quot;</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">f</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;EEG&quot;</span><span class="p">))</span>
@@ -205,10 +206,11 @@
                     <span class="s2">&quot;You must accept licence term to download this dataset,&quot;</span>
                     <span class="s2">&quot;set accept=True when instanciating the dataset.&quot;</span>
                 <span class="p">)</span>
-            <span class="n">_fetch_file</span><span class="p">(</span>
+            <span class="n">retrieve</span><span class="p">(</span>
                 <span class="s2">&quot;http://doc.ml.tu-berlin.de/hBCI/NIRS/NIRS_01-29.zip&quot;</span><span class="p">,</span>
-                <span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;fNIRS.zip&quot;</span><span class="p">),</span>
-                <span class="n">print_destination</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="kc">None</span><span class="p">,</span>
+                <span class="n">fname</span><span class="o">=</span><span class="s2">&quot;fNIRS.zip&quot;</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="n">path</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">op</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;NIRS&quot;</span><span class="p">)):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;NIRS&quot;</span><span class="p">))</span>

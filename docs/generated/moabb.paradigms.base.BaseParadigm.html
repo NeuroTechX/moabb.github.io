@@ -23,9 +23,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
 
   </head><body>
@@ -187,7 +187,7 @@
 </table>
 <dl class="py method">
 <dt id="moabb.paradigms.base.BaseParadigm.datasets">
-<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">datasets</span></code><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../../../../../../opt/hostedtoolcache/Python/3.6.14/x64/lib/python3.6/abc.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.base.BaseParadigm.datasets" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">datasets</span></code><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../../../../../../opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/abc.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.base.BaseParadigm.datasets" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property that define the list of compatible datasets</p>
 </dd></dl>
 
@@ -212,13 +212,10 @@ complete processed mne.Epochs</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul>
+<dd class="field-even"><p><ul class="simple">
 <li><p><strong>X</strong> (<em>Union[np.ndarray, mne.Epochs]</em>) – the data that will be used as features for the model
-Note: if return_epochs=True,  this is mne.Epochs</p>
-<blockquote>
-<div><p>if return_epochs=False, this is np.ndarray</p>
-</div></blockquote>
-</li>
+Note: if return_epochs=True,  this is mne.Epochs
+if return_epochs=False, this is np.ndarray</p></li>
 <li><p><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</p></li>
 <li><p><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata.</p></li>
 </ul>
@@ -279,13 +276,10 @@ complete processed mne.Epochs</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul>
+<dd class="field-even"><p><ul class="simple">
 <li><p><strong>X</strong> (<em>Union[np.ndarray, mne.Epochs]</em>) – the data that will be used as features for the model
-Note: if return_epochs=True,  this is mne.Epochs</p>
-<blockquote>
-<div><p>if return_epochs=False, this is np.ndarray</p>
-</div></blockquote>
-</li>
+Note: if return_epochs=True,  this is mne.Epochs
+if return_epochs=False, this is np.ndarray</p></li>
 <li><p><strong>labels</strong> (<em>np.ndarray</em>) – the labels for training / evaluating the model</p></li>
 <li><p><strong>metadata</strong> (<em>pd.DataFrame</em>) – A dataframe containing the metadata</p></li>
 </ul>
@@ -296,7 +290,7 @@ Note: if return_epochs=True,  this is mne.Epochs</p>
 
 <dl class="py method">
 <dt id="moabb.paradigms.base.BaseParadigm.scoring">
-<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">scoring</span></code><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../../../../../../opt/hostedtoolcache/Python/3.6.14/x64/lib/python3.6/abc.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.base.BaseParadigm.scoring" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">scoring</span></code><a class="reference external" href="http://github.com/NeuroTechX/moabb/blob/maint/0.23/moabb/../../../../../../../../../../opt/hostedtoolcache/Python/3.9.7/x64/lib/python3.9/abc.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#moabb.paradigms.base.BaseParadigm.scoring" title="Permalink to this definition">¶</a></dt>
 <dd><p>Property that defines scoring metric (e.g. ROC-AUC or accuracy
 or f-score), given as a sklearn-compatible string or a compatible
 sklearn scorer.</p>
