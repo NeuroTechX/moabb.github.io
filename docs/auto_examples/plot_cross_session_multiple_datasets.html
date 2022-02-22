@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cross-Session on Multiple Datasets &#8212; moabb 0.4.3 documentation</title>
+    <title>Cross-Session on Multiple Datasets &#8212; moabb 0.4.5 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -21,10 +21,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -62,7 +62,9 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#develop-branch">Develop branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-5-stable-pypi">Version - 0.4.5  (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
@@ -117,10 +119,10 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Cross-Session on Multiple Datasets</a><ul>
-<li><a class="reference internal" href="#loading-dataset">Loading dataset</a></li>
-<li><a class="reference internal" href="#choose-paradigm">Choose paradigm</a></li>
-<li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
-<li><a class="reference internal" href="#get-data-optional">Get data (optional)</a></li>
+<li><a class="reference internal" href="#loading-dataset">Loading Dataset</a></li>
+<li><a class="reference internal" href="#choose-paradigm">Choose Paradigm</a></li>
+<li><a class="reference internal" href="#create-pipelines">Create Pipelines</a></li>
+<li><a class="reference internal" href="#get-data-optional">Get Data (optional)</a></li>
 <li><a class="reference internal" href="#evaluation">Evaluation</a></li>
 <li><a class="reference internal" href="#plot-results">Plot Results</a></li>
 </ul>
@@ -218,7 +220,7 @@ session.</p>
 </pre></div>
 </div>
 <div class="section" id="loading-dataset">
-<h2>Loading dataset<a class="headerlink" href="#loading-dataset" title="Permalink to this headline">¶</a></h2>
+<h2>Loading Dataset<a class="headerlink" href="#loading-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Load 2 subjects of BNCI 2014-004 and Zhou2016 datasets, with 2 session each</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subj</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">Zhou2016</span><span class="p">(),</span> <span class="n">BNCI2014001</span><span class="p">()]</span>
@@ -228,15 +230,15 @@ session.</p>
 </div>
 </div>
 <div class="section" id="choose-paradigm">
-<h2>Choose paradigm<a class="headerlink" href="#choose-paradigm" title="Permalink to this headline">¶</a></h2>
+<h2>Choose Paradigm<a class="headerlink" href="#choose-paradigm" title="Permalink to this headline">¶</a></h2>
 <p>We select the paradigm MI, applying a bandpass filter (8-35 Hz) on
-the data and we will keep only left and right hand motor imagery</p>
+the data and we will keep only left- and right-hand motor imagery</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">(</span><span class="n">fmin</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">fmax</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-pipelines">
-<h2>Create pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
+<h2>Create Pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
 <p>Use the Common Spatial Patterns with 8 components and a Linear Discriminant
 Analysis classifier.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipeline</span></a> <span class="o">=</span> <span class="p">{}</span>
@@ -245,12 +247,12 @@ Analysis classifier.</p>
 </div>
 </div>
 <div class="section" id="get-data-optional">
-<h2>Get data (optional)<a class="headerlink" href="#get-data-optional" title="Permalink to this headline">¶</a></h2>
+<h2>Get Data (optional)<a class="headerlink" href="#get-data-optional" title="Permalink to this headline">¶</a></h2>
 <p>To get access to the EEG signals downloaded from the dataset, you could
 use <cite>dataset.get_data(subjects=[subject_id])</cite> to obtain the EEG under
 an MNE format, stored in a dictionary of sessions and runs.
 Otherwise, <cite>paradigm.get_data(dataset=dataset, subjects=[subject_id])</cite>
-allows to obtain the EEG data in scikit format, the labels and the meta
+allows to obtain the EEG data in sklearn format, the labels and the meta
 information. The data are preprocessed according to the paradigm
 requirements.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># X_all, labels_all, meta_all = [], [], []</span>
@@ -265,7 +267,7 @@ requirements.</p>
 </div>
 <div class="section" id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
-<p>The evaluation will return a dataframe containing a single AUC score for
+<p>The evaluation will return a DataFrame containing a single AUC score for
 each subject / session of the dataset, and for each pipeline.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set to True if we want to overwrite cached results</span>
 
@@ -279,12 +281,187 @@ each subject / session of the dataset, and for each pipeline.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>      score      time  samples  ... n_sessions    dataset  pipeline
-0  0.956597  0.358352    144.0  ...          2   001-2014   CSP+LDA
-1  0.930941  0.374026    144.0  ...          2   001-2014   CSP+LDA
-2  0.649691  0.343903    144.0  ...          2   001-2014   CSP+LDA
-3  0.526813  0.410635    144.0  ...          2   001-2014   CSP+LDA
-4  0.851412  0.330418    200.0  ...          3  Zhou 2016   CSP+LDA
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Zhou 2016-CrossSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
+
+  0%|                                               | 0.00/156M [00:00&lt;?, ?B/s][A
+
+  0%|                                       | 52.2k/156M [00:00&lt;06:29, 401kB/s][A
+
+  0%|                                        | 209k/156M [00:00&lt;03:01, 860kB/s][A
+
+  1%|▏                                      | 923k/156M [00:00&lt;00:53, 2.92MB/s][A
+
+  2%|▊                                     | 3.36M/156M [00:00&lt;00:15, 10.0MB/s][A
+
+  4%|█▍                                    | 5.91M/156M [00:00&lt;00:10, 14.9MB/s][A
+
+  6%|██▎                                   | 9.46M/156M [00:00&lt;00:06, 21.4MB/s][A
+
+  8%|██▉                                   | 12.0M/156M [00:00&lt;00:06, 22.5MB/s][A
+
+ 10%|███▊                                  | 15.7M/156M [00:00&lt;00:05, 27.0MB/s][A
+
+ 12%|████▍                                 | 18.5M/156M [00:01&lt;00:05, 27.0MB/s][A
+
+ 14%|█████▍                                | 22.1M/156M [00:01&lt;00:04, 29.8MB/s][A
+
+ 17%|██████▎                               | 25.9M/156M [00:01&lt;00:04, 32.1MB/s][A
+
+ 19%|███████▎                              | 29.9M/156M [00:01&lt;00:03, 33.3MB/s][A
+
+ 22%|████████▎                             | 34.2M/156M [00:01&lt;00:03, 36.1MB/s][A
+
+ 24%|█████████▏                            | 37.8M/156M [00:01&lt;00:03, 36.0MB/s][A
+
+ 27%|██████████▏                           | 41.9M/156M [00:01&lt;00:03, 37.4MB/s][A
+
+ 29%|███████████▏                          | 46.0M/156M [00:01&lt;00:02, 38.4MB/s][A
+
+ 32%|████████████▏                         | 50.3M/156M [00:01&lt;00:02, 39.5MB/s][A
+
+ 35%|█████████████▎                        | 54.5M/156M [00:01&lt;00:02, 40.0MB/s][A
+
+ 38%|██████████████▎                       | 58.8M/156M [00:02&lt;00:02, 41.1MB/s][A
+
+ 40%|███████████████▍                      | 63.2M/156M [00:02&lt;00:02, 41.9MB/s][A
+
+ 43%|████████████████▍                     | 67.5M/156M [00:02&lt;00:02, 42.2MB/s][A
+
+ 46%|█████████████████▌                    | 71.9M/156M [00:02&lt;00:01, 42.8MB/s][A
+
+ 49%|██████████████████▌                   | 76.3M/156M [00:02&lt;00:01, 43.0MB/s][A
+
+ 52%|███████████████████▋                  | 80.8M/156M [00:02&lt;00:01, 43.4MB/s][A
+
+ 55%|████████████████████▋                 | 85.1M/156M [00:02&lt;00:01, 43.5MB/s][A
+
+ 57%|█████████████████████▊                | 89.6M/156M [00:02&lt;00:01, 43.9MB/s][A
+
+ 60%|██████████████████████▉               | 94.0M/156M [00:02&lt;00:01, 43.1MB/s][A
+
+ 63%|███████████████████████▉              | 98.6M/156M [00:02&lt;00:01, 43.8MB/s][A
+
+ 66%|█████████████████████████▋             | 103M/156M [00:03&lt;00:01, 43.2MB/s][A
+
+ 69%|██████████████████████████▊            | 107M/156M [00:03&lt;00:01, 43.6MB/s][A
+
+ 72%|███████████████████████████▉           | 112M/156M [00:03&lt;00:01, 43.6MB/s][A
+
+ 74%|█████████████████████████████          | 116M/156M [00:03&lt;00:00, 43.8MB/s][A
+
+ 77%|██████████████████████████████▏        | 121M/156M [00:03&lt;00:00, 44.2MB/s][A
+
+ 80%|███████████████████████████████▏       | 125M/156M [00:03&lt;00:00, 43.7MB/s][A
+
+ 83%|████████████████████████████████▎      | 130M/156M [00:03&lt;00:00, 43.8MB/s][A
+
+ 86%|█████████████████████████████████▍     | 134M/156M [00:03&lt;00:00, 44.0MB/s][A
+
+ 89%|██████████████████████████████████▌    | 138M/156M [00:03&lt;00:00, 43.8MB/s][A
+
+ 92%|███████████████████████████████████▋   | 143M/156M [00:03&lt;00:00, 44.3MB/s][A
+
+ 94%|████████████████████████████████████▊  | 147M/156M [00:04&lt;00:00, 43.9MB/s][A
+
+ 97%|█████████████████████████████████████▉ | 152M/156M [00:04&lt;00:00, 44.4MB/s][A
+
+  0%|                                               | 0.00/156M [00:00&lt;?, ?B/s][A
+100%|████████████████████████████████████████| 156M/156M [00:00&lt;00:00, 249GB/s]
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+Zhou 2016-CrossSession:  50%|#####     | 1/2 [00:12&lt;00:12, 12.57s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+Zhou 2016-CrossSession: 100%|##########| 2/2 [00:16&lt;00:00,  7.25s/it]
+Zhou 2016-CrossSession: 100%|##########| 2/2 [00:16&lt;00:00,  8.05s/it]
+
+001-2014-CrossSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+001-2014-CrossSession:  50%|#####     | 1/2 [00:04&lt;00:04,  4.21s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+001-2014-CrossSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.23s/it]
+001-2014-CrossSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.22s/it]
+      score      time  samples  ... n_sessions    dataset  pipeline
+0  0.956597  0.369655    144.0  ...          2   001-2014   CSP+LDA
+1  0.930941  0.400691    144.0  ...          2   001-2014   CSP+LDA
+2  0.649691  0.372844    144.0  ...          2   001-2014   CSP+LDA
+3  0.526813  0.395789    144.0  ...          2   001-2014   CSP+LDA
+4  0.851412  0.443090    200.0  ...          3  Zhou 2016   CSP+LDA
 
 [5 rows x 9 columns]
 </pre></div>
@@ -306,7 +483,7 @@ each subject / session of the dataset, and for each pipeline.</p>
 </pre></div>
 </div>
 <img alt="dataset = 001-2014, dataset = Zhou 2016" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_cross_session_multiple_datasets_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  24.763 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  25.023 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-cross-session-multiple-datasets-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/fa1ca889a5b6c6678d3af932651fcf7f/plot_cross_session_multiple_datasets.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_multiple_datasets.py</span></code></a></p>

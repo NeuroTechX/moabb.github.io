@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Within Session P300 &#8212; moabb 0.4.3 documentation</title>
+    <title>Within Session P300 &#8212; moabb 0.4.5 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -21,10 +21,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -62,7 +62,9 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#develop-branch">Develop branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-5-stable-pypi">Version - 0.4.5  (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
@@ -117,7 +119,7 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Within Session P300</a><ul>
-<li><a class="reference internal" href="#create-pipelines">Create pipelines</a></li>
+<li><a class="reference internal" href="#create-pipelines">Create Pipelines</a></li>
 <li><a class="reference internal" href="#evaluation">Evaluation</a></li>
 <li><a class="reference internal" href="#plot-results">Plot Results</a></li>
 </ul>
@@ -158,12 +160,12 @@ to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="within-session-p300">
 <span id="sphx-glr-auto-examples-plot-within-session-p300-py"></span><h1>Within Session P300<a class="headerlink" href="#within-session-p300" title="Permalink to this headline">¶</a></h1>
-<p>This Example shows how to perform a within session analysis on three different
+<p>This example shows how to perform a within session analysis on three different
 P300 datasets.</p>
 <p>We will compare two pipelines :</p>
 <ul class="simple">
-<li><p>Riemannian Geometry</p></li>
-<li><p>xDawn with Linear Discriminant Analysis</p></li>
+<li><p>Riemannian geometry</p></li>
+<li><p>XDAWN with Linear Discriminant Analysis</p></li>
 </ul>
 <p>We will use the P300 paradigm, which uses the AUC as metric.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Pedro Rodrigues &lt;pedro.rodrigues01@gmail.com&gt;</span>
@@ -222,7 +224,7 @@ P300 datasets.</p>
 </pre></div>
 </div>
 <p>This is an auxiliary transformer that allows one to vectorize data
-structures in a pipeline For instance, in the case of a X with dimensions
+structures in a pipeline For instance, in the case of an X with dimensions
 Nt x Nc x Ns, one might be interested in a new data structure with
 dimensions Nt x (Nc.Ns)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Vectorizer</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">BaseEstimator</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="sklearn.base.TransformerMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TransformerMixin</span></a><span class="p">):</span>
@@ -239,12 +241,12 @@ dimensions Nt x (Nc.Ns)</p>
 </pre></div>
 </div>
 <div class="section" id="create-pipelines">
-<h2>Create pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
+<h2>Create Pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
 <p>Pipelines must be a dict of sklearn pipeline transformer.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 </div>
-<p>we have to do this because the classes are called ‘Target’ and ‘NonTarget’
+<p>We have to do this because the classes are called ‘Target’ and ‘NonTarget’
 but the evaluation function uses a LabelEncoder, transforming them
 to 0 and 1</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels_dict</span></a> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Target&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;NonTarget&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
@@ -266,7 +268,7 @@ to 0 and 1</p>
 <div class="section" id="evaluation">
 <h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
 <p>We define the paradigm (P300) and use all three datasets available for it.
-The evaluation will return a dataframe containing a single AUC score for
+The evaluation will return a DataFrame containing a single AUC score for
 each subject / session of the dataset, and for each pipeline.</p>
 <p>Results are saved into the database, so that if you add a new pipeline, it
 will not run again the evaluation unless a parameter has changed. Results can
@@ -282,10 +284,251 @@ be overwritten if necessary.</p>
 <span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+
+  0%|                                      | 12.3k/18.5M [00:00&lt;02:30, 123kB/s][A
+
+  0%|                                      | 24.6k/18.5M [00:00&lt;02:30, 123kB/s][A
+
+  0%|                                      | 36.9k/18.5M [00:00&lt;02:30, 123kB/s][A
+
+  0%|▏                                     | 66.6k/18.5M [00:00&lt;01:36, 191kB/s][A
+
+  0%|▏                                     | 86.0k/18.5M [00:00&lt;01:36, 192kB/s][A
+
+  1%|▏                                      | 118k/18.5M [00:00&lt;01:18, 234kB/s][A
+
+  1%|▎                                      | 148k/18.5M [00:00&lt;01:11, 258kB/s][A
+
+  1%|▍                                      | 181k/18.5M [00:00&lt;01:05, 280kB/s][A
+
+  1%|▍                                      | 214k/18.5M [00:00&lt;01:02, 295kB/s][A
+
+  1%|▌                                      | 247k/18.5M [00:01&lt;00:59, 305kB/s][A
+
+  2%|▋                                      | 297k/18.5M [00:01&lt;00:49, 365kB/s][A
+
+  2%|▋                                      | 345k/18.5M [00:01&lt;00:45, 400kB/s][A
+
+  2%|▊                                      | 412k/18.5M [00:01&lt;00:37, 480kB/s][A
+
+  3%|█                                      | 493k/18.5M [00:01&lt;00:31, 577kB/s][A
+
+  3%|█▏                                     | 574k/18.5M [00:01&lt;00:27, 649kB/s][A
+
+  3%|█▎                                     | 640k/18.5M [00:01&lt;00:27, 651kB/s][A
+
+  4%|█▌                                     | 722k/18.5M [00:01&lt;00:25, 701kB/s][A
+
+  4%|█▋                                     | 804k/18.5M [00:01&lt;00:24, 736kB/s][A
+
+  5%|█▉                                     | 919k/18.5M [00:01&lt;00:20, 858kB/s][A
+
+  6%|██                                    | 1.03M/18.5M [00:02&lt;00:18, 931kB/s][A
+
+  6%|██▎                                   | 1.13M/18.5M [00:02&lt;00:18, 947kB/s][A
+
+  7%|██▌                                  | 1.26M/18.5M [00:02&lt;00:16, 1.05MB/s][A
+
+  8%|██▊                                  | 1.39M/18.5M [00:02&lt;00:15, 1.13MB/s][A
+
+  8%|███                                  | 1.54M/18.5M [00:02&lt;00:13, 1.23MB/s][A
+
+  9%|███▎                                 | 1.69M/18.5M [00:02&lt;00:12, 1.30MB/s][A
+
+ 10%|███▋                                 | 1.84M/18.5M [00:02&lt;00:12, 1.35MB/s][A
+
+ 11%|████                                 | 2.03M/18.5M [00:02&lt;00:10, 1.51MB/s][A
+
+ 12%|████▍                                | 2.25M/18.5M [00:02&lt;00:09, 1.69MB/s][A
+
+ 13%|████▉                                | 2.46M/18.5M [00:02&lt;00:08, 1.82MB/s][A
+
+ 14%|█████▎                               | 2.67M/18.5M [00:03&lt;00:08, 1.91MB/s][A
+
+ 16%|█████▊                               | 2.92M/18.5M [00:03&lt;00:07, 2.07MB/s][A
+
+ 17%|██████▎                              | 3.16M/18.5M [00:03&lt;00:07, 2.18MB/s][A
+
+ 18%|██████▊                              | 3.41M/18.5M [00:03&lt;00:06, 2.26MB/s][A
+
+ 20%|███████▍                             | 3.70M/18.5M [00:03&lt;00:06, 2.43MB/s][A
+
+ 22%|████████                             | 4.02M/18.5M [00:03&lt;00:05, 2.62MB/s][A
+
+ 23%|████████▋                            | 4.34M/18.5M [00:03&lt;00:05, 2.80MB/s][A
+
+ 25%|█████████▍                           | 4.72M/18.5M [00:03&lt;00:04, 3.04MB/s][A
+
+ 28%|██████████▏                          | 5.11M/18.5M [00:03&lt;00:04, 3.30MB/s][A
+
+ 30%|██████████▉                          | 5.49M/18.5M [00:03&lt;00:03, 3.44MB/s][A
+
+ 32%|███████████▉                         | 5.95M/18.5M [00:04&lt;00:03, 3.76MB/s][A
+
+ 34%|████████████▊                        | 6.39M/18.5M [00:04&lt;00:03, 3.94MB/s][A
+
+ 37%|█████████████▊                       | 6.90M/18.5M [00:04&lt;00:02, 4.28MB/s][A
+
+ 40%|██████████████▊                      | 7.42M/18.5M [00:04&lt;00:02, 4.56MB/s][A
+
+ 43%|███████████████▉                     | 8.00M/18.5M [00:04&lt;00:02, 4.91MB/s][A
+
+ 47%|█████████████████▏                   | 8.62M/18.5M [00:04&lt;00:01, 5.30MB/s][A
+
+ 50%|██████████████████▌                  | 9.31M/18.5M [00:04&lt;00:01, 5.74MB/s][A
+
+ 54%|████████████████████                 | 10.0M/18.5M [00:04&lt;00:01, 6.13MB/s][A
+
+ 58%|█████████████████████▋               | 10.8M/18.5M [00:04&lt;00:01, 6.63MB/s][A
+
+ 63%|███████████████████████▎             | 11.7M/18.5M [00:04&lt;00:00, 7.17MB/s][A
+
+ 68%|█████████████████████████▏           | 12.6M/18.5M [00:05&lt;00:00, 7.76MB/s][A
+
+ 73%|███████████████████████████▏         | 13.6M/18.5M [00:05&lt;00:00, 8.25MB/s][A
+
+ 79%|█████████████████████████████▏       | 14.6M/18.5M [00:05&lt;00:00, 8.85MB/s][A
+
+ 85%|███████████████████████████████▍     | 15.7M/18.5M [00:05&lt;00:00, 9.58MB/s][A
+
+ 91%|█████████████████████████████████▊   | 16.9M/18.5M [00:05&lt;00:00, 10.3MB/s][A
+
+ 98%|████████████████████████████████████▎| 18.2M/18.5M [00:05&lt;00:00, 11.0MB/s][A
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+100%|█████████████████████████████████████| 18.5M/18.5M [00:00&lt;00:00, 29.8GB/s]
+
+009-2014-WithinSession:  50%|#####     | 1/2 [00:23&lt;00:23, 23.13s/it]
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+
+  0%|                                     | 2.05k/18.5M [00:00&lt;15:04, 20.5kB/s][A
+
+  0%|                                     | 17.4k/18.5M [00:00&lt;03:07, 98.7kB/s][A
+
+  0%|                                      | 33.8k/18.5M [00:00&lt;02:24, 128kB/s][A
+
+  0%|                                      | 50.2k/18.5M [00:00&lt;02:09, 142kB/s][A
+
+  0%|▏                                     | 82.9k/18.5M [00:00&lt;01:28, 208kB/s][A
+
+  1%|▏                                      | 116k/18.5M [00:00&lt;01:14, 248kB/s][A
+
+  1%|▎                                      | 148k/18.5M [00:00&lt;01:07, 274kB/s][A
+
+  1%|▍                                      | 181k/18.5M [00:00&lt;01:03, 291kB/s][A
+
+  1%|▍                                      | 214k/18.5M [00:00&lt;01:00, 302kB/s][A
+
+  1%|▌                                      | 263k/18.5M [00:01&lt;00:50, 359kB/s][A
+
+  2%|▋                                      | 312k/18.5M [00:01&lt;00:45, 399kB/s][A
+
+  2%|▊                                      | 361k/18.5M [00:01&lt;00:42, 427kB/s][A
+
+  2%|▊                                      | 411k/18.5M [00:01&lt;00:40, 446kB/s][A
+
+  3%|█                                      | 476k/18.5M [00:01&lt;00:35, 507kB/s][A
+
+  3%|█                                      | 527k/18.5M [00:01&lt;00:35, 508kB/s][A
+
+  3%|█▏                                     | 591k/18.5M [00:01&lt;00:32, 546kB/s][A
+
+  4%|█▍                                     | 673k/18.5M [00:01&lt;00:28, 625kB/s][A
+
+  4%|█▌                                     | 755k/18.5M [00:01&lt;00:26, 682kB/s][A
+
+  5%|█▊                                     | 837k/18.5M [00:01&lt;00:24, 722kB/s][A
+
+  5%|█▉                                     | 909k/18.5M [00:02&lt;00:24, 724kB/s][A
+
+  5%|██                                    | 1.00M/18.5M [00:02&lt;00:22, 780kB/s][A
+
+  6%|██▎                                   | 1.10M/18.5M [00:02&lt;00:20, 840kB/s][A
+
+  6%|██▍                                   | 1.20M/18.5M [00:02&lt;00:19, 882kB/s][A
+
+  7%|██▋                                   | 1.31M/18.5M [00:02&lt;00:17, 965kB/s][A
+
+  8%|██▉                                  | 1.48M/18.5M [00:02&lt;00:14, 1.15MB/s][A
+
+  9%|███▏                                 | 1.62M/18.5M [00:02&lt;00:13, 1.25MB/s][A
+
+ 10%|███▌                                 | 1.77M/18.5M [00:02&lt;00:12, 1.31MB/s][A
+
+ 11%|███▉                                 | 1.95M/18.5M [00:02&lt;00:11, 1.46MB/s][A
+
+ 11%|████▏                                | 2.10M/18.5M [00:02&lt;00:11, 1.46MB/s][A
+
+ 12%|████▌                                | 2.29M/18.5M [00:03&lt;00:10, 1.61MB/s][A
+
+ 14%|█████                                | 2.51M/18.5M [00:03&lt;00:09, 1.77MB/s][A
+
+ 15%|█████▍                               | 2.74M/18.5M [00:03&lt;00:08, 1.92MB/s][A
+
+ 16%|█████▉                               | 3.00M/18.5M [00:03&lt;00:07, 2.08MB/s][A
+
+ 18%|██████▌                              | 3.28M/18.5M [00:03&lt;00:06, 2.29MB/s][A
+
+ 19%|███████                              | 3.56M/18.5M [00:03&lt;00:06, 2.43MB/s][A
+
+ 21%|███████▊                             | 3.88M/18.5M [00:03&lt;00:05, 2.65MB/s][A
+
+ 23%|████████▍                            | 4.24M/18.5M [00:03&lt;00:04, 2.93MB/s][A
+
+ 25%|█████████▏                           | 4.59M/18.5M [00:03&lt;00:04, 3.08MB/s][A
+
+ 27%|█████████▉                           | 4.98M/18.5M [00:03&lt;00:04, 3.33MB/s][A
+
+ 29%|██████████▊                          | 5.41M/18.5M [00:04&lt;00:03, 3.61MB/s][A
+
+ 32%|███████████▋                         | 5.87M/18.5M [00:04&lt;00:03, 3.90MB/s][A
+
+ 34%|████████████▋                        | 6.37M/18.5M [00:04&lt;00:02, 4.25MB/s][A
+
+ 37%|█████████████▊                       | 6.92M/18.5M [00:04&lt;00:02, 4.50MB/s][A
+
+ 41%|██████████████▉                      | 7.50M/18.5M [00:04&lt;00:02, 4.89MB/s][A
+
+ 44%|████████████████▏                    | 8.11M/18.5M [00:04&lt;00:01, 5.23MB/s][A
+
+ 47%|█████████████████▌                   | 8.78M/18.5M [00:04&lt;00:01, 5.64MB/s][A
+
+ 51%|██████████████████▉                  | 9.49M/18.5M [00:04&lt;00:01, 6.03MB/s][A
+
+ 55%|████████████████████▍                | 10.2M/18.5M [00:04&lt;00:01, 6.47MB/s][A
+
+ 60%|██████████████████████               | 11.0M/18.5M [00:04&lt;00:01, 6.79MB/s][A
+
+ 64%|███████████████████████▋             | 11.9M/18.5M [00:05&lt;00:00, 7.27MB/s][A
+
+ 69%|█████████████████████████▌           | 12.8M/18.5M [00:05&lt;00:00, 7.77MB/s][A
+
+ 74%|███████████████████████████▍         | 13.7M/18.5M [00:05&lt;00:00, 8.33MB/s][A
+
+ 80%|█████████████████████████████▍       | 14.8M/18.5M [00:05&lt;00:00, 8.81MB/s][A
+
+ 85%|███████████████████████████████▌     | 15.8M/18.5M [00:05&lt;00:00, 9.30MB/s][A
+
+ 91%|█████████████████████████████████▊   | 16.9M/18.5M [00:05&lt;00:00, 9.79MB/s][A
+
+ 97%|████████████████████████████████████ | 18.1M/18.5M [00:05&lt;00:00, 10.3MB/s][A
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+100%|█████████████████████████████████████| 18.5M/18.5M [00:00&lt;00:00, 24.8GB/s]
+
+009-2014-WithinSession: 100%|##########| 2/2 [00:46&lt;00:00, 23.00s/it]
+009-2014-WithinSession: 100%|##########| 2/2 [00:46&lt;00:00, 23.02s/it]
+</pre></div>
+</div>
 </div>
 <div class="section" id="plot-results">
 <h2>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this headline">¶</a></h2>
-<p>Here we plot the results.</p>
+<p>Here we plot the results to compare the two pipelines</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <a href="https://matplotlib.org/api/_as_gen/matplotlib.pyplot.subplots.html#matplotlib.pyplot.subplots" title="matplotlib.pyplot.subplots" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 
 <span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span>
@@ -307,7 +550,7 @@ be overwritten if necessary.</p>
 </pre></div>
 </div>
 <img alt="plot within session p300" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_within_session_p300_001.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  44.401 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  46.304 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-within-session-p300-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/39844aaaee383c2803c6ac93e64037d5/plot_within_session_p300.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_within_session_p300.py</span></code></a></p>

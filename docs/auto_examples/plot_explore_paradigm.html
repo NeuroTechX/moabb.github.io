@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Explore Paradigm Object &#8212; moabb 0.4.3 documentation</title>
+    <title>Explore Paradigm Object &#8212; moabb 0.4.5 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -21,10 +21,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -62,7 +62,9 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../whats_new.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#develop-branch">Develop branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-5-stable-pypi">Version - 0.4.5  (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
@@ -164,10 +166,10 @@ used, i.e. in motor imagery one can have two-class, multi-class,
 or continuous paradigms; similarly, different preprocessing is necessary
 for ERP vs ERD paradigms.</p>
 <p>A paradigm also defines the appropriate evaluation metric, for example AUC
-for binary classification problem, accuracy for multiclass, or kappa
-coefficient for continuous paradigms.</p>
+for binary classification problems, accuracy for multiclass, or kappa
+coefficients for continuous paradigms.</p>
 <dl class="simple">
-<dt>This tutorial explore the paradigm object, with 3 examples of paradigm :</dt><dd><ul class="simple">
+<dt>This tutorial explores the paradigm object, with 3 examples of paradigm :</dt><dd><ul class="simple">
 <li><p>MotorImagery</p></li>
 <li><p>FilterBankMotorImagery</p></li>
 <li><p>LeftRightImagery</p></li>
@@ -175,6 +177,7 @@ coefficient for continuous paradigms.</p>
 </dd>
 </dl>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Alexandre Barachant &lt;alexandre.barachant@gmail.com&gt;</span>
+<span class="c1">#          Sylvain Chevallier &lt;sylvain.chevallier@uvsq.fr&gt;</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD (3-clause)</span>
 
@@ -189,7 +192,7 @@ coefficient for continuous paradigms.</p>
 </div>
 <div class="section" id="motorimagery">
 <h2>MotorImagery<a class="headerlink" href="#motorimagery" title="Permalink to this headline">¶</a></h2>
-<p>First, lets take a example of the MotorImagery paradigm.</p>
+<p>First, let’s take an example of the MotorImagery paradigm.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">MotorImagery</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
@@ -285,9 +288,9 @@ metadata: pd.DataFrame
 <p>Lets take the example of the BNCI2014001 dataset, known as the dataset IIa
 from the BCI competition IV. We will load the data from the subject 1.
 When calling <cite>get_data</cite>, the paradigm will retrieve the data from the
-specified list of subject, apply preprocessing (by default, a bandpass
+specified list of subjects, apply preprocessing (by default, a bandpass
 between 7 and 35 Hz), epoch the data (with interval specified by the dataset,
-unless superseeded by the paradigm) and return the corresponding objects.</p>
+unless superseded by the paradigm) and return the corresponding objects.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subjects</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
@@ -305,7 +308,7 @@ one.</p>
 </pre></div>
 </div>
 <p>Labels contains the labels corresponding to each trial. in the case of this
-dataset, we have the 4 type of motor imagery that was performed.</p>
+dataset, we have the 4 types of motor imagery that was performed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">))</span>
 </pre></div>
 </div>
@@ -313,13 +316,13 @@ dataset, we have the 4 type of motor imagery that was performed.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;feet&#39; &#39;left_hand&#39; &#39;right_hand&#39; &#39;tongue&#39;]
 </pre></div>
 </div>
-<p>metadata have at least 3 columns, subject, session and run.</p>
+<p>Metadata have at least 3 columns: subject, session and run.</p>
 <ul class="simple">
 <li><p>subject is the subject id of the corresponding trial</p></li>
-<li><p>session is the session id. A session is a all the data recorded without
+<li><p>session is the session id. A session denotes a recording made without
 removing the EEG cap.</p></li>
-<li><p>run is the individual continuous recording made during a session. A Session
-may or may not contain multiple run.</p></li>
+<li><p>run is the individual continuous recording made during a session. A session
+may or may not contain multiple runs.</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
@@ -333,8 +336,8 @@ may or may not contain multiple run.</p></li>
 4        1  session_T  run_0
 </pre></div>
 </div>
-<p>For this data, we have one subjecy, 2 sessions (2 different recording day)
-and 6 run per session.</p>
+<p>For this data, we have one subject, 2 sessions (2 different recording days)
+and 6 runs per session.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -342,7 +345,7 @@ and 6 run per session.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>        subject    session    run
 count     576.0        576    576
 unique      NaN          2      6
-top         NaN  session_T  run_5
+top         NaN  session_E  run_1
 freq        NaN        288     96
 mean        1.0        NaN    NaN
 std         0.0        NaN    NaN
@@ -353,8 +356,8 @@ min         1.0        NaN    NaN
 max         1.0        NaN    NaN
 </pre></div>
 </div>
-<p>Paradigm object can also return the list of all dataset compatible. here
-it will return the list all the imagery datasets from the moabb.</p>
+<p>Paradigm objects can also return the list of all dataset compatible. Here
+it will return the list all the imagery datasets from the MOABB.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">compatible_datasets</span></a> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">datasets</span>
 <span class="nb">print</span><span class="p">([</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">code</span></a> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">compatible_datasets</span></a><span class="p">])</span>
 </pre></div>
@@ -367,7 +370,7 @@ it will return the list all the imagery datasets from the moabb.</p>
 <div class="section" id="filterbank-motorimagery">
 <h2>FilterBank MotorImagery<a class="headerlink" href="#filterbank-motorimagery" title="Permalink to this headline">¶</a></h2>
 <p>FilterBankMotorImagery is the same paradigm, but with a different
-preprocessing. In this case, it apply a bank of 6 bandpass filter on the data
+preprocessing. In this case, it applies a bank of 6 bandpass filter on the data
 before concatenating the output.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">FilterBankMotorImagery</span><span class="p">()</span>
 
@@ -391,7 +394,7 @@ n_classes: int,
     requires all imagery sorts to be within the events list.
 </pre></div>
 </div>
-<p>therefore, the output X is a 4D array, with trial x channel x time x filter</p>
+<p>Therefore, the output X is a 4D array, with trial x channel x time x filter</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subjects</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subjects</span></a><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#tuple" title="builtins.tuple" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span><span class="o">.</span><span class="n">shape</span></a><span class="p">)</span>
@@ -405,7 +408,7 @@ n_classes: int,
 <div class="section" id="leftright-motorimagery">
 <h2>LeftRight MotorImagery<a class="headerlink" href="#leftright-motorimagery" title="Permalink to this headline">¶</a></h2>
 <p>LeftRightImagery is a variation over the BaseMotorImagery paradigm,
-restricted to left and right hand events.</p>
+restricted to left- and right-hand events.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">paradigm</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">)</span>
@@ -417,7 +420,7 @@ restricted to left and right hand events.</p>
     Metric is &#39;roc_auc&#39;
 </pre></div>
 </div>
-<p>the compatible dataset list is a subset of motor imagery dataset that
+<p>The compatible dataset list is a subset of motor imagery dataset that
 contains at least left and right hand events.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">compatible_datasets</span></a> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">datasets</span>
 <span class="nb">print</span><span class="p">([</span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">code</span></a> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">compatible_datasets</span></a><span class="p">])</span>
@@ -427,8 +430,8 @@ contains at least left and right hand events.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;001-2014&#39;, &#39;004-2014&#39;, &#39;Cho2017&#39;, &#39;Lee2019_MI&#39;, &#39;Grosse-Wentrup 2009&#39;, &#39;Physionet Motor Imagery&#39;, &#39;Schirrmeister2017&#39;, &#39;Shin2017A&#39;, &#39;Weibo 2014&#39;, &#39;Zhou 2016&#39;]
 </pre></div>
 </div>
-<p>So if we apply this this to our original dataset, it will only return trials
-corresponding to left and right hand motor imagination.</p>
+<p>So if we apply this to our original dataset, it will only return trials
+corresponding to left- and right-hand motor imagination.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subjects</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subjects</span></a><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.unique.html#numpy.unique" title="numpy.unique" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">unique</span></a><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">y</span></a><span class="p">))</span>
@@ -438,7 +441,7 @@ corresponding to left and right hand motor imagination.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&#39;left_hand&#39; &#39;right_hand&#39;]
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  15.396 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.404 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-explore-paradigm-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/9b872d163c45f60eb451b1869667203a/plot_explore_paradigm.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_explore_paradigm.py</span></code></a></p>

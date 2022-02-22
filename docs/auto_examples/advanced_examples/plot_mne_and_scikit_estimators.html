@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MNE Epochs-based piplines &#8212; moabb 0.4.3 documentation</title>
+    <title>MNE Epochs-based pipelines &#8212; moabb 0.4.5 documentation</title>
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -21,10 +21,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
 
   </head><body>
 
@@ -39,7 +39,7 @@
         </button>
         <a class="navbar-brand" href="../../index.html">
           moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.3</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.5</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -62,7 +62,9 @@
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#develop-branch">Develop branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-3-stable-pypi">Version - 0.4.3 (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-5-stable-pypi">Version - 0.4.5  (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
@@ -116,13 +118,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">MNE Epochs-based piplines</a><ul>
-<li><a class="reference internal" href="#loading-dataset">Loading dataset</a></li>
-<li><a class="reference internal" href="#get-data-optional">Get data (optional)</a></li>
-<li><a class="reference internal" href="#a-simple-mne-pipeline">A simple MNE pipeline</a></li>
-<li><a class="reference internal" href="#advanced-mne-pipeline">Advanced MNE pipeline</a></li>
-<li><a class="reference internal" href="#numpy-based-pipeline">Numpy-based pipeline</a></li>
-<li><a class="reference internal" href="#combining-results">Combining results</a></li>
+<li><a class="reference internal" href="#">MNE Epochs-based pipelines</a><ul>
+<li><a class="reference internal" href="#loading-dataset">Loading Dataset</a></li>
+<li><a class="reference internal" href="#get-data-optional">Get Data (optional)</a></li>
+<li><a class="reference internal" href="#a-simple-mne-pipeline">A Simple MNE Pipeline</a></li>
+<li><a class="reference internal" href="#advanced-mne-pipeline">Advanced MNE Pipeline</a></li>
+<li><a class="reference internal" href="#numpy-based-pipeline">Numpy-based Pipeline</a></li>
+<li><a class="reference internal" href="#combining-results">Combining Results</a></li>
 </ul>
 </li>
 </ul>
@@ -159,15 +161,15 @@
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="mne-epochs-based-piplines">
-<span id="sphx-glr-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py"></span><h1>MNE Epochs-based piplines<a class="headerlink" href="#mne-epochs-based-piplines" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="mne-epochs-based-pipelines">
+<span id="sphx-glr-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py"></span><h1>MNE Epochs-based pipelines<a class="headerlink" href="#mne-epochs-based-pipelines" title="Permalink to this headline">¶</a></h1>
 <p>This example shows how to use machine learning pipeline based on MNE Epochs
-instead of numpy arrays. This is useful to make the most of the MNE code base
+instead of Numpy arrays. This is useful to make the most of the MNE code base
 and to embed EEG specific code inside sklearn pipelines.</p>
-<p>We will compare compare different pipelines for P300:
-- Logistic Regression, based on MNE Epochs
+<p>We will compare different pipelines for P300:
+- Logistic regression, based on MNE Epochs
 - XDAWN and Logistic Regression (LR), based on MNE Epochs
-- XDAWN extended covariance and LR on tangent space, based on numpy</p>
+- XDAWN extended covariance and LR on tangent space, based on Numpy</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Sylvain Chevallier</span>
 <span class="c1">#</span>
 <span class="c1"># License: BSD (3-clause)</span>
@@ -203,7 +205,7 @@ and to embed EEG specific code inside sklearn pipelines.</p>
 </pre></div>
 </div>
 <div class="section" id="loading-dataset">
-<h2>Loading dataset<a class="headerlink" href="#loading-dataset" title="Permalink to this headline">¶</a></h2>
+<h2>Loading Dataset<a class="headerlink" href="#loading-dataset" title="Permalink to this headline">¶</a></h2>
 <p>Load 2 subjects of BNCI 2014-009 dataset, with 3 session each</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014009</span><span class="p">()</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
@@ -213,13 +215,13 @@ and to embed EEG specific code inside sklearn pipelines.</p>
 </div>
 </div>
 <div class="section" id="get-data-optional">
-<h2>Get data (optional)<a class="headerlink" href="#get-data-optional" title="Permalink to this headline">¶</a></h2>
+<h2>Get Data (optional)<a class="headerlink" href="#get-data-optional" title="Permalink to this headline">¶</a></h2>
 <p>To get access to the EEG signals downloaded from the dataset, you could
 use <code class="docutils literal notranslate"><span class="pre">dataset.get_data([subject_id)</span></code> to obtain the EEG as MNE Epochs, stored
 in a dictionary of sessions and runs.
 The <code class="docutils literal notranslate"><span class="pre">paradigm.get_data(dataset=dataset,</span> <span class="pre">subjects=[subject_id])</span></code> allows to
 obtain the preprocessed EEG data, the labels and the meta information. By
-default, the EEG is return as a numpy array. With <code class="docutils literal notranslate"><span class="pre">return_epochs=True</span></code>, MNE
+default, the EEG is return as a Numpy array. With <code class="docutils literal notranslate"><span class="pre">return_epochs=True</span></code>, MNE
 Epochs are returned.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sessions</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a><span class="p">)</span>
@@ -231,12 +233,12 @@ Epochs are returned.</p>
 </div>
 </div>
 <div class="section" id="a-simple-mne-pipeline">
-<h2>A simple MNE pipeline<a class="headerlink" href="#a-simple-mne-pipeline" title="Permalink to this headline">¶</a></h2>
+<h2>A Simple MNE Pipeline<a class="headerlink" href="#a-simple-mne-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>Using <code class="docutils literal notranslate"><span class="pre">return_epochs=True</span></code> in the evaluation, it is possible to design a
 pipeline based on MNE Epochs input. Let’s create a simple one, that
 reshape the input data from epochs, rescale the data and uses a logistic
 regression to classify the data. We will need to write a basic Transformer
-estimator, that comply with
+estimator, that complies with
 <a class="reference external" href="https://scikit-learn.org/stable/developers/develop.html">sklearn convention</a>.
 This transformer will extract the data from an input Epoch, and reshapes into
 2D array.</p>
@@ -272,13 +274,141 @@ ROC-AUC metric.</p>
 <span class="n">mne_res</span> <span class="o">=</span> <span class="n">mne_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_ppl</span></a><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]
+009-2014-CrossSession:  33%|###3      | 1/3 [00:04&lt;00:09,  4.58s/it]
+009-2014-CrossSession:  67%|######6   | 2/3 [00:08&lt;00:04,  4.09s/it]
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+
+  0%|                                     | 5.12k/18.5M [00:00&lt;06:01, 51.2kB/s][A
+
+  0%|                                     | 17.4k/18.5M [00:00&lt;03:18, 93.0kB/s][A
+
+  0%|                                      | 33.8k/18.5M [00:00&lt;02:27, 125kB/s][A
+
+  0%|                                      | 50.2k/18.5M [00:00&lt;02:11, 140kB/s][A
+
+  0%|▏                                     | 82.9k/18.5M [00:00&lt;01:28, 208kB/s][A
+
+  1%|▏                                      | 104k/18.5M [00:00&lt;01:27, 210kB/s][A
+
+  1%|▎                                      | 132k/18.5M [00:00&lt;01:19, 232kB/s][A
+
+  1%|▎                                      | 165k/18.5M [00:00&lt;01:10, 262kB/s][A
+
+  1%|▍                                      | 198k/18.5M [00:00&lt;01:04, 282kB/s][A
+
+  1%|▍                                      | 230k/18.5M [00:01&lt;01:01, 296kB/s][A
+
+  2%|▌                                      | 280k/18.5M [00:01&lt;00:51, 356kB/s][A
+
+  2%|▋                                      | 329k/18.5M [00:01&lt;00:45, 396kB/s][A
+
+  2%|▊                                      | 379k/18.5M [00:01&lt;00:42, 428kB/s][A
+
+  2%|▉                                      | 443k/18.5M [00:01&lt;00:36, 491kB/s][A
+
+  3%|█                                      | 509k/18.5M [00:01&lt;00:33, 540kB/s][A
+
+  3%|█▏                                     | 591k/18.5M [00:01&lt;00:28, 622kB/s][A
+
+  4%|█▍                                     | 673k/18.5M [00:01&lt;00:26, 680kB/s][A
+
+  4%|█▌                                     | 741k/18.5M [00:01&lt;00:26, 680kB/s][A
+
+  5%|█▊                                     | 838k/18.5M [00:01&lt;00:23, 765kB/s][A
+
+  5%|█▉                                     | 935k/18.5M [00:02&lt;00:21, 824kB/s][A
+
+  6%|██▏                                   | 1.05M/18.5M [00:02&lt;00:19, 902kB/s][A
+
+  6%|██▍                                   | 1.16M/18.5M [00:02&lt;00:17, 972kB/s][A
+
+  7%|██▌                                  | 1.30M/18.5M [00:02&lt;00:16, 1.07MB/s][A
+
+  8%|██▊                                  | 1.41M/18.5M [00:02&lt;00:15, 1.09MB/s][A
+
+  8%|███                                  | 1.56M/18.5M [00:02&lt;00:14, 1.20MB/s][A
+
+  9%|███▍                                 | 1.70M/18.5M [00:02&lt;00:13, 1.28MB/s][A
+
+ 10%|███▊                                 | 1.89M/18.5M [00:02&lt;00:11, 1.43MB/s][A
+
+ 11%|████                                 | 2.05M/18.5M [00:02&lt;00:11, 1.49MB/s][A
+
+ 12%|████▍                                | 2.25M/18.5M [00:02&lt;00:09, 1.63MB/s][A
+
+ 13%|████▉                                | 2.44M/18.5M [00:03&lt;00:09, 1.73MB/s][A
+
+ 14%|█████▏                               | 2.62M/18.5M [00:03&lt;00:09, 1.75MB/s][A
+
+ 15%|█████▋                               | 2.82M/18.5M [00:03&lt;00:08, 1.81MB/s][A
+
+ 16%|██████                               | 3.02M/18.5M [00:03&lt;00:08, 1.86MB/s][A
+
+ 18%|██████▌                              | 3.28M/18.5M [00:03&lt;00:07, 2.08MB/s][A
+
+ 19%|███████                              | 3.56M/18.5M [00:03&lt;00:06, 2.29MB/s][A
+
+ 21%|███████▋                             | 3.85M/18.5M [00:03&lt;00:05, 2.49MB/s][A
+
+ 22%|████████▎                            | 4.16M/18.5M [00:03&lt;00:05, 2.67MB/s][A
+
+ 24%|█████████                            | 4.51M/18.5M [00:03&lt;00:04, 2.89MB/s][A
+
+ 26%|█████████▊                           | 4.88M/18.5M [00:03&lt;00:04, 3.09MB/s][A
+
+ 28%|██████████▌                          | 5.28M/18.5M [00:04&lt;00:03, 3.34MB/s][A
+
+ 31%|███████████▍                         | 5.70M/18.5M [00:04&lt;00:03, 3.55MB/s][A
+
+ 33%|████████████▎                        | 6.16M/18.5M [00:04&lt;00:03, 3.84MB/s][A
+
+ 36%|█████████████▎                       | 6.65M/18.5M [00:04&lt;00:02, 4.16MB/s][A
+
+ 38%|██████████████▏                      | 7.11M/18.5M [00:04&lt;00:02, 4.28MB/s][A
+
+ 41%|███████████████▎                     | 7.67M/18.5M [00:04&lt;00:02, 4.65MB/s][A
+
+ 44%|████████████████▍                    | 8.24M/18.5M [00:04&lt;00:02, 4.97MB/s][A
+
+ 48%|█████████████████▋                   | 8.88M/18.5M [00:04&lt;00:01, 5.37MB/s][A
+
+ 52%|███████████████████                  | 9.55M/18.5M [00:04&lt;00:01, 5.70MB/s][A
+
+ 55%|████████████████████▌                | 10.3M/18.5M [00:04&lt;00:01, 6.13MB/s][A
+
+ 60%|██████████████████████               | 11.0M/18.5M [00:05&lt;00:01, 6.50MB/s][A
+
+ 64%|███████████████████████▋             | 11.8M/18.5M [00:05&lt;00:00, 7.00MB/s][A
+
+ 69%|█████████████████████████▎           | 12.7M/18.5M [00:05&lt;00:00, 7.43MB/s][A
+
+ 73%|███████████████████████████▏         | 13.6M/18.5M [00:05&lt;00:00, 7.87MB/s][A
+
+ 79%|█████████████████████████████        | 14.6M/18.5M [00:05&lt;00:00, 8.43MB/s][A
+
+ 84%|███████████████████████████████▏     | 15.6M/18.5M [00:05&lt;00:00, 9.07MB/s][A
+
+ 90%|█████████████████████████████████▍   | 16.8M/18.5M [00:05&lt;00:00, 9.67MB/s][A
+
+ 97%|███████████████████████████████████▊ | 18.0M/18.5M [00:05&lt;00:00, 10.3MB/s][A
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+100%|█████████████████████████████████████| 18.5M/18.5M [00:00&lt;00:00, 22.8GB/s]
+
+009-2014-CrossSession: 100%|##########| 3/3 [00:20&lt;00:00,  7.77s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:20&lt;00:00,  6.82s/it]
+</pre></div>
+</div>
 </div>
 <div class="section" id="advanced-mne-pipeline">
-<h2>Advanced MNE pipeline<a class="headerlink" href="#advanced-mne-pipeline" title="Permalink to this headline">¶</a></h2>
+<h2>Advanced MNE Pipeline<a class="headerlink" href="#advanced-mne-pipeline" title="Permalink to this headline">¶</a></h2>
 <p>In some case, the MNE pipeline should have access to the original labels from
 the dataset. This is the case for the XDAWN code of MNE. One could pass
 <cite>mne_labels</cite> to evaluation in order to keep this label.
-As an example, we will define a pipeline that compute an XDAWN filter, rescale,
+As an example, we will define a pipeline that computes an XDAWN filter, rescale,
 then apply a logistic regression.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a> <span class="o">=</span> <span class="p">{}</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a><span class="p">[</span><span class="s2">&quot;XDAWN LR&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
@@ -298,10 +428,126 @@ then apply a logistic regression.</p>
 <span class="n">adv_res</span> <span class="o">=</span> <span class="n">mne_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession:  33%|###3      | 1/3 [00:04&lt;00:09,  4.79s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession:  67%|######6   | 2/3 [00:08&lt;00:04,  4.08s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession: 100%|##########| 3/3 [00:13&lt;00:00,  4.78s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:13&lt;00:00,  4.66s/it]
+</pre></div>
+</div>
 </div>
 <div class="section" id="numpy-based-pipeline">
-<h2>Numpy-based pipeline<a class="headerlink" href="#numpy-based-pipeline" title="Permalink to this headline">¶</a></h2>
-<p>For the comparison, we will define a numpy-based pipeline that relies on
+<h2>Numpy-based Pipeline<a class="headerlink" href="#numpy-based-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>For the comparison, we will define a Numpy-based pipeline that relies on
 pyriemann to estimate XDAWN-extended covariance matrices that are projected
 on the tangent space and classified with a logistic regression.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sk_ppl</span></a> <span class="o">=</span> <span class="p">{}</span>
@@ -319,11 +565,20 @@ on the tangent space and classified with a logistic regression.</p>
 <span class="n">sk_res</span> <span class="o">=</span> <span class="n">sk_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sk_ppl</span></a><span class="p">)</span>
 </pre></div>
 </div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]
+009-2014-CrossSession:  33%|###3      | 1/3 [00:13&lt;00:27, 13.57s/it]
+009-2014-CrossSession:  67%|######6   | 2/3 [00:27&lt;00:13, 13.70s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:41&lt;00:00, 13.73s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:41&lt;00:00, 13.71s/it]
+</pre></div>
+</div>
 </div>
 <div class="section" id="combining-results">
-<h2>Combining results<a class="headerlink" href="#combining-results" title="Permalink to this headline">¶</a></h2>
+<h2>Combining Results<a class="headerlink" href="#combining-results" title="Permalink to this headline">¶</a></h2>
 <p>Even if the results have been obtained by different evaluation processes, it
-possible to combine the resulting dataframes to analyze and plot the results.</p>
+is possible to combine the resulting DataFrames to analyze and plot the
+results.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">all_res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mne_res</span><span class="p">,</span> <span class="n">adv_res</span><span class="p">,</span> <span class="n">sk_res</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -345,7 +600,7 @@ differences between pipelines.</p>
 </pre></div>
 </div>
 <img alt="Algorithm comparison" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mne_and_scikit_estimators_002.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  11.963 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  18.024 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/3bb6d35e266c94de44c44ec75aa9d550/plot_mne_and_scikit_estimators.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mne_and_scikit_estimators.py</span></code></a></p>
