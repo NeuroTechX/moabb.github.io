@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MNE Epochs-based pipelines &#8212; moabb 0.4.6 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          moabb</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.4.6</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="../../whats_new.html">What's new</a></li>
+                <li><a href="../../api.html">API</a></li>
+                <li><a href="../index.html">Gallery</a></li>
+                <li><a href="../../auto_tutorials/index.html">Tutorials</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#develop-branch">Develop branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-6-stable-pypi">Version - 0.4.6  (Stable - PyPi)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-5">Version - 0.4.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-3-0">Version 0.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../datasets.html">Datasets</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#erp-datasets">ERP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#ssvep-datasets">SSVEP Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../evaluations.html">Evaluations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluations.html#id1">Evaluations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../evaluations.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../paradigms.html">Paradigms</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../pipelines.html">Pipelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../pipelines.html#id1">Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../pipelines.html#base-utils">Base &amp; Utils</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../analysis.html">Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../analysis.html#plotting">Plotting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../analysis.html#statistics">Statistics</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">MNE Epochs-based pipelines</a><ul>
+<li><a class="reference internal" href="#loading-dataset">Loading Dataset</a></li>
+<li><a class="reference internal" href="#get-data-optional">Get Data (optional)</a></li>
+<li><a class="reference internal" href="#a-simple-mne-pipeline">A Simple MNE Pipeline</a></li>
+<li><a class="reference internal" href="#advanced-mne-pipeline">Advanced MNE Pipeline</a></li>
+<li><a class="reference internal" href="#numpy-based-pipeline">Numpy-based Pipeline</a></li>
+<li><a class="reference internal" href="#combining-results">Combining Results</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="mne-epochs-based-pipelines">
+<span id="sphx-glr-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py"></span><h1>MNE Epochs-based pipelines<a class="headerlink" href="#mne-epochs-based-pipelines" title="Permalink to this headline">¶</a></h1>
+<p>This example shows how to use machine learning pipeline based on MNE Epochs
+instead of Numpy arrays. This is useful to make the most of the MNE code base
+and to embed EEG specific code inside sklearn pipelines.</p>
+<p>We will compare different pipelines for P300:
+- Logistic regression, based on MNE Epochs
+- XDAWN and Logistic Regression (LR), based on MNE Epochs
+- XDAWN extended covariance and LR on tangent space, based on Numpy</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Authors: Sylvain Chevallier</span>
+<span class="c1">#</span>
+<span class="c1"># License: BSD (3-clause)</span>
+<span class="c1"># sphinx_gallery_thumbnail_number = 2</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">mne.decoding</span> <span class="kn">import</span> <a href="https://mne.tools/stable/generated/mne.decoding.Vectorizer.html#mne.decoding.Vectorizer" title="mne.decoding.Vectorizer" class="sphx-glr-backref-module-mne-decoding sphx-glr-backref-type-py-class"><span class="n">Vectorizer</span></a>
+<span class="kn">from</span> <span class="nn">mne.preprocessing</span> <span class="kn">import</span> <a href="https://mne.tools/stable/generated/mne.preprocessing.Xdawn.html#mne.preprocessing.Xdawn" title="mne.preprocessing.Xdawn" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class"><span class="n">Xdawn</span></a>
+<span class="kn">from</span> <span class="nn">pyriemann.estimation</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">XdawnCovariances</span></a>
+<span class="kn">from</span> <span class="nn">pyriemann.tangentspace</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TangentSpace</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">BaseEstimator</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="sklearn.base.TransformerMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TransformerMixin</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a>
+
+<span class="kn">import</span> <span class="nn">moabb</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: E501</span>
+    <span class="n">compute_dataset_statistics</span><span class="p">,</span>
+    <span class="n">find_significant_differences</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">moabb.analysis.plotting</span> <span class="kn">import</span> <span class="n">paired_plot</span><span class="p">,</span> <span class="n">summary_plot</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014009</span>
+<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">P300</span>
+
+
+<a href="https://docs.python.org/3/library/warnings.html#warnings.simplefilter" title="warnings.simplefilter" class="sphx-glr-backref-module-warnings sphx-glr-backref-type-py-function"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span></a><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/warnings.html#warnings.simplefilter" title="warnings.simplefilter" class="sphx-glr-backref-module-warnings sphx-glr-backref-type-py-function"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span></a><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+<span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="loading-dataset">
+<h2>Loading Dataset<a class="headerlink" href="#loading-dataset" title="Permalink to this headline">¶</a></h2>
+<p>Load 2 subjects of BNCI 2014-009 dataset, with 3 session each</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014009</span><span class="p">()</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
+<span class="n">paradigm</span> <span class="o">=</span> <span class="n">P300</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-data-optional">
+<h2>Get Data (optional)<a class="headerlink" href="#get-data-optional" title="Permalink to this headline">¶</a></h2>
+<p>To get access to the EEG signals downloaded from the dataset, you could
+use <code class="docutils literal notranslate"><span class="pre">dataset.get_data([subject_id)</span></code> to obtain the EEG as MNE Epochs, stored
+in a dictionary of sessions and runs.
+The <code class="docutils literal notranslate"><span class="pre">paradigm.get_data(dataset=dataset,</span> <span class="pre">subjects=[subject_id])</span></code> allows to
+obtain the preprocessed EEG data, the labels and the meta information. By
+default, the EEG is return as a Numpy array. With <code class="docutils literal notranslate"><span class="pre">return_epochs=True</span></code>, MNE
+Epochs are returned.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sessions</span></a> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels</span></a><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a><span class="p">)</span>
+<a href="https://mne.tools/stable/generated/mne.BaseEpochs.html#mne.BaseEpochs" title="mne.BaseEpochs" class="sphx-glr-backref-module-mne sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">epochs</span></a><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">labels</span></a><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">paradigm</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span> <span class="n">subjects</span><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">subject_list</span></a><span class="p">,</span> <span class="n">return_epochs</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-simple-mne-pipeline">
+<h2>A Simple MNE Pipeline<a class="headerlink" href="#a-simple-mne-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">return_epochs=True</span></code> in the evaluation, it is possible to design a
+pipeline based on MNE Epochs input. Let’s create a simple one, that
+reshape the input data from epochs, rescale the data and uses a logistic
+regression to classify the data. We will need to write a basic Transformer
+estimator, that complies with
+<a class="reference external" href="https://scikit-learn.org/stable/developers/develop.html">sklearn convention</a>.
+This transformer will extract the data from an input Epoch, and reshapes into
+2D array.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyVectorizer</span><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">BaseEstimator</span></a><span class="p">,</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin" title="sklearn.base.TransformerMixin" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TransformerMixin</span></a><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">arr</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span><span class="o">.</span><span class="n">get_data</span></a><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_shape_</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span></a><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">arr</span> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">X</span><span class="o">.</span><span class="n">get_data</span></a><span class="p">()</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We will define a pipeline that is based on this new class, using a scaler
+and a logistic regression. This pipeline is evaluated across session using
+ROC-AUC metric.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_ppl</span></a> <span class="o">=</span> <span class="p">{}</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_ppl</span></a><span class="p">[</span><span class="s2">&quot;MNE LR&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">MyVectorizer</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">mne_eval</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span>
+    <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">return_epochs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">mne_res</span> <span class="o">=</span> <span class="n">mne_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_ppl</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]
+009-2014-CrossSession:  33%|###3      | 1/3 [00:04&lt;00:09,  4.77s/it]
+009-2014-CrossSession:  67%|######6   | 2/3 [00:08&lt;00:04,  4.14s/it]
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+
+  0%|                                     | 1.02k/18.5M [00:00&lt;39:32, 7.81kB/s][A
+
+  0%|                                     | 17.4k/18.5M [00:00&lt;04:02, 76.4kB/s][A
+
+  0%|                                     | 33.8k/18.5M [00:00&lt;03:08, 98.3kB/s][A
+
+  0%|                                      | 50.2k/18.5M [00:00&lt;02:50, 109kB/s][A
+
+  0%|▏                                     | 82.9k/18.5M [00:00&lt;01:55, 159kB/s][A
+
+  1%|▏                                     | 99.3k/18.5M [00:00&lt;02:05, 147kB/s][A
+
+  1%|▎                                      | 132k/18.5M [00:00&lt;01:41, 180kB/s][A
+
+  1%|▎                                      | 151k/18.5M [00:01&lt;01:49, 168kB/s][A
+
+  1%|▍                                      | 181k/18.5M [00:01&lt;01:37, 188kB/s][A
+
+  1%|▍                                      | 214k/18.5M [00:01&lt;01:28, 207kB/s][A
+
+  1%|▌                                      | 247k/18.5M [00:01&lt;01:23, 220kB/s][A
+
+  2%|▌                                      | 296k/18.5M [00:01&lt;01:08, 266kB/s][A
+
+  2%|▋                                      | 329k/18.5M [00:01&lt;01:09, 261kB/s][A
+
+  2%|▊                                      | 378k/18.5M [00:01&lt;01:01, 295kB/s][A
+
+  2%|▉                                      | 427k/18.5M [00:01&lt;00:56, 318kB/s][A
+
+  3%|█                                      | 476k/18.5M [00:02&lt;00:54, 334kB/s][A
+
+  3%|█▏                                     | 542k/18.5M [00:02&lt;00:47, 381kB/s][A
+
+  3%|█▎                                     | 607k/18.5M [00:02&lt;00:43, 416kB/s][A
+
+  4%|█▍                                     | 673k/18.5M [00:02&lt;00:40, 440kB/s][A
+
+  4%|█▌                                     | 738k/18.5M [00:02&lt;00:38, 457kB/s][A
+
+  4%|█▋                                     | 804k/18.5M [00:02&lt;00:37, 469kB/s][A
+
+  5%|█▊                                     | 886k/18.5M [00:02&lt;00:34, 515kB/s][A
+
+  5%|██                                     | 968k/18.5M [00:03&lt;00:32, 547kB/s][A
+
+  6%|██▏                                   | 1.05M/18.5M [00:03&lt;00:30, 570kB/s][A
+
+  6%|██▎                                   | 1.15M/18.5M [00:03&lt;00:27, 623kB/s][A
+
+  7%|██▌                                   | 1.25M/18.5M [00:03&lt;00:26, 660kB/s][A
+
+  7%|██▊                                   | 1.36M/18.5M [00:03&lt;00:23, 724kB/s][A
+
+  8%|██▉                                   | 1.44M/18.5M [00:03&lt;00:24, 693kB/s][A
+
+  8%|███▏                                  | 1.56M/18.5M [00:03&lt;00:22, 747kB/s][A
+
+  9%|███▍                                  | 1.70M/18.5M [00:03&lt;00:19, 844kB/s][A
+
+ 10%|███▊                                  | 1.85M/18.5M [00:04&lt;00:18, 926kB/s][A
+
+ 11%|████                                  | 2.00M/18.5M [00:04&lt;00:16, 984kB/s][A
+
+ 12%|████▎                                | 2.18M/18.5M [00:04&lt;00:14, 1.09MB/s][A
+
+ 13%|████▋                                | 2.34M/18.5M [00:04&lt;00:14, 1.14MB/s][A
+
+ 14%|█████                                | 2.52M/18.5M [00:04&lt;00:13, 1.19MB/s][A
+
+ 15%|█████▍                               | 2.74M/18.5M [00:04&lt;00:11, 1.32MB/s][A
+
+ 16%|█████▊                               | 2.92M/18.5M [00:04&lt;00:11, 1.33MB/s][A
+
+ 17%|██████▎                              | 3.15M/18.5M [00:05&lt;00:10, 1.46MB/s][A
+
+ 18%|██████▊                              | 3.41M/18.5M [00:05&lt;00:09, 1.60MB/s][A
+
+ 20%|███████▎                             | 3.67M/18.5M [00:05&lt;00:08, 1.72MB/s][A
+
+ 21%|███████▉                             | 3.95M/18.5M [00:05&lt;00:07, 1.83MB/s][A
+
+ 23%|████████▌                            | 4.26M/18.5M [00:05&lt;00:07, 1.98MB/s][A
+
+ 25%|█████████▏                           | 4.59M/18.5M [00:05&lt;00:06, 2.13MB/s][A
+
+ 27%|█████████▉                           | 4.95M/18.5M [00:05&lt;00:05, 2.31MB/s][A
+
+ 29%|██████████▋                          | 5.33M/18.5M [00:05&lt;00:05, 2.46MB/s][A
+
+ 31%|███████████▎                         | 5.69M/18.5M [00:06&lt;00:05, 2.54MB/s][A
+
+ 33%|████████████▏                        | 6.11M/18.5M [00:06&lt;00:04, 2.75MB/s][A
+
+ 35%|████████████▉                        | 6.51M/18.5M [00:06&lt;00:04, 2.82MB/s][A
+
+ 38%|█████████████▉                       | 6.95M/18.5M [00:06&lt;00:03, 2.98MB/s][A
+
+ 40%|██████████████▉                      | 7.46M/18.5M [00:06&lt;00:03, 3.24MB/s][A
+
+ 43%|███████████████▉                     | 8.00M/18.5M [00:06&lt;00:03, 3.44MB/s][A
+
+ 46%|█████████████████                    | 8.55M/18.5M [00:06&lt;00:02, 3.67MB/s][A
+
+ 49%|██████████████████▎                  | 9.16M/18.5M [00:07&lt;00:02, 3.93MB/s][A
+
+ 53%|███████████████████▌                 | 9.80M/18.5M [00:07&lt;00:02, 4.20MB/s][A
+
+ 57%|████████████████████▉                | 10.5M/18.5M [00:07&lt;00:01, 4.49MB/s][A
+
+ 61%|██████████████████████▍              | 11.2M/18.5M [00:07&lt;00:01, 4.82MB/s][A
+
+ 65%|███████████████████████▉             | 12.0M/18.5M [00:07&lt;00:01, 5.16MB/s][A
+
+ 69%|█████████████████████████▌           | 12.8M/18.5M [00:07&lt;00:01, 5.46MB/s][A
+
+ 74%|███████████████████████████▍         | 13.7M/18.5M [00:07&lt;00:00, 5.83MB/s][A
+
+ 79%|█████████████████████████████▏       | 14.6M/18.5M [00:07&lt;00:00, 6.16MB/s][A
+
+ 84%|███████████████████████████████▏     | 15.6M/18.5M [00:08&lt;00:00, 6.58MB/s][A
+
+ 90%|█████████████████████████████████▏   | 16.6M/18.5M [00:08&lt;00:00, 6.91MB/s][A
+
+ 96%|███████████████████████████████████▍ | 17.7M/18.5M [00:08&lt;00:00, 7.31MB/s][A
+
+  0%|                                              | 0.00/18.5M [00:00&lt;?, ?B/s][A
+100%|█████████████████████████████████████| 18.5M/18.5M [00:00&lt;00:00, 20.5GB/s]
+
+009-2014-CrossSession: 100%|##########| 3/3 [00:23&lt;00:00,  9.16s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:23&lt;00:00,  7.87s/it]
+</pre></div>
+</div>
+</div>
+<div class="section" id="advanced-mne-pipeline">
+<h2>Advanced MNE Pipeline<a class="headerlink" href="#advanced-mne-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>In some case, the MNE pipeline should have access to the original labels from
+the dataset. This is the case for the XDAWN code of MNE. One could pass
+<cite>mne_labels</cite> to evaluation in order to keep this label.
+As an example, we will define a pipeline that computes an XDAWN filter, rescale,
+then apply a logistic regression.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a> <span class="o">=</span> <span class="p">{}</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a><span class="p">[</span><span class="s2">&quot;XDAWN LR&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
+    <a href="https://mne.tools/stable/generated/mne.preprocessing.Xdawn.html#mne.preprocessing.Xdawn" title="mne.preprocessing.Xdawn" class="sphx-glr-backref-module-mne-preprocessing sphx-glr-backref-type-py-class"><span class="n">Xdawn</span></a><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="s2">&quot;ledoit_wolf&quot;</span><span class="p">,</span> <span class="n">correct_overlap</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <a href="https://mne.tools/stable/generated/mne.decoding.Vectorizer.html#mne.decoding.Vectorizer" title="mne.decoding.Vectorizer" class="sphx-glr-backref-module-mne-decoding sphx-glr-backref-type-py-class"><span class="n">Vectorizer</span></a><span class="p">(),</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html#sklearn.preprocessing.StandardScaler" title="sklearn.preprocessing.StandardScaler" class="sphx-glr-backref-module-sklearn-preprocessing sphx-glr-backref-type-py-class"><span class="n">StandardScaler</span></a><span class="p">(),</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">adv_eval</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span>
+    <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">return_epochs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">mne_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">adv_res</span> <span class="o">=</span> <span class="n">mne_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">mne_adv</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession:  33%|###3      | 1/3 [00:04&lt;00:09,  4.70s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession:  67%|######6   | 2/3 [00:08&lt;00:04,  4.06s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
+  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
+
+009-2014-CrossSession: 100%|##########| 3/3 [00:14&lt;00:00,  4.97s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:14&lt;00:00,  4.79s/it]
+</pre></div>
+</div>
+</div>
+<div class="section" id="numpy-based-pipeline">
+<h2>Numpy-based Pipeline<a class="headerlink" href="#numpy-based-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>For the comparison, we will define a Numpy-based pipeline that relies on
+pyriemann to estimate XDAWN-extended covariance matrices that are projected
+on the tangent space and classified with a logistic regression.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sk_ppl</span></a> <span class="o">=</span> <span class="p">{}</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sk_ppl</span></a><span class="p">[</span><span class="s2">&quot;RG LR&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">XdawnCovariances</span></a><span class="p">(</span><span class="n">nfilter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">estimator</span><span class="o">=</span><span class="s2">&quot;lwf&quot;</span><span class="p">,</span> <span class="n">xdawn_estimator</span><span class="o">=</span><span class="s2">&quot;scm&quot;</span><span class="p">),</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TangentSpace</span></a><span class="p">(),</span>
+    <a href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression" title="sklearn.linear_model.LogisticRegression" class="sphx-glr-backref-module-sklearn-linear_model sphx-glr-backref-type-py-class"><span class="n">LogisticRegression</span></a><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;liblinear&quot;</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">sk_eval</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
+    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span>
+    <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span>
+    <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;examples&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sk_res</span> <span class="o">=</span> <span class="n">sk_eval</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sk_ppl</span></a><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>009-2014-CrossSession:   0%|          | 0/3 [00:00&lt;?, ?it/s]
+009-2014-CrossSession:  33%|###3      | 1/3 [00:10&lt;00:21, 10.77s/it]
+009-2014-CrossSession:  67%|######6   | 2/3 [00:21&lt;00:10, 10.73s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:32&lt;00:00, 10.67s/it]
+009-2014-CrossSession: 100%|##########| 3/3 [00:32&lt;00:00, 10.69s/it]
+</pre></div>
+</div>
+</div>
+<div class="section" id="combining-results">
+<h2>Combining Results<a class="headerlink" href="#combining-results" title="Permalink to this headline">¶</a></h2>
+<p>Even if the results have been obtained by different evaluation processes, it
+is possible to combine the resulting DataFrames to analyze and plot the
+results.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">all_res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">mne_res</span><span class="p">,</span> <span class="n">adv_res</span><span class="p">,</span> <span class="n">sk_res</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>We could compare the Euclidean and Riemannian performance using a <cite>paired_plot</cite></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paired_plot</span><span class="p">(</span><span class="n">all_res</span><span class="p">,</span> <span class="s2">&quot;XDAWN LR&quot;</span><span class="p">,</span> <span class="s2">&quot;RG LR&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="plot mne and scikit estimators" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mne_and_scikit_estimators_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1100x850 with 1 Axes&gt;
+</pre></div>
+</div>
+<p>All the results could be compared and statistical analysis could highlight the
+differences between pipelines.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">compute_dataset_statistics</span><span class="p">(</span><span class="n">all_res</span><span class="p">)</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">find_significant_differences</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<span class="n">summary_plot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="Algorithm comparison" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_mne_and_scikit_estimators_002.png" />
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  12.301 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-advanced-examples-plot-mne-and-scikit-estimators-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/3bb6d35e266c94de44c44ec75aa9d550/plot_mne_and_scikit_estimators.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_mne_and_scikit_estimators.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/b9f56e19f2500dad10214cc29a2a24e4/plot_mne_and_scikit_estimators.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_mne_and_scikit_estimators.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../../_sources/auto_examples/advanced_examples/plot_mne_and_scikit_estimators.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

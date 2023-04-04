@@ -5,14 +5,16 @@
 
 Computation times
 =================
-**03:28.068** total execution time for **auto_examples_advanced_examples** files:
+**03:14.145** total execution time for **auto_examples_advanced_examples** files:
 
 +-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_advanced_examples_plot_statistical_analysis.py` (``plot_statistical_analysis.py``)             | 01:12.449 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_advanced_examples_plot_statistical_analysis.py` (``plot_statistical_analysis.py``)             | 01:27.927 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_advanced_examples_plot_mne_and_scikit_estimators.py` (``plot_mne_and_scikit_estimators.py``)   | 01:12.301 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_advanced_examples_plot_mne_and_scikit_estimators.py` (``plot_mne_and_scikit_estimators.py``)   | 00:57.029 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_advanced_examples_plot_select_electrodes_resample.py` (``plot_select_electrodes_resample.py``) | 00:36.246 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_advanced_examples_plot_select_electrodes_resample.py` (``plot_select_electrodes_resample.py``) | 00:27.974 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
-| :ref:`sphx_glr_auto_examples_advanced_examples_plot_filterbank_csp_vs_csp.py` (``plot_filterbank_csp_vs_csp.py``)           | 00:27.073 | 0.0 MB |
+| :ref:`sphx_glr_auto_examples_advanced_examples_plot_filterbank_csp_vs_csp.py` (``plot_filterbank_csp_vs_csp.py``)           | 00:10.803 | 0.0 MB |
++-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_advanced_examples_plot_grid_search_withinsession.py` (``plot_grid_search_withinsession.py``)   | 00:10.411 | 0.0 MB |
 +-----------------------------------------------------------------------------------------------------------------------------+-----------+--------+
