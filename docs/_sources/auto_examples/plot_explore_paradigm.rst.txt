@@ -83,8 +83,6 @@ First, let's take an example of the MotorImagery paradigm.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -112,12 +110,12 @@ First, let's take an example of the MotorImagery paradigm.
         tmin: float (default 0.0)
             Start time (in second) of the epoch, relative to the dataset specific
             task interval e.g. tmin = 1 would mean the epoch will start 1 second
-            after the begining of the task as defined by the dataset.
+            after the beginning of the task as defined by the dataset.
 
         tmax: float | None, (default None)
-            End time (in second) of the epoch, relative to the begining of the
+            End time (in second) of the epoch, relative to the beginning of the
             dataset specific task interval. tmax = 5 would mean the epoch will end
-            5 second after the begining of the task as defined in the dataset. If
+            5 second after the beginning of the task as defined in the dataset. If
             None, use the dataset value.
 
         baseline: None | tuple of length 2
@@ -158,8 +156,6 @@ preprocessed EEG data, the labels, and a dataframe with metadata.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
 
@@ -181,6 +177,9 @@ preprocessed EEG data, the labels, and a dataframe with metadata.
             return_epochs: boolean
                 This flag specifies whether to return only the data array or the
                 complete processed mne.Epochs
+            return_raws: boolean
+                To return raw files and events, to ensure compatibility with braindecode.
+                Mutually exclusive with return_epochs
 
             returns
             -------
@@ -242,8 +241,6 @@ one.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (576, 22, 1001)
@@ -268,8 +265,6 @@ dataset, we have the 4 types of motor imagery that was performed.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -302,8 +297,6 @@ Metadata have at least 3 columns: subject, session and run.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
        subject    session    run
@@ -334,14 +327,12 @@ and 6 runs per session.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
             subject    session    run
     count     576.0        576    576
     unique      NaN          2      6
-    top         NaN  session_E  run_5
+    top         NaN  session_T  run_0
     freq        NaN        288     96
     mean        1.0        NaN    NaN
     std         0.0        NaN    NaN
@@ -373,8 +364,6 @@ it will return the list all the imagery datasets from the MOABB.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     ['Alexandre Motor Imagery', '001-2014', '002-2014', '004-2014', '001-2015', '004-2015', 'Cho2017', 'Lee2019_MI', 'Grosse-Wentrup 2009', 'Ofner2017', 'Physionet Motor Imagery', 'Schirrmeister2017', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
@@ -405,8 +394,6 @@ before concatenating the output.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -449,8 +436,6 @@ Therefore, the output X is a 4D array, with trial x channel x time x filter
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     (288, 22, 1001, 6)
@@ -480,8 +465,6 @@ restricted to left- and right-hand events.
 
 
 .. rst-class:: sphx-glr-script-out
-
- Out:
 
  .. code-block:: none
 
@@ -513,8 +496,6 @@ contains at least left and right hand events.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     ['001-2014', '004-2014', 'Cho2017', 'Lee2019_MI', 'Grosse-Wentrup 2009', 'Physionet Motor Imagery', 'Schirrmeister2017', 'Shin2017A', 'Weibo 2014', 'Zhou 2016']
@@ -541,8 +522,6 @@ corresponding to left- and right-hand motor imagination.
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
     ['left_hand' 'right_hand']
@@ -553,28 +532,23 @@ corresponding to left- and right-hand motor imagination.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  16.078 seconds)
+   **Total running time of the script:** ( 0 minutes  14.815 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_explore_paradigm.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: plot_explore_paradigm.py <plot_explore_paradigm.py>`
 
-     :download:`Download Python source code: plot_explore_paradigm.py <plot_explore_paradigm.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: plot_explore_paradigm.ipynb <plot_explore_paradigm.ipynb>`
+      :download:`Download Jupyter notebook: plot_explore_paradigm.ipynb <plot_explore_paradigm.ipynb>`
 
 
 .. only:: html

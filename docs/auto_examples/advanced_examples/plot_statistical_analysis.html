@@ -1,168 +1,583 @@
+
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-theme="light">
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Statistical Analysis &#8212; moabb 0.4.6 documentation</title>
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/bootstrap-sphinx.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-binder.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-dataframe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/gallery-rendered-html.css" />
-    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/style.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-5WJBKDMSTE"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-5WJBKDMSTE');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'auto_examples/advanced_examples/plot_statistical_analysis';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-<meta charset='utf-8'>
-<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
-<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+    <link rel="next" title="External examples" href="../external/index.html" />
+    <link rel="prev" title="Select Electrodes and Resampling" href="plot_select_electrodes_resample.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
 
-  </head><body>
-
-  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="../../index.html">
-          moabb</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.4.6</b></span>
-      </div>
-
-        <div class="collapse navbar-collapse nav-collapse">
-          <ul class="nav navbar-nav">
-            
-                <li><a href="../../whats_new.html">What's new</a></li>
-                <li><a href="../../api.html">API</a></li>
-                <li><a href="../index.html">Gallery</a></li>
-                <li><a href="../../auto_tutorials/index.html">Tutorials</a></li>
-            
-            
-              <li class="dropdown globaltoc-container">
-  <a role="button"
-     id="dLabelGlobalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="../../index.html">Site <b class="caret"></b></a>
-  <ul class="dropdown-menu globaltoc"
-      role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s new</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#develop-branch">Develop branch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-6-stable-pypi">Version - 0.4.6  (Stable - PyPi)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-5">Version - 0.4.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-4">Version - 0.4.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-3">Version - 0.4.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-2">Version - 0.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-1">Version - 0.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-4-0">Version - 0.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-3-0">Version 0.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-2-1">Version 0.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../whats_new.html#version-0-2-0">Version 0.2.0</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Main classes of MOABB:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../datasets.html">Datasets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#motor-imagery-datasets">Motor Imagery Datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#erp-datasets">ERP Datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#ssvep-datasets">SSVEP Datasets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../datasets.html#base-utils">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../evaluations.html">Evaluations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../evaluations.html#id1">Evaluations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../evaluations.html#base-utils">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../paradigms.html">Paradigms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#motor-imagery-paradigms">Motor Imagery Paradigms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#p300-paradigms">P300 Paradigms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#ssvep-paradigms">SSVEP Paradigms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../paradigms.html#base-utils">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../pipelines.html">Pipelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../pipelines.html#id1">Pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../pipelines.html#base-utils">Base &amp; Utils</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../../analysis.html">Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../analysis.html#plotting">Plotting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../analysis.html#statistics">Statistics</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-                <li class="dropdown">
-  <a role="button"
-     id="dLabelLocalToc"
-     data-toggle="dropdown"
-     data-target="#"
-     href="#">Page <b class="caret"></b></a>
-  <ul class="dropdown-menu localtoc"
-      role="menu"
-      aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Statistical Analysis</a><ul>
-<li><a class="reference internal" href="#results-generation">Results Generation</a></li>
-<li><a class="reference internal" href="#create-pipelines">Create Pipelines</a></li>
-<li><a class="reference internal" href="#evaluation">Evaluation</a></li>
-<li><a class="reference internal" href="#moabb-plotting">MOABB Plotting</a></li>
-<li><a class="reference internal" href="#statistical-testing-and-further-plots">Statistical Testing and Further Plots</a></li>
-</ul>
-</li>
-</ul>
-</ul>
-</li>
-              
-            
-            
-            
-            
-            
-          </ul>
-
-          
-            
-<form class="navbar-form navbar-right" action="../../search.html" method="get">
- <div class="form-group">
-  <input type="text" name="q" class="form-control" placeholder="Search" />
- </div>
-  <input type="hidden" name="check_keywords" value="yes" />
-  <input type="hidden" name="area" value="default" />
-</form>
-          
-        </div>
-    </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
   </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  <div class="navbar-header-items__start">
+    
+      <div class="navbar-item">
+  
 
-<div class="container">
-  <div class="row">
-    <div class="body col-md-12 content" role="main">
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+    
+    
+    
+    <img src="../../_static/moabb_logo.svg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/moabb_logo.svg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
       
+        <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install/install.html">
+                        Install
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../overview.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_tutorials/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../dataset_summary.html">
+                        Datasets
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../main_concepts.html">
+                        How does Moabb work?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api.html">
+                        API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Gallery
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../whats_new.html">
+                        What's new
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+        </div>
+      
+      
+        <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item"><nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../install/install.html">
+                        Install
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../../overview.html">
+                        Overview
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../auto_tutorials/index.html">
+                        Getting Started
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../dataset_summary.html">
+                        Datasets
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../main_concepts.html">
+                        How does Moabb work?
+                      </a>
+                    </li>
+                
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../api.html">
+                        API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Gallery
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../whats_new.html">
+                        What's new
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item"><nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../auto_tutorials/index.html">Getting Started</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_tutorials/plot_Getting_Started.html">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_tutorials/tutorial_1_simple_example_motor_imagery.html">Tutorial 1: Simple Motor Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_tutorials/tutorial_2_using_mulitple_datasets.html">Tutorial 2: Using multiple datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_tutorials/tutorial_3_benchmarking_multiple_pipelines.html">Tutorial 3: Benchmarking mulitple pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../auto_tutorials/tutorial_4_adding_a_dataset.html">Tutorial 4: Creating a dataset class</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changing_download_directory.html">Change Download Directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_codecarbon.html">Benchmarking with MOABB showing the CO2 footprint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_benchmark.html">Benchmarking with MOABB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_benchmark_DL.html">Benchmarking on MOABB with Tensorflow deep net architectures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_benchmark_braindecode.html">Benchmarking on MOABB with Braindecode (PyTorch) deep net architectures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_benchmark_grid_search.html">Benchmarking with MOABB with Grid Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_braindecode.html">Cross-session motor imagery with deep learning EEGNet v4 model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cross_session_motor_imagery.html">Cross-Session Motor Imagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cross_session_multiple_datasets.html">Cross-Session on Multiple Datasets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_cross_subject_ssvep.html">Cross-Subject SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_explore_paradigm.html">Explore Paradigm Object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_within_session_p300.html">Within Session P300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../plot_within_session_ssvep.html">Within Session SSVEP</a></li>
+</ul>
+</li>
+
+
+
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api.html">API</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.AlexMI.html">moabb.datasets.AlexMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014001.html">moabb.datasets.BNCI2014001</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014002.html">moabb.datasets.BNCI2014002</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014004.html">moabb.datasets.BNCI2014004</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2015001.html">moabb.datasets.BNCI2015001</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2015004.html">moabb.datasets.BNCI2015004</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Cho2017.html">moabb.datasets.Cho2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Lee2019_MI.html">moabb.datasets.Lee2019_MI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.MunichMI.html">moabb.datasets.MunichMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Ofner2017.html">moabb.datasets.Ofner2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.PhysionetMI.html">moabb.datasets.PhysionetMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Schirrmeister2017.html">moabb.datasets.Schirrmeister2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Shin2017A.html">moabb.datasets.Shin2017A</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Shin2017B.html">moabb.datasets.Shin2017B</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Weibo2014.html">moabb.datasets.Weibo2014</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Zhou2016.html">moabb.datasets.Zhou2016</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2012.html">moabb.datasets.bi2012</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2013a.html">moabb.datasets.bi2013a</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2014a.html">moabb.datasets.bi2014a</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2014b.html">moabb.datasets.bi2014b</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2015a.html">moabb.datasets.bi2015a</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2015b.html">moabb.datasets.bi2015b</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014008.html">moabb.datasets.BNCI2014008</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014009.html">moabb.datasets.BNCI2014009</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2015003.html">moabb.datasets.BNCI2015003</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.DemonsP300.html">moabb.datasets.DemonsP300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.EPFLP300.html">moabb.datasets.EPFLP300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Huebner2017.html">moabb.datasets.Huebner2017</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Huebner2018.html">moabb.datasets.Huebner2018</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Lee2019_ERP.html">moabb.datasets.Lee2019_ERP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Sosulski2019.html">moabb.datasets.Sosulski2019</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.SSVEPExo.html">moabb.datasets.SSVEPExo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Nakanishi2015.html">moabb.datasets.Nakanishi2015</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Wang2016.html">moabb.datasets.Wang2016</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.MAMEM1.html">moabb.datasets.MAMEM1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.MAMEM2.html">moabb.datasets.MAMEM2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.MAMEM3.html">moabb.datasets.MAMEM3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Lee2019_SSVEP.html">moabb.datasets.Lee2019_SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.base.BaseDataset.html">moabb.datasets.base.BaseDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.data_path.html">moabb.datasets.download.data_path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.data_dl.html">moabb.datasets.download.data_dl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_issue_request.html">moabb.datasets.download.fs_issue_request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_get_file_list.html">moabb.datasets.download.fs_get_file_list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_get_file_hash.html">moabb.datasets.download.fs_get_file_hash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_get_file_id.html">moabb.datasets.download.fs_get_file_id</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_get_file_name.html">moabb.datasets.download.fs_get_file_name</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.utils.dataset_search.html">moabb.datasets.utils.dataset_search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.utils.find_intersecting_channels.html">moabb.datasets.utils.find_intersecting_channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.evaluations.WithinSessionEvaluation.html">moabb.evaluations.WithinSessionEvaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.evaluations.CrossSessionEvaluation.html">moabb.evaluations.CrossSessionEvaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.evaluations.CrossSubjectEvaluation.html">moabb.evaluations.CrossSubjectEvaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.evaluations.base.BaseEvaluation.html">moabb.evaluations.base.BaseEvaluation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.MotorImagery.html">moabb.paradigms.MotorImagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.LeftRightImagery.html">moabb.paradigms.LeftRightImagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.FilterBankLeftRightImagery.html">moabb.paradigms.FilterBankLeftRightImagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.FilterBankMotorImagery.html">moabb.paradigms.FilterBankMotorImagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.SinglePass.html">moabb.paradigms.SinglePass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.P300.html">moabb.paradigms.P300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.SSVEP.html">moabb.paradigms.SSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.FilterBankSSVEP.html">moabb.paradigms.FilterBankSSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.motor_imagery.BaseMotorImagery.html">moabb.paradigms.motor_imagery.BaseMotorImagery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.motor_imagery.SinglePass.html">moabb.paradigms.motor_imagery.SinglePass</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.motor_imagery.FilterBank.html">moabb.paradigms.motor_imagery.FilterBank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.p300.BaseP300.html">moabb.paradigms.p300.BaseP300</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.ssvep.BaseSSVEP.html">moabb.paradigms.ssvep.BaseSSVEP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.paradigms.base.BaseParadigm.html">moabb.paradigms.base.BaseParadigm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.LogVariance.html">moabb.pipelines.features.LogVariance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.FM.html">moabb.pipelines.features.FM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.ExtendedSSVEPSignal.html">moabb.pipelines.features.ExtendedSSVEPSignal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.AugmentedDataset.html">moabb.pipelines.features.AugmentedDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.StandardScaler_Epoch.html">moabb.pipelines.features.StandardScaler_Epoch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.csp.TRCSP.html">moabb.pipelines.csp.TRCSP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.classification.SSVEP_CCA.html">moabb.pipelines.classification.SSVEP_CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasDeepConvNet.html">moabb.pipelines.deep_learning.KerasDeepConvNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGITNet.html">moabb.pipelines.deep_learning.KerasEEGITNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGNet_8_2.html">moabb.pipelines.deep_learning.KerasEEGNet_8_2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGNeX.html">moabb.pipelines.deep_learning.KerasEEGNeX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGTCNet.html">moabb.pipelines.deep_learning.KerasEEGTCNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasShallowConvNet.html">moabb.pipelines.deep_learning.KerasShallowConvNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils.create_pipeline_from_config.html">moabb.pipelines.utils.create_pipeline_from_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils.FilterBank.html">moabb.pipelines.utils.FilterBank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils_deep_model.EEGNet.html">moabb.pipelines.utils_deep_model.EEGNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils_deep_model.EEGNet_TC.html">moabb.pipelines.utils_deep_model.EEGNet_TC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils_deep_model.TCN_block.html">moabb.pipelines.utils_deep_model.TCN_block</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils_pytorch.BraindecodeDatasetLoader.html">moabb.pipelines.utils_pytorch.BraindecodeDatasetLoader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.utils_pytorch.InputShapeSetterEEG.html">moabb.pipelines.utils_pytorch.InputShapeSetterEEG</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.plotting.score_plot.html">moabb.analysis.plotting.score_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.plotting.paired_plot.html">moabb.analysis.plotting.paired_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.plotting.summary_plot.html">moabb.analysis.plotting.summary_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.plotting.meta_analysis_plot.html">moabb.analysis.plotting.meta_analysis_plot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.meta_analysis.find_significant_differences.html">moabb.analysis.meta_analysis.find_significant_differences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html">moabb.analysis.meta_analysis.compute_dataset_statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.meta_analysis.combine_effects.html">moabb.analysis.meta_analysis.combine_effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.meta_analysis.combine_pvalues.html">moabb.analysis.meta_analysis.combine_pvalues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.analysis.meta_analysis.collapse_session_scores.html">moabb.analysis.meta_analysis.collapse_session_scores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.benchmark.html">moabb.benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.set_log_level.html">moabb.set_log_level</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.setup_seed.html">moabb.setup_seed</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.set_download_dir.html">moabb.set_download_dir</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+
+
+
+
+<nav aria-label="Breadcrumbs">
+  <ul class="bd-breadcrumbs" role="navigation" aria-label="Breadcrumb">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../overview.html" class="nav-link">Documentation overview</a></li>
+    
+    
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
+    
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Advanced examples</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">Statistical Analysis</li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
 <p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-advanced-examples-plot-statistical-analysis-py"><span class="std std-ref">here</span></a>
 to download the full example code</p>
 </div>
-<div class="sphx-glr-example-title section" id="statistical-analysis">
-<span id="sphx-glr-auto-examples-advanced-examples-plot-statistical-analysis-py"></span><h1>Statistical Analysis<a class="headerlink" href="#statistical-analysis" title="Permalink to this headline">¶</a></h1>
+<section class="sphx-glr-example-title" id="statistical-analysis">
+<span id="sphx-glr-auto-examples-advanced-examples-plot-statistical-analysis-py"></span><h1>Statistical Analysis<a class="headerlink" href="#statistical-analysis" title="Permalink to this heading">#</a></h1>
 <p>The MOABB codebase comes with convenience plotting utilities and some
 statistical testing. This tutorial focuses on what those exactly are and how
 they can be used.</p>
@@ -182,28 +597,28 @@ they can be used.</p>
 <span class="kn">import</span> <span class="nn">moabb</span>
 <span class="kn">import</span> <span class="nn">moabb.analysis.plotting</span> <span class="k">as</span> <span class="nn">moabb_plt</span>
 <span class="kn">from</span> <span class="nn">moabb.analysis.meta_analysis</span> <span class="kn">import</span> <span class="p">(</span>  <span class="c1"># noqa: E501</span>
-    <span class="n">compute_dataset_statistics</span><span class="p">,</span>
-    <span class="n">find_significant_differences</span><span class="p">,</span>
+    <a href="https://neurotechx.github.io/moabb/generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html#moabb.analysis.meta_analysis.compute_dataset_statistics" title="moabb.analysis.meta_analysis.compute_dataset_statistics" class="sphx-glr-backref-module-moabb-analysis-meta_analysis sphx-glr-backref-type-py-function"><span class="n">compute_dataset_statistics</span></a><span class="p">,</span>
+    <a href="https://neurotechx.github.io/moabb/generated/moabb.analysis.meta_analysis.find_significant_differences.html#moabb.analysis.meta_analysis.find_significant_differences" title="moabb.analysis.meta_analysis.find_significant_differences" class="sphx-glr-backref-module-moabb-analysis-meta_analysis sphx-glr-backref-type-py-function"><span class="n">find_significant_differences</span></a><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <span class="n">BNCI2014001</span>
-<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a>
-<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <span class="n">LeftRightImagery</span>
+<span class="kn">from</span> <span class="nn">moabb.datasets</span> <span class="kn">import</span> <a href="../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001" title="moabb.datasets.BNCI2014001" class="sphx-glr-backref-module-moabb-datasets sphx-glr-backref-type-py-class"><span class="n">BNCI2014001</span></a>
+<span class="kn">from</span> <span class="nn">moabb.evaluations</span> <span class="kn">import</span> <a href="../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation" title="moabb.evaluations.CrossSessionEvaluation" class="sphx-glr-backref-module-moabb-evaluations sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a>
+<span class="kn">from</span> <span class="nn">moabb.paradigms</span> <span class="kn">import</span> <a href="../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery" class="sphx-glr-backref-module-moabb-paradigms sphx-glr-backref-type-py-class"><span class="n">LeftRightImagery</span></a>
 
 
-<span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+<a href="../../generated/moabb.set_log_level.html#moabb.set_log_level" title="moabb.set_log_level" class="sphx-glr-backref-module-moabb sphx-glr-backref-type-py-function"><span class="n">moabb</span><span class="o">.</span><span class="n">set_log_level</span></a><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="results-generation">
-<h2>Results Generation<a class="headerlink" href="#results-generation" title="Permalink to this headline">¶</a></h2>
+<section id="results-generation">
+<h2>Results Generation<a class="headerlink" href="#results-generation" title="Permalink to this heading">#</a></h2>
 <p>First we need to set up a paradigm, dataset list, and some pipelines to
 test. This is explored more in the examples – we choose left vs right
 imagery paradigm with a single bandpass. There is only one dataset here but
 any number can be added without changing this workflow.</p>
-</div>
-<div class="section" id="create-pipelines">
-<h2>Create Pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="create-pipelines">
+<h2>Create Pipelines<a class="headerlink" href="#create-pipelines" title="Permalink to this heading">#</a></h2>
 <p>Pipelines must be a dict of sklearn pipeline transformer.</p>
 <p>The CSP implementation from MNE is used. We selected 8 CSP components, as
 usually done in the literature.</p>
@@ -220,848 +635,86 @@ space mapping and finally a logistic regression for the classification.</p>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">[</span><span class="s2">&quot;RG+LDA&quot;</span><span class="p">]</span> <span class="o">=</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.make_pipeline.html#sklearn.pipeline.make_pipeline" title="sklearn.pipeline.make_pipeline" class="sphx-glr-backref-module-sklearn-pipeline sphx-glr-backref-type-py-function"><span class="n">make_pipeline</span></a><span class="p">(</span><a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">Covariances</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html#sklearn.base.BaseEstimator" title="sklearn.base.BaseEstimator" class="sphx-glr-backref-module-sklearn-base sphx-glr-backref-type-py-class"><span class="n">TangentSpace</span></a><span class="p">(),</span> <a href="https://scikit-learn.org/stable/modules/generated/sklearn.discriminant_analysis.LinearDiscriminantAnalysis.html#sklearn.discriminant_analysis.LinearDiscriminantAnalysis" title="sklearn.discriminant_analysis.LinearDiscriminantAnalysis" class="sphx-glr-backref-module-sklearn-discriminant_analysis sphx-glr-backref-type-py-class"><span class="n">LDA</span></a><span class="p">())</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="evaluation">
-<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="evaluation">
+<h2>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this heading">#</a></h2>
 <p>We define the paradigm (LeftRightImagery) and the dataset (BNCI2014001).
 The evaluation will return a DataFrame containing a single AUC score for
 each subject / session of the dataset, and for each pipeline.</p>
 <p>Results are saved into the database, so that if you add a new pipeline, it
 will not run again the evaluation unless a parameter has changed. Results can
 be overwritten if necessary.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">paradigm</span> <span class="o">=</span> <span class="n">LeftRightImagery</span><span class="p">()</span>
-<span class="n">dataset</span> <span class="o">=</span> <span class="n">BNCI2014001</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery" class="sphx-glr-backref-module-moabb-paradigms sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">paradigm</span></a> <span class="o">=</span> <a href="../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery" class="sphx-glr-backref-module-moabb-paradigms sphx-glr-backref-type-py-class"><span class="n">LeftRightImagery</span></a><span class="p">()</span>
+<a href="../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001" title="moabb.datasets.BNCI2014001" class="sphx-glr-backref-module-moabb-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a> <span class="o">=</span> <a href="../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001" title="moabb.datasets.BNCI2014001" class="sphx-glr-backref-module-moabb-datasets sphx-glr-backref-type-py-class"><span class="n">BNCI2014001</span></a><span class="p">()</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span><span class="o">.</span><span class="n">subject_list</span></a><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">]</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a> <span class="o">=</span> <span class="p">[</span><a href="../../generated/moabb.datasets.BNCI2014001.html#moabb.datasets.BNCI2014001" title="moabb.datasets.BNCI2014001" class="sphx-glr-backref-module-moabb-datasets sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">dataset</span></a><span class="p">]</span>
 <a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># set to False if we want to use cached results</span>
-<span class="n">evaluation</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/abc.html#abc.ABC" title="abc.ABC" class="sphx-glr-backref-module-abc sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
-    <span class="n">paradigm</span><span class="o">=</span><span class="n">paradigm</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;stats&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a>
+<a href="../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation" title="moabb.evaluations.CrossSessionEvaluation" class="sphx-glr-backref-module-moabb-evaluations sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">evaluation</span></a> <span class="o">=</span> <a href="../../generated/moabb.evaluations.CrossSessionEvaluation.html#moabb.evaluations.CrossSessionEvaluation" title="moabb.evaluations.CrossSessionEvaluation" class="sphx-glr-backref-module-moabb-evaluations sphx-glr-backref-type-py-class"><span class="n">CrossSessionEvaluation</span></a><span class="p">(</span>
+    <a href="../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery" class="sphx-glr-backref-module-moabb-paradigms sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">paradigm</span></a><span class="o">=</span><a href="../../generated/moabb.paradigms.LeftRightImagery.html#moabb.paradigms.LeftRightImagery" title="moabb.paradigms.LeftRightImagery" class="sphx-glr-backref-module-moabb-paradigms sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">paradigm</span></a><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">datasets</span></a><span class="p">,</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;stats&quot;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a><span class="o">=</span><a href="https://docs.python.org/3/library/functions.html#bool" title="builtins.bool" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">overwrite</span></a>
 <span class="p">)</span>
 
-<span class="n">results</span> <span class="o">=</span> <span class="n">evaluation</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <a href="../../generated/moabb.evaluations.base.BaseEvaluation.html#moabb.evaluations.base.BaseEvaluation.process" title="moabb.evaluations.base.BaseEvaluation.process" class="sphx-glr-backref-module-moabb-evaluations-base sphx-glr-backref-type-py-method"><span class="n">evaluation</span><span class="o">.</span><span class="n">process</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">pipelines</span></a><span class="p">)</span>
 </pre></div>
 </div>
-<p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>001-2014-CrossSession:   0%|          | 0/4 [00:00&lt;?, ?it/s]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-
-001-2014-CrossSession:  25%|##5       | 1/4 [00:06&lt;00:20,  6.81s/it]/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-
-001-2014-CrossSession:  50%|#####     | 2/4 [00:13&lt;00:13,  6.82s/it]
-
-  0%|                                              | 0.00/44.1M [00:00&lt;?, ?B/s][A
-
-  0%|                                   | 1.02k/44.1M [00:00&lt;1:34:16, 7.79kB/s][A
-
-  0%|                                     | 17.4k/44.1M [00:00&lt;09:37, 76.3kB/s][A
-
-  0%|                                     | 33.8k/44.1M [00:00&lt;07:28, 98.2kB/s][A
-
-  0%|                                      | 50.2k/44.1M [00:00&lt;06:45, 109kB/s][A
-
-  0%|                                      | 82.9k/44.1M [00:00&lt;04:36, 159kB/s][A
-
-  0%|                                      | 99.3k/44.1M [00:00&lt;04:58, 147kB/s][A
-
-  0%|                                       | 132k/44.1M [00:00&lt;04:03, 181kB/s][A
-
-  0%|▏                                      | 151k/44.1M [00:01&lt;04:22, 168kB/s][A
-
-  0%|▏                                      | 181k/44.1M [00:01&lt;03:53, 188kB/s][A
-
-  0%|▏                                      | 214k/44.1M [00:01&lt;03:31, 207kB/s][A
-
-  1%|▏                                      | 247k/44.1M [00:01&lt;03:19, 220kB/s][A
-
-  1%|▏                                      | 280k/44.1M [00:01&lt;03:11, 229kB/s][A
-
-  1%|▎                                      | 312k/44.1M [00:01&lt;03:06, 235kB/s][A
-
-  1%|▎                                      | 361k/44.1M [00:01&lt;02:38, 277kB/s][A
-
-  1%|▎                                      | 411k/44.1M [00:01&lt;02:22, 306kB/s][A
-
-  1%|▍                                      | 460k/44.1M [00:02&lt;02:14, 325kB/s][A
-
-  1%|▍                                      | 525k/44.1M [00:02&lt;01:55, 377kB/s][A
-
-  1%|▌                                      | 591k/44.1M [00:02&lt;01:45, 412kB/s][A
-
-  1%|▌                                      | 640k/44.1M [00:02&lt;01:48, 399kB/s][A
-
-  2%|▌                                      | 706k/44.1M [00:02&lt;01:40, 430kB/s][A
-
-  2%|▋                                      | 787k/44.1M [00:02&lt;01:29, 486kB/s][A
-
-  2%|▊                                      | 869k/44.1M [00:02&lt;01:22, 526kB/s][A
-
-  2%|▊                                      | 951k/44.1M [00:03&lt;01:17, 555kB/s][A
-
-  2%|▉                                     | 1.03M/44.1M [00:03&lt;01:14, 575kB/s][A
-
-  3%|▉                                     | 1.13M/44.1M [00:03&lt;01:09, 618kB/s][A
-
-  3%|█                                     | 1.23M/44.1M [00:03&lt;01:05, 654kB/s][A
-
-  3%|█▏                                    | 1.34M/44.1M [00:03&lt;00:59, 718kB/s][A
-
-  3%|█▎                                    | 1.46M/44.1M [00:03&lt;00:55, 764kB/s][A
-
-  4%|█▍                                    | 1.61M/44.1M [00:03&lt;00:48, 871kB/s][A
-
-  4%|█▌                                    | 1.75M/44.1M [00:03&lt;00:44, 945kB/s][A
-
-  4%|█▌                                   | 1.92M/44.1M [00:04&lt;00:40, 1.03MB/s][A
-
-  5%|█▊                                   | 2.11M/44.1M [00:04&lt;00:36, 1.14MB/s][A
-
-  5%|█▉                                   | 2.25M/44.1M [00:04&lt;00:37, 1.11MB/s][A
-
-  6%|██                                   | 2.46M/44.1M [00:04&lt;00:32, 1.26MB/s][A
-
-  6%|██▏                                  | 2.67M/44.1M [00:04&lt;00:30, 1.37MB/s][A
-
-  7%|██▍                                  | 2.88M/44.1M [00:04&lt;00:28, 1.44MB/s][A
-
-  7%|██▋                                  | 3.13M/44.1M [00:04&lt;00:26, 1.57MB/s][A
-
-  8%|██▊                                  | 3.34M/44.1M [00:05&lt;00:25, 1.58MB/s][A
-
-  8%|███                                  | 3.61M/44.1M [00:05&lt;00:23, 1.70MB/s][A
-
-  9%|███▎                                 | 3.90M/44.1M [00:05&lt;00:21, 1.86MB/s][A
-
-  9%|███▌                                 | 4.18M/44.1M [00:05&lt;00:20, 1.94MB/s][A
-
- 10%|███▊                                 | 4.49M/44.1M [00:05&lt;00:19, 2.02MB/s][A
-
- 11%|████                                 | 4.83M/44.1M [00:05&lt;00:17, 2.20MB/s][A
-
- 12%|████▎                                | 5.18M/44.1M [00:05&lt;00:16, 2.32MB/s][A
-
- 13%|████▋                                | 5.52M/44.1M [00:05&lt;00:16, 2.41MB/s][A
-
- 13%|████▉                                | 5.92M/44.1M [00:06&lt;00:14, 2.54MB/s][A
-
- 14%|█████▎                               | 6.29M/44.1M [00:06&lt;00:14, 2.64MB/s][A
-
- 15%|█████▋                               | 6.72M/44.1M [00:06&lt;00:13, 2.82MB/s][A
-
- 16%|██████                               | 7.18M/44.1M [00:06&lt;00:12, 3.02MB/s][A
-
- 17%|██████▍                              | 7.67M/44.1M [00:06&lt;00:11, 3.22MB/s][A
-
- 19%|██████▉                              | 8.19M/44.1M [00:06&lt;00:10, 3.45MB/s][A
-
- 20%|███████▎                             | 8.73M/44.1M [00:06&lt;00:09, 3.64MB/s][A
-
- 21%|███████▊                             | 9.32M/44.1M [00:07&lt;00:08, 3.89MB/s][A
-
- 23%|████████▎                            | 9.95M/44.1M [00:07&lt;00:08, 4.14MB/s][A
-
- 24%|████████▉                            | 10.6M/44.1M [00:07&lt;00:07, 4.35MB/s][A
-
- 26%|█████████▍                           | 11.3M/44.1M [00:07&lt;00:06, 4.68MB/s][A
-
- 27%|██████████▏                          | 12.1M/44.1M [00:07&lt;00:06, 4.98MB/s][A
-
- 29%|██████████▊                          | 12.9M/44.1M [00:07&lt;00:05, 5.36MB/s][A
-
- 31%|███████████▌                         | 13.7M/44.1M [00:07&lt;00:05, 5.60MB/s][A
-
- 33%|████████████▎                        | 14.7M/44.1M [00:07&lt;00:04, 5.99MB/s][A
-
- 35%|█████████████                        | 15.6M/44.1M [00:08&lt;00:04, 6.31MB/s][A
-
- 38%|█████████████▉                       | 16.6M/44.1M [00:08&lt;00:04, 6.71MB/s][A
-
- 40%|██████████████▊                      | 17.7M/44.1M [00:08&lt;00:03, 7.16MB/s][A
-
- 43%|███████████████▊                     | 18.8M/44.1M [00:08&lt;00:03, 7.60MB/s][A
-
- 46%|████████████████▊                    | 20.1M/44.1M [00:08&lt;00:02, 8.09MB/s][A
-
- 48%|█████████████████▉                   | 21.3M/44.1M [00:08&lt;00:02, 8.49MB/s][A
-
- 51%|███████████████████                  | 22.7M/44.1M [00:08&lt;00:02, 9.03MB/s][A
-
- 55%|████████████████████▏                | 24.1M/44.1M [00:09&lt;00:02, 9.50MB/s][A
-
- 58%|█████████████████████▍               | 25.6M/44.1M [00:09&lt;00:01, 10.1MB/s][A
-
- 62%|██████████████████████▊              | 27.2M/44.1M [00:09&lt;00:01, 10.7MB/s][A
-
- 66%|████████████████████████▎            | 28.9M/44.1M [00:09&lt;00:01, 11.3MB/s][A
-
- 70%|█████████████████████████▊           | 30.7M/44.1M [00:09&lt;00:01, 12.1MB/s][A
-
- 74%|███████████████████████████▍         | 32.6M/44.1M [00:09&lt;00:00, 12.8MB/s][A
-
- 79%|█████████████████████████████        | 34.7M/44.1M [00:09&lt;00:00, 13.6MB/s][A
-
- 84%|██████████████████████████████▉      | 36.8M/44.1M [00:09&lt;00:00, 14.5MB/s][A
-
- 89%|████████████████████████████████▉    | 39.2M/44.1M [00:10&lt;00:00, 15.4MB/s][A
-
- 95%|██████████████████████████████████▉  | 41.6M/44.1M [00:10&lt;00:00, 16.4MB/s][A
-
-  0%|                                              | 0.00/44.1M [00:00&lt;?, ?B/s][A
-100%|█████████████████████████████████████| 44.1M/44.1M [00:00&lt;00:00, 47.6GB/s]
-
-
-  0%|                                              | 0.00/42.3M [00:00&lt;?, ?B/s][A
-
-  0%|                                   | 1.02k/42.3M [00:00&lt;1:32:00, 7.67kB/s][A
-
-  0%|                                     | 17.4k/42.3M [00:00&lt;09:21, 75.3kB/s][A
-
-  0%|                                     | 33.8k/42.3M [00:00&lt;07:15, 97.1kB/s][A
-
-  0%|                                      | 50.2k/42.3M [00:00&lt;06:34, 107kB/s][A
-
-  0%|                                      | 82.9k/42.3M [00:00&lt;04:28, 157kB/s][A
-
-  0%|                                      | 99.3k/42.3M [00:00&lt;04:49, 146kB/s][A
-
-  0%|                                       | 132k/42.3M [00:00&lt;03:56, 179kB/s][A
-
-  0%|▏                                      | 151k/42.3M [00:01&lt;04:14, 166kB/s][A
-
-  0%|▏                                      | 181k/42.3M [00:01&lt;03:46, 186kB/s][A
-
-  1%|▏                                      | 214k/42.3M [00:01&lt;03:25, 205kB/s][A
-
-  1%|▏                                      | 247k/42.3M [00:01&lt;03:13, 217kB/s][A
-
-  1%|▎                                      | 296k/42.3M [00:01&lt;02:39, 264kB/s][A
-
-  1%|▎                                      | 329k/42.3M [00:01&lt;02:42, 258kB/s][A
-
-  1%|▎                                      | 355k/42.3M [00:01&lt;02:54, 241kB/s][A
-
-  1%|▎                                      | 394k/42.3M [00:01&lt;02:43, 256kB/s][A
-
-  1%|▍                                      | 460k/42.3M [00:02&lt;02:08, 326kB/s][A
-
-  1%|▍                                      | 509k/42.3M [00:02&lt;02:03, 339kB/s][A
-
-  1%|▌                                      | 574k/42.3M [00:02&lt;01:48, 385kB/s][A
-
-  2%|▌                                      | 640k/42.3M [00:02&lt;01:39, 417kB/s][A
-
-  2%|▋                                      | 706k/42.3M [00:02&lt;01:34, 439kB/s][A
-
-  2%|▋                                      | 771k/42.3M [00:02&lt;01:31, 455kB/s][A
-
-  2%|▊                                      | 853k/42.3M [00:02&lt;01:22, 502kB/s][A
-
-  2%|▊                                      | 935k/42.3M [00:03&lt;01:17, 535kB/s][A
-
-  2%|▉                                     | 1.02M/42.3M [00:03&lt;01:14, 551kB/s][A
-
-  3%|▉                                     | 1.10M/42.3M [00:03&lt;01:12, 569kB/s][A
-
-  3%|█                                     | 1.20M/42.3M [00:03&lt;01:06, 619kB/s][A
-
-  3%|█▏                                    | 1.30M/42.3M [00:03&lt;01:03, 646kB/s][A
-
-  3%|█▎                                    | 1.39M/42.3M [00:03&lt;01:00, 673kB/s][A
-
-  4%|█▎                                    | 1.51M/42.3M [00:03&lt;00:56, 727kB/s][A
-
-  4%|█▍                                    | 1.61M/42.3M [00:04&lt;00:55, 728kB/s][A
-
-  4%|█▌                                    | 1.72M/42.3M [00:04&lt;00:52, 768kB/s][A
-
-  4%|█▋                                    | 1.84M/42.3M [00:04&lt;00:50, 794kB/s][A
-
-  5%|█▊                                    | 1.98M/42.3M [00:04&lt;00:45, 886kB/s][A
-
-  5%|█▉                                    | 2.11M/42.3M [00:04&lt;00:43, 917kB/s][A
-
-  5%|██                                    | 2.26M/42.3M [00:04&lt;00:41, 968kB/s][A
-
-  6%|██                                   | 2.43M/42.3M [00:04&lt;00:38, 1.05MB/s][A
-
-  6%|██▎                                  | 2.59M/42.3M [00:04&lt;00:36, 1.09MB/s][A
-
-  7%|██▍                                  | 2.77M/42.3M [00:05&lt;00:34, 1.15MB/s][A
-
-  7%|██▌                                  | 2.95M/42.3M [00:05&lt;00:32, 1.21MB/s][A
-
-  7%|██▊                                  | 3.15M/42.3M [00:05&lt;00:30, 1.29MB/s][A
-
-  8%|██▉                                  | 3.36M/42.3M [00:05&lt;00:28, 1.38MB/s][A
-
-  8%|███                                  | 3.57M/42.3M [00:05&lt;00:26, 1.45MB/s][A
-
-  9%|███▎                                 | 3.79M/42.3M [00:05&lt;00:25, 1.49MB/s][A
-
-  9%|███▍                                 | 3.98M/42.3M [00:05&lt;00:25, 1.49MB/s][A
-
- 10%|███▋                                 | 4.23M/42.3M [00:06&lt;00:23, 1.60MB/s][A
-
- 11%|███▉                                 | 4.49M/42.3M [00:06&lt;00:22, 1.71MB/s][A
-
- 11%|████▏                                | 4.75M/42.3M [00:06&lt;00:21, 1.79MB/s][A
-
- 12%|████▎                                | 5.00M/42.3M [00:06&lt;00:20, 1.80MB/s][A
-
- 13%|████▋                                | 5.33M/42.3M [00:06&lt;00:18, 2.00MB/s][A
-
- 13%|████▉                                | 5.69M/42.3M [00:06&lt;00:16, 2.20MB/s][A
-
- 14%|█████▎                               | 6.06M/42.3M [00:06&lt;00:15, 2.38MB/s][A
-
- 15%|█████▋                               | 6.47M/42.3M [00:06&lt;00:13, 2.57MB/s][A
-
- 16%|██████                               | 6.92M/42.3M [00:07&lt;00:12, 2.79MB/s][A
-
- 17%|██████▍                              | 7.32M/42.3M [00:07&lt;00:12, 2.88MB/s][A
-
- 19%|██████▊                              | 7.83M/42.3M [00:07&lt;00:10, 3.15MB/s][A
-
- 20%|███████▎                             | 8.37M/42.3M [00:07&lt;00:09, 3.43MB/s][A
-
- 21%|███████▊                             | 8.95M/42.3M [00:07&lt;00:09, 3.68MB/s][A
-
- 23%|████████▎                            | 9.54M/42.3M [00:07&lt;00:08, 3.90MB/s][A
-
- 24%|████████▉                            | 10.2M/42.3M [00:07&lt;00:07, 4.13MB/s][A
-
- 26%|█████████▍                           | 10.8M/42.3M [00:08&lt;00:07, 4.36MB/s][A
-
- 27%|██████████                           | 11.6M/42.3M [00:08&lt;00:06, 4.62MB/s][A
-
- 29%|██████████▊                          | 12.3M/42.3M [00:08&lt;00:06, 4.95MB/s][A
-
- 31%|███████████▍                         | 13.1M/42.3M [00:08&lt;00:05, 5.27MB/s][A
-
- 33%|████████████▏                        | 14.0M/42.3M [00:08&lt;00:05, 5.60MB/s][A
-
- 35%|█████████████                        | 14.9M/42.3M [00:08&lt;00:04, 5.97MB/s][A
-
- 37%|█████████████▊                       | 15.9M/42.3M [00:08&lt;00:04, 6.34MB/s][A
-
- 40%|██████████████▊                      | 16.9M/42.3M [00:08&lt;00:03, 6.72MB/s][A
-
- 42%|███████████████▋                     | 18.0M/42.3M [00:09&lt;00:03, 7.14MB/s][A
-
- 45%|████████████████▋                    | 19.1M/42.3M [00:09&lt;00:03, 7.51MB/s][A
-
- 48%|█████████████████▋                   | 20.3M/42.3M [00:09&lt;00:02, 7.93MB/s][A
-
- 51%|██████████████████▊                  | 21.5M/42.3M [00:09&lt;00:02, 8.35MB/s][A
-
- 54%|███████████████████▉                 | 22.8M/42.3M [00:09&lt;00:02, 8.80MB/s][A
-
- 57%|█████████████████████▏               | 24.3M/42.3M [00:09&lt;00:01, 9.38MB/s][A
-
- 61%|██████████████████████▌              | 25.8M/42.3M [00:09&lt;00:01, 9.97MB/s][A
-
- 65%|███████████████████████▉             | 27.4M/42.3M [00:10&lt;00:01, 10.7MB/s][A
-
- 69%|█████████████████████████▌           | 29.2M/42.3M [00:10&lt;00:01, 11.4MB/s][A
-
- 73%|███████████████████████████          | 31.0M/42.3M [00:10&lt;00:00, 12.1MB/s][A
-
- 78%|████████████████████████████▊        | 33.0M/42.3M [00:10&lt;00:00, 12.9MB/s][A
-
- 83%|██████████████████████████████▋      | 35.1M/42.3M [00:10&lt;00:00, 13.7MB/s][A
-
- 88%|████████████████████████████████▌    | 37.3M/42.3M [00:10&lt;00:00, 14.5MB/s][A
-
- 94%|██████████████████████████████████▋  | 39.6M/42.3M [00:10&lt;00:00, 15.4MB/s][A
-
- 99%|████████████████████████████████████▊| 42.1M/42.3M [00:10&lt;00:00, 17.7MB/s][A
-
-  0%|                                              | 0.00/42.3M [00:00&lt;?, ?B/s][A
-100%|█████████████████████████████████████| 42.3M/42.3M [00:00&lt;00:00, 46.0GB/s]
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-
-001-2014-CrossSession:  75%|#######5  | 3/4 [00:44&lt;00:17, 17.61s/it]
-
-  0%|                                              | 0.00/37.2M [00:00&lt;?, ?B/s][A
-
-  0%|                                   | 1.02k/37.2M [00:00&lt;1:19:23, 7.80kB/s][A
-
-  0%|                                     | 17.4k/37.2M [00:00&lt;08:06, 76.4kB/s][A
-
-  0%|                                     | 33.8k/37.2M [00:00&lt;06:17, 98.4kB/s][A
-
-  0%|                                      | 50.2k/37.2M [00:00&lt;05:41, 109kB/s][A
-
-  0%|                                      | 82.9k/37.2M [00:00&lt;03:52, 159kB/s][A
-
-  0%|                                      | 99.3k/37.2M [00:00&lt;04:15, 145kB/s][A
-
-  0%|▏                                      | 132k/37.2M [00:00&lt;03:27, 178kB/s][A
-
-  0%|▏                                      | 151k/37.2M [00:01&lt;03:42, 166kB/s][A
-
-  0%|▏                                      | 181k/37.2M [00:01&lt;03:17, 187kB/s][A
-
-  1%|▏                                      | 214k/37.2M [00:01&lt;02:59, 206kB/s][A
-
-  1%|▎                                      | 247k/37.2M [00:01&lt;02:48, 219kB/s][A
-
-  1%|▎                                      | 280k/37.2M [00:01&lt;02:41, 228kB/s][A
-
-  1%|▎                                      | 329k/37.2M [00:01&lt;02:15, 272kB/s][A
-
-  1%|▍                                      | 361k/37.2M [00:01&lt;02:18, 265kB/s][A
-
-  1%|▍                                      | 411k/37.2M [00:01&lt;02:03, 298kB/s][A
-
-  1%|▍                                      | 460k/37.2M [00:02&lt;01:54, 321kB/s][A
-
-  1%|▌                                      | 509k/37.2M [00:02&lt;01:48, 336kB/s][A
-
-  2%|▌                                      | 558k/37.2M [00:02&lt;01:45, 348kB/s][A
-
-  2%|▋                                      | 624k/37.2M [00:02&lt;01:32, 393kB/s][A
-
-  2%|▋                                      | 673k/37.2M [00:02&lt;01:34, 387kB/s][A
-
-  2%|▊                                      | 738k/37.2M [00:02&lt;01:26, 420kB/s][A
-
-  2%|▊                                      | 804k/37.2M [00:02&lt;01:22, 443kB/s][A
-
-  2%|▉                                      | 886k/37.2M [00:03&lt;01:12, 497kB/s][A
-
-  3%|▉                                      | 951k/37.2M [00:03&lt;01:12, 498kB/s][A
-
-  3%|█                                     | 1.05M/37.2M [00:03&lt;01:03, 570kB/s][A
-
-  3%|█▏                                    | 1.15M/37.2M [00:03&lt;00:57, 622kB/s][A
-
-  3%|█▏                                    | 1.21M/37.2M [00:03&lt;01:01, 585kB/s][A
-
-  4%|█▎                                    | 1.31M/37.2M [00:03&lt;00:56, 631kB/s][A
-
-  4%|█▍                                    | 1.43M/37.2M [00:03&lt;00:50, 703kB/s][A
-
-  4%|█▌                                    | 1.56M/37.2M [00:03&lt;00:45, 790kB/s][A
-
-  5%|█▋                                    | 1.67M/37.2M [00:04&lt;00:43, 814kB/s][A
-
-  5%|█▊                                    | 1.79M/37.2M [00:04&lt;00:42, 831kB/s][A
-
-  5%|█▉                                    | 1.93M/37.2M [00:04&lt;00:38, 915kB/s][A
-
-  6%|██▏                                   | 2.08M/37.2M [00:04&lt;00:35, 976kB/s][A
-
-  6%|██▏                                  | 2.23M/37.2M [00:04&lt;00:34, 1.02MB/s][A
-
-  6%|██▍                                  | 2.41M/37.2M [00:04&lt;00:31, 1.12MB/s][A
-
-  7%|██▌                                  | 2.56M/37.2M [00:04&lt;00:30, 1.12MB/s][A
-
-  7%|██▋                                  | 2.75M/37.2M [00:05&lt;00:27, 1.23MB/s][A
-
-  8%|██▉                                  | 2.95M/37.2M [00:05&lt;00:26, 1.31MB/s][A
-
-  8%|███▏                                 | 3.15M/37.2M [00:05&lt;00:24, 1.36MB/s][A
-
-  9%|███▎                                 | 3.33M/37.2M [00:05&lt;00:24, 1.37MB/s][A
-
-  9%|███▌                                 | 3.52M/37.2M [00:05&lt;00:23, 1.40MB/s][A
-
- 10%|███▊                                 | 3.79M/37.2M [00:05&lt;00:21, 1.58MB/s][A
-
- 11%|████                                 | 4.05M/37.2M [00:05&lt;00:19, 1.70MB/s][A
-
- 12%|████▎                                | 4.36M/37.2M [00:05&lt;00:17, 1.87MB/s][A
-
- 12%|████▌                                | 4.62M/37.2M [00:06&lt;00:16, 1.93MB/s][A
-
- 13%|████▉                                | 4.95M/37.2M [00:06&lt;00:15, 2.08MB/s][A
-
- 14%|█████▎                               | 5.31M/37.2M [00:06&lt;00:13, 2.28MB/s][A
-
- 15%|█████▋                               | 5.69M/37.2M [00:06&lt;00:12, 2.45MB/s][A
-
- 16%|██████                               | 6.10M/37.2M [00:06&lt;00:11, 2.62MB/s][A
-
- 18%|██████▌                              | 6.54M/37.2M [00:06&lt;00:10, 2.83MB/s][A
-
- 19%|██████▉                              | 6.98M/37.2M [00:06&lt;00:10, 2.99MB/s][A
-
- 20%|███████▍                             | 7.46M/37.2M [00:07&lt;00:09, 3.18MB/s][A
-
- 21%|███████▉                             | 7.96M/37.2M [00:07&lt;00:08, 3.37MB/s][A
-
- 23%|████████▍                            | 8.52M/37.2M [00:07&lt;00:07, 3.61MB/s][A
-
- 24%|█████████                            | 9.09M/37.2M [00:07&lt;00:07, 3.85MB/s][A
-
- 26%|█████████▋                           | 9.72M/37.2M [00:07&lt;00:06, 4.09MB/s][A
-
- 28%|██████████▎                          | 10.4M/37.2M [00:07&lt;00:06, 4.35MB/s][A
-
- 30%|███████████                          | 11.1M/37.2M [00:07&lt;00:05, 4.57MB/s][A
-
- 32%|███████████▋                         | 11.8M/37.2M [00:07&lt;00:05, 4.85MB/s][A
-
- 34%|████████████▌                        | 12.6M/37.2M [00:08&lt;00:04, 5.14MB/s][A
-
- 36%|█████████████▎                       | 13.4M/37.2M [00:08&lt;00:04, 5.49MB/s][A
-
- 38%|██████████████▏                      | 14.2M/37.2M [00:08&lt;00:03, 5.75MB/s][A
-
- 41%|███████████████                      | 15.2M/37.2M [00:08&lt;00:03, 6.14MB/s][A
-
- 44%|████████████████                     | 16.2M/37.2M [00:08&lt;00:03, 6.58MB/s][A
-
- 46%|█████████████████▏                   | 17.3M/37.2M [00:08&lt;00:02, 7.03MB/s][A
-
- 49%|██████████████████▎                  | 18.4M/37.2M [00:08&lt;00:02, 7.48MB/s][A
-
- 53%|███████████████████▌                 | 19.6M/37.2M [00:08&lt;00:02, 7.96MB/s][A
-
- 56%|████████████████████▊                | 20.8M/37.2M [00:09&lt;00:01, 8.41MB/s][A
-
- 60%|██████████████████████▏              | 22.2M/37.2M [00:09&lt;00:01, 9.00MB/s][A
-
- 64%|███████████████████████▌             | 23.7M/37.2M [00:09&lt;00:01, 9.58MB/s][A
-
- 68%|█████████████████████████            | 25.2M/37.2M [00:09&lt;00:01, 10.2MB/s][A
-
- 72%|██████████████████████████▋          | 26.9M/37.2M [00:09&lt;00:00, 10.9MB/s][A
-
- 77%|████████████████████████████▍        | 28.6M/37.2M [00:09&lt;00:00, 11.6MB/s][A
-
- 82%|██████████████████████████████▎      | 30.4M/37.2M [00:09&lt;00:00, 12.1MB/s][A
-
- 87%|████████████████████████████████▎    | 32.4M/37.2M [00:10&lt;00:00, 12.9MB/s][A
-
- 93%|██████████████████████████████████▎  | 34.5M/37.2M [00:10&lt;00:00, 14.8MB/s][A
-
- 98%|████████████████████████████████████▎| 36.4M/37.2M [00:10&lt;00:00, 15.9MB/s][A
-
-  0%|                                              | 0.00/37.2M [00:00&lt;?, ?B/s][A
-100%|█████████████████████████████████████| 37.2M/37.2M [00:00&lt;00:00, 43.4GB/s]
-
-
-  0%|                                              | 0.00/41.7M [00:00&lt;?, ?B/s][A
-
-  0%|                                   | 1.02k/41.7M [00:00&lt;1:29:54, 7.74kB/s][A
-
-  0%|                                     | 17.4k/41.7M [00:00&lt;09:11, 75.6kB/s][A
-
-  0%|                                     | 33.8k/41.7M [00:00&lt;07:08, 97.3kB/s][A
-
-  0%|                                      | 50.2k/41.7M [00:00&lt;06:27, 107kB/s][A
-
-  0%|                                      | 82.9k/41.7M [00:00&lt;04:24, 158kB/s][A
-
-  0%|                                      | 99.3k/41.7M [00:00&lt;04:45, 146kB/s][A
-
-  0%|                                       | 132k/41.7M [00:00&lt;03:52, 179kB/s][A
-
-  0%|▏                                      | 165k/41.7M [00:01&lt;03:27, 200kB/s][A
-
-  0%|▏                                      | 198k/41.7M [00:01&lt;03:16, 211kB/s][A
-
-  1%|▏                                      | 247k/41.7M [00:01&lt;02:39, 260kB/s][A
-
-  1%|▎                                      | 296k/41.7M [00:01&lt;02:21, 293kB/s][A
-
-  1%|▎                                      | 345k/41.7M [00:01&lt;02:10, 316kB/s][A
-
-  1%|▎                                      | 378k/41.7M [00:01&lt;02:20, 295kB/s][A
-
-  1%|▍                                      | 443k/41.7M [00:01&lt;01:56, 355kB/s][A
-
-  1%|▍                                      | 525k/41.7M [00:02&lt;01:35, 433kB/s][A
-
-  1%|▌                                      | 591k/41.7M [00:02&lt;01:31, 450kB/s][A
-
-  2%|▌                                      | 656k/41.7M [00:02&lt;01:28, 463kB/s][A
-
-  2%|▋                                      | 755k/41.7M [00:02&lt;01:15, 545kB/s][A
-
-  2%|▊                                      | 837k/41.7M [00:02&lt;01:12, 567kB/s][A
-
-  2%|▊                                      | 935k/41.7M [00:02&lt;01:06, 616kB/s][A
-
-  3%|▉                                     | 1.05M/41.7M [00:02&lt;00:59, 681kB/s][A
-
-  3%|█                                     | 1.16M/41.7M [00:02&lt;00:55, 732kB/s][A
-
-  3%|█▏                                    | 1.28M/41.7M [00:03&lt;00:52, 771kB/s][A
-
-  3%|█▎                                    | 1.41M/41.7M [00:03&lt;00:48, 830kB/s][A
-
-  4%|█▍                                    | 1.54M/41.7M [00:03&lt;00:45, 877kB/s][A
-
-  4%|█▌                                    | 1.69M/41.7M [00:03&lt;00:42, 944kB/s][A
-
-  4%|█▋                                    | 1.82M/41.7M [00:03&lt;00:41, 956kB/s][A
-
-  5%|█▊                                   | 2.00M/41.7M [00:03&lt;00:37, 1.05MB/s][A
-
-  5%|█▉                                   | 2.18M/41.7M [00:03&lt;00:34, 1.14MB/s][A
-
-  6%|██                                   | 2.38M/41.7M [00:04&lt;00:31, 1.24MB/s][A
-
-  6%|██▎                                  | 2.61M/41.7M [00:04&lt;00:28, 1.38MB/s][A
-
-  7%|██▌                                  | 2.85M/41.7M [00:04&lt;00:25, 1.50MB/s][A
-
-  7%|██▊                                  | 3.11M/41.7M [00:04&lt;00:23, 1.64MB/s][A
-
-  8%|███                                  | 3.39M/41.7M [00:04&lt;00:21, 1.75MB/s][A
-
-  9%|███▎                                 | 3.70M/41.7M [00:04&lt;00:19, 1.92MB/s][A
-
- 10%|███▌                                 | 4.03M/41.7M [00:04&lt;00:18, 2.08MB/s][A
-
- 11%|███▉                                 | 4.39M/41.7M [00:04&lt;00:16, 2.26MB/s][A
-
- 11%|████▏                                | 4.75M/41.7M [00:05&lt;00:15, 2.40MB/s][A
-
- 12%|████▌                                | 5.13M/41.7M [00:05&lt;00:14, 2.52MB/s][A
-
- 13%|████▉                                | 5.56M/41.7M [00:05&lt;00:13, 2.73MB/s][A
-
- 14%|█████▎                               | 6.01M/41.7M [00:05&lt;00:12, 2.94MB/s][A
-
- 16%|█████▊                               | 6.49M/41.7M [00:05&lt;00:11, 3.09MB/s][A
-
- 17%|██████▏                              | 7.01M/41.7M [00:05&lt;00:10, 3.33MB/s][A
-
- 18%|██████▋                              | 7.57M/41.7M [00:05&lt;00:09, 3.57MB/s][A
-
- 20%|███████▏                             | 8.16M/41.7M [00:06&lt;00:08, 3.82MB/s][A
-
- 21%|███████▊                             | 8.78M/41.7M [00:06&lt;00:08, 4.08MB/s][A
-
- 23%|████████▎                            | 9.42M/41.7M [00:06&lt;00:07, 4.30MB/s][A
-
- 24%|████████▉                            | 10.1M/41.7M [00:06&lt;00:06, 4.60MB/s][A
-
- 26%|█████████▋                           | 10.9M/41.7M [00:06&lt;00:06, 4.88MB/s][A
-
- 28%|██████████▎                          | 11.7M/41.7M [00:06&lt;00:05, 5.19MB/s][A
-
- 30%|███████████                          | 12.5M/41.7M [00:06&lt;00:05, 5.51MB/s][A
-
- 32%|███████████▉                         | 13.4M/41.7M [00:06&lt;00:04, 5.91MB/s][A
-
- 35%|████████████▊                        | 14.4M/41.7M [00:07&lt;00:04, 6.35MB/s][A
-
- 37%|█████████████▋                       | 15.5M/41.7M [00:07&lt;00:03, 6.65MB/s][A
-
- 40%|██████████████▋                      | 16.6M/41.7M [00:07&lt;00:03, 7.14MB/s][A
-
- 43%|███████████████▊                     | 17.8M/41.7M [00:07&lt;00:03, 7.75MB/s][A
-
- 46%|████████████████▉                    | 19.2M/41.7M [00:07&lt;00:02, 8.37MB/s][A
-
- 49%|██████████████████▏                  | 20.6M/41.7M [00:07&lt;00:02, 9.01MB/s][A
-
- 53%|███████████████████▌                 | 22.1M/41.7M [00:07&lt;00:02, 9.67MB/s][A
-
- 57%|████████████████████▉                | 23.7M/41.7M [00:08&lt;00:01, 10.3MB/s][A
-
- 61%|██████████████████████▌              | 25.4M/41.7M [00:08&lt;00:01, 11.0MB/s][A
-
- 65%|████████████████████████▏            | 27.3M/41.7M [00:08&lt;00:01, 11.9MB/s][A
-
- 70%|█████████████████████████▉           | 29.2M/41.7M [00:08&lt;00:00, 12.7MB/s][A
-
- 75%|███████████████████████████▊         | 31.4M/41.7M [00:08&lt;00:00, 13.6MB/s][A
-
- 81%|█████████████████████████████▊       | 33.6M/41.7M [00:08&lt;00:00, 14.7MB/s][A
-
- 86%|███████████████████████████████▉     | 36.0M/41.7M [00:08&lt;00:00, 15.6MB/s][A
-
- 92%|██████████████████████████████████   | 38.5M/41.7M [00:09&lt;00:00, 16.6MB/s][A
-
- 99%|████████████████████████████████████▍| 41.2M/41.7M [00:09&lt;00:00, 17.6MB/s][A
-
-  0%|                                              | 0.00/41.7M [00:00&lt;?, ?B/s][A
-100%|█████████████████████████████████████| 41.7M/41.7M [00:00&lt;00:00, 53.6GB/s]
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-/home/runner/work/moabb/moabb/.venv/lib/python3.9/site-packages/mne/utils/check.py:92: DeprecationWarning: distutils Version classes are deprecated. Use packaging.version instead.
-  LooseVersion(library.__version__) &lt; LooseVersion(min_version):
-
-001-2014-CrossSession: 100%|##########| 4/4 [01:11&lt;00:00, 21.57s/it]
-001-2014-CrossSession: 100%|##########| 4/4 [01:11&lt;00:00, 17.93s/it]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>001-2014-CrossSession:   0%|          | 0/4 [00:00&lt;?, ?it/s]
+001-2014-CrossSession:  25%|##5       | 1/4 [00:07&lt;00:23,  7.96s/it]
+001-2014-CrossSession:  50%|#####     | 2/4 [00:15&lt;00:15,  7.60s/it]
+001-2014-CrossSession:  75%|#######5  | 3/4 [00:22&lt;00:07,  7.49s/it]
+001-2014-CrossSession: 100%|##########| 4/4 [00:29&lt;00:00,  7.41s/it]
+001-2014-CrossSession: 100%|##########| 4/4 [00:29&lt;00:00,  7.49s/it]
 </pre></div>
 </div>
-</div>
-<div class="section" id="moabb-plotting">
-<h2>MOABB Plotting<a class="headerlink" href="#moabb-plotting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="moabb-plotting">
+<h2>MOABB Plotting<a class="headerlink" href="#moabb-plotting" title="Permalink to this heading">#</a></h2>
 <p>Here we plot the results using some of the convenience methods within the
 toolkit.  The score_plot visualizes all the data with one score per subject
 for every dataset and pipeline.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <span class="n">moabb_plt</span><span class="o">.</span><span class="n">score_plot</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../generated/moabb.analysis.plotting.score_plot.html#moabb.analysis.plotting.score_plot" title="moabb.analysis.plotting.score_plot" class="sphx-glr-backref-module-moabb-analysis-plotting sphx-glr-backref-type-py-function"><span class="n">moabb_plt</span><span class="o">.</span><span class="n">score_plot</span></a><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Scores per dataset and algorithm" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_statistical_analysis_001.png" />
+<img src="../../_images/sphx_glr_plot_statistical_analysis_001.png" srcset="../../_images/sphx_glr_plot_statistical_analysis_001.png" alt="Scores per dataset and algorithm" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/moabb/moabb/moabb/analysis/plotting.py:59: UserWarning: The palette list has more values (6) than needed (4), which may not be intended.
+  sea.stripplot(
+</pre></div>
+</div>
 <p>For a comparison of two algorithms, there is the paired_plot, which plots
 performance in one versus the performance in the other over all chosen
 datasets. Note that there is only one score per subject, regardless of the
 number of sessions.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <span class="n">moabb_plt</span><span class="o">.</span><span class="n">paired_plot</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s2">&quot;CSP+LDA&quot;</span><span class="p">,</span> <span class="s2">&quot;RG+LDA&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../generated/moabb.analysis.plotting.paired_plot.html#moabb.analysis.plotting.paired_plot" title="moabb.analysis.plotting.paired_plot" class="sphx-glr-backref-module-moabb-analysis-plotting sphx-glr-backref-type-py-function"><span class="n">moabb_plt</span><span class="o">.</span><span class="n">paired_plot</span></a><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="s2">&quot;CSP+LDA&quot;</span><span class="p">,</span> <span class="s2">&quot;RG+LDA&quot;</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="plot statistical analysis" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_statistical_analysis_002.png" />
-</div>
-<div class="section" id="statistical-testing-and-further-plots">
-<h2>Statistical Testing and Further Plots<a class="headerlink" href="#statistical-testing-and-further-plots" title="Permalink to this headline">¶</a></h2>
+<img src="../../_images/sphx_glr_plot_statistical_analysis_002.png" srcset="../../_images/sphx_glr_plot_statistical_analysis_002.png" alt="plot statistical analysis" class = "sphx-glr-single-img"/></section>
+<section id="statistical-testing-and-further-plots">
+<h2>Statistical Testing and Further Plots<a class="headerlink" href="#statistical-testing-and-further-plots" title="Permalink to this heading">#</a></h2>
 <p>If the statistical significance of results is of interest, the method
 compute_dataset_statistics allows one to show a meta-analysis style plot as
 well. For an overview of how all algorithms perform in comparison with each
 other, the method find_significant_differences and the summary_plot are
 possible.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <span class="n">compute_dataset_statistics</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-<span class="n">P</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">find_significant_differences</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">stats</span> <span class="o">=</span> <a href="https://neurotechx.github.io/moabb/generated/moabb.analysis.meta_analysis.compute_dataset_statistics.html#moabb.analysis.meta_analysis.compute_dataset_statistics" title="moabb.analysis.meta_analysis.compute_dataset_statistics" class="sphx-glr-backref-module-moabb-analysis-meta_analysis sphx-glr-backref-type-py-function"><span class="n">compute_dataset_statistics</span></a><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+<span class="n">P</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <a href="https://neurotechx.github.io/moabb/generated/moabb.analysis.meta_analysis.find_significant_differences.html#moabb.analysis.meta_analysis.find_significant_differences" title="moabb.analysis.meta_analysis.find_significant_differences" class="sphx-glr-backref-module-moabb-analysis-meta_analysis sphx-glr-backref-type-py-function"><span class="n">find_significant_differences</span></a><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The meta-analysis style plot shows the standardized mean difference within
 each tested dataset for the two algorithms in question, in addition to a
 meta-effect and significance both per-dataset and overall.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <span class="n">moabb_plt</span><span class="o">.</span><span class="n">meta_analysis_plot</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="s2">&quot;CSP+LDA&quot;</span><span class="p">,</span> <span class="s2">&quot;RG+LDA&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure" title="matplotlib.figure.Figure" class="sphx-glr-backref-module-matplotlib-figure sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">fig</span></a> <span class="o">=</span> <a href="../../generated/moabb.analysis.plotting.meta_analysis_plot.html#moabb.analysis.plotting.meta_analysis_plot" title="moabb.analysis.plotting.meta_analysis_plot" class="sphx-glr-backref-module-moabb-analysis-plotting sphx-glr-backref-type-py-function"><span class="n">moabb_plt</span><span class="o">.</span><span class="n">meta_analysis_plot</span></a><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="s2">&quot;CSP+LDA&quot;</span><span class="p">,</span> <span class="s2">&quot;RG+LDA&quot;</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="&lt; RG+LDA better                                                                              CSP+LDA better &gt;, p-value" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_statistical_analysis_003.png" />
-<p>The summary plot shows the effect and significance related to the hypothesis
+<img src="../../_images/sphx_glr_plot_statistical_analysis_003.png" srcset="../../_images/sphx_glr_plot_statistical_analysis_003.png" alt="< RG+LDA better                                                                              CSP+LDA better >, p-value" class = "sphx-glr-single-img"/><p>The summary plot shows the effect and significance related to the hypothesis
 that the algorithm on the y-axis significantly outperformed the algorithm on
 the x-axis over all datasets</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">moabb_plt</span><span class="o">.</span><span class="n">summary_plot</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../../generated/moabb.analysis.plotting.summary_plot.html#moabb.analysis.plotting.summary_plot" title="moabb.analysis.plotting.summary_plot" class="sphx-glr-backref-module-moabb-analysis-plotting sphx-glr-backref-type-py-function"><span class="n">moabb_plt</span><span class="o">.</span><span class="n">summary_plot</span></a><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img alt="Algorithm comparison" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_statistical_analysis_004.png" />
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  12.449 seconds)</p>
-<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-advanced-examples-plot-statistical-analysis-py">
+<img src="../../_images/sphx_glr_plot_statistical_analysis_004.png" srcset="../../_images/sphx_glr_plot_statistical_analysis_004.png" alt="Algorithm comparison" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  34.704 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  312 MB</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-advanced-examples-plot-statistical-analysis-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/fc103af82bd37a6a36f57f863e9fd4aa/plot_statistical_analysis.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_statistical_analysis.py</span></code></a></p>
 </div>
@@ -1070,32 +723,107 @@ the x-axis over all datasets</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
-    </div>
-      
+                </article>
+              
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="plot_select_electrodes_resample.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Select Electrodes and Resampling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../external/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">External examples</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
   </div>
-</div>
-<footer class="footer">
-  <div class="container">
-    <p class="pull-right">
-      <a href="#">Back to top</a>
-      
-        <br/>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results-generation">Results Generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-pipelines">Create Pipelines</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moabb-plotting">MOABB Plotting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#statistical-testing-and-further-plots">Statistical Testing and Further Plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
         
-<div id="sourcelink">
-  <a href="../../_sources/auto_examples/advanced_examples/plot_statistical_analysis.rst.txt"
-     rel="nofollow">Source</a>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+  <p class="copyright">
+    
+      © Copyright 2018-2023 MOABB contributors.
+      <br/>
+    
+  </p>
 </div>
       
-    </p>
-    <p>
-        &copy; Copyright 2018-2021, Alexandre Barachant, Sylvain Chevallier.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br/>
-    </p>
-  </div>
-</footer>
+    </div>
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.2.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
   </body>
 </html>
