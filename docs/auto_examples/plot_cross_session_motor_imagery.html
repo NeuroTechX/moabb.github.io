@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Cross-Session Motor Imagery &#8212; moabb 0.4.6 documentation</title>
+    <title>Cross-Session Motor Imagery &#8212; moabb 0.5.0 documentation</title>
   
   
   
@@ -427,6 +427,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.bi2014b.html">moabb.datasets.bi2014b</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.bi2015a.html">moabb.datasets.bi2015a</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.bi2015b.html">moabb.datasets.bi2015b</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.VirtualReality.html">moabb.datasets.VirtualReality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.BNCI2014008.html">moabb.datasets.BNCI2014008</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.BNCI2014009.html">moabb.datasets.BNCI2014009</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.BNCI2015003.html">moabb.datasets.BNCI2015003</a></li>
@@ -444,6 +445,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.MAMEM3.html">moabb.datasets.MAMEM3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.Lee2019_SSVEP.html">moabb.datasets.Lee2019_SSVEP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.base.BaseDataset.html">moabb.datasets.base.BaseDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.fake.FakeDataset.html">moabb.datasets.fake.FakeDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.fake.FakeVirtualRealityDataset.html">moabb.datasets.fake.FakeVirtualRealityDataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.download.data_path.html">moabb.datasets.download.data_path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.download.data_dl.html">moabb.datasets.download.data_dl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.datasets.download.fs_issue_request.html">moabb.datasets.download.fs_issue_request</a></li>
@@ -478,6 +481,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.features.StandardScaler_Epoch.html">moabb.pipelines.features.StandardScaler_Epoch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.csp.TRCSP.html">moabb.pipelines.csp.TRCSP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.classification.SSVEP_CCA.html">moabb.pipelines.classification.SSVEP_CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.classification.SSVEP_TRCA.html">moabb.pipelines.classification.SSVEP_TRCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.classification.SSVEP_MsetCCA.html">moabb.pipelines.classification.SSVEP_MsetCCA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.deep_learning.KerasDeepConvNet.html">moabb.pipelines.deep_learning.KerasDeepConvNet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.deep_learning.KerasEEGITNet.html">moabb.pipelines.deep_learning.KerasEEGITNet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../generated/moabb.pipelines.deep_learning.KerasEEGNet_8_2.html">moabb.pipelines.deep_learning.KerasEEGNet_8_2</a></li>
@@ -649,16 +654,18 @@ be overwritten if necessary.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>001-2014-CrossSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
-001-2014-CrossSession:  50%|#####     | 1/2 [00:04&lt;00:04,  4.97s/it]
-001-2014-CrossSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.72s/it]
-001-2014-CrossSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.76s/it]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>001-2014-CrossSession:   0%|          | 0/2 [00:00&lt;?, ?it/s][Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+
+001-2014-CrossSession:  50%|#####     | 1/2 [00:05&lt;00:05,  5.15s/it]
+001-2014-CrossSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.81s/it]
+001-2014-CrossSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.86s/it]
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    9.7s finished
       score      time  samples subject  ... channels  n_sessions   dataset pipeline
-0  0.962963  0.329624    144.0       1  ...       22           2  001-2014    RG+LR
-1  0.950424  0.304688    144.0       1  ...       22           2  001-2014    RG+LR
-2  0.585648  0.299417    144.0       2  ...       22           2  001-2014    RG+LR
-3  0.574846  0.332997    144.0       2  ...       22           2  001-2014    RG+LR
-4  0.956597  0.254488    144.0       1  ...       22           2  001-2014  CSP+LDA
+0  0.962963  0.339699    144.0       1  ...       22           2  001-2014    RG+LR
+1  0.950424  0.295495    144.0       1  ...       22           2  001-2014    RG+LR
+2  0.585648  0.293808    144.0       2  ...       22           2  001-2014    RG+LR
+3  0.574846  0.303072    144.0       2  ...       22           2  001-2014    RG+LR
+4  0.955440  0.413751    144.0       1  ...       22           2  001-2014  CSP+LDA
 
 [5 rows x 9 columns]
 </pre></div>
@@ -704,8 +711,8 @@ points are in its quadrant.</p>
   sns.stripplot(
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.368 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  330 MB</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.356 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  280 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-cross-session-motor-imagery-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/82e3e6cb009bb9a9c444c6cff254cea8/plot_cross_session_motor_imagery.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cross_session_motor_imagery.py</span></code></a></p>
@@ -807,7 +814,7 @@ points are in its quadrant.</p>
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.2.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
 </p></div>
       
     </div>

@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Select Electrodes and Resampling &#8212; moabb 0.4.6 documentation</title>
+    <title>Select Electrodes and Resampling &#8212; moabb 0.5.0 documentation</title>
   
   
   
@@ -427,6 +427,7 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2014b.html">moabb.datasets.bi2014b</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2015a.html">moabb.datasets.bi2015a</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.bi2015b.html">moabb.datasets.bi2015b</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.VirtualReality.html">moabb.datasets.VirtualReality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014008.html">moabb.datasets.BNCI2014008</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2014009.html">moabb.datasets.BNCI2014009</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.BNCI2015003.html">moabb.datasets.BNCI2015003</a></li>
@@ -444,6 +445,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.MAMEM3.html">moabb.datasets.MAMEM3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.Lee2019_SSVEP.html">moabb.datasets.Lee2019_SSVEP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.base.BaseDataset.html">moabb.datasets.base.BaseDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.fake.FakeDataset.html">moabb.datasets.fake.FakeDataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.fake.FakeVirtualRealityDataset.html">moabb.datasets.fake.FakeVirtualRealityDataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.data_path.html">moabb.datasets.download.data_path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.data_dl.html">moabb.datasets.download.data_dl</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.datasets.download.fs_issue_request.html">moabb.datasets.download.fs_issue_request</a></li>
@@ -478,6 +481,8 @@ document.write(`
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.features.StandardScaler_Epoch.html">moabb.pipelines.features.StandardScaler_Epoch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.csp.TRCSP.html">moabb.pipelines.csp.TRCSP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.classification.SSVEP_CCA.html">moabb.pipelines.classification.SSVEP_CCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.classification.SSVEP_TRCA.html">moabb.pipelines.classification.SSVEP_TRCA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.classification.SSVEP_MsetCCA.html">moabb.pipelines.classification.SSVEP_MsetCCA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasDeepConvNet.html">moabb.pipelines.deep_learning.KerasDeepConvNet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGITNet.html">moabb.pipelines.deep_learning.KerasEEGITNet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../generated/moabb.pipelines.deep_learning.KerasEEGNet_8_2.html">moabb.pipelines.deep_learning.KerasEEGNet_8_2</a></li>
@@ -632,21 +637,25 @@ a sampling rate of 200 Hz.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Zhou 2016-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
-Zhou 2016-WithinSession:  50%|#####     | 1/2 [00:04&lt;00:04,  4.98s/it]
-Zhou 2016-WithinSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.44s/it]
-Zhou 2016-WithinSession: 100%|##########| 2/2 [00:09&lt;00:00,  4.52s/it]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Zhou 2016-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s][Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
-001-2014-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
-001-2014-WithinSession:  50%|#####     | 1/2 [00:04&lt;00:04,  4.44s/it]
-001-2014-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.28s/it]
-001-2014-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.30s/it]
+Zhou 2016-WithinSession:  50%|#####     | 1/2 [00:03&lt;00:03,  3.57s/it]
+Zhou 2016-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  2.99s/it]
+Zhou 2016-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  3.08s/it]
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    6.2s finished
+
+001-2014-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s][Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+
+001-2014-WithinSession:  50%|#####     | 1/2 [00:03&lt;00:03,  3.19s/it]
+001-2014-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  3.16s/it]
+001-2014-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  3.17s/it]
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    6.3s finished
       score      time  samples  ... n_sessions    dataset  pipeline
-0  0.863197  0.059050    144.0  ...          2   001-2014     ts+lr
-1  0.870544  0.050471    144.0  ...          2   001-2014     ts+lr
-2  0.524966  0.049078    144.0  ...          2   001-2014     ts+lr
-3  0.535238  0.037859    144.0  ...          2   001-2014     ts+lr
-4  0.845328  0.038474    119.0  ...          3  Zhou 2016     ts+lr
+0  0.863197  0.021632    144.0  ...          2   001-2014     ts+lr
+1  0.870544  0.022072    144.0  ...          2   001-2014     ts+lr
+2  0.524966  0.023710    144.0  ...          2   001-2014     ts+lr
+3  0.535238  0.020763    144.0  ...          2   001-2014     ts+lr
+4  0.845328  0.030707    119.0  ...          3  Zhou 2016     ts+lr
 
 [5 rows x 9 columns]
 </pre></div>
@@ -669,21 +678,25 @@ as well as the list of datasets with valid channels.</p>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Searching dataset: Zhou2016
 Searching dataset: BNCI2014001
 
-Zhou 2016-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
-Zhou 2016-WithinSession:  50%|#####     | 1/2 [00:05&lt;00:05,  5.13s/it]
-Zhou 2016-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.35s/it]
-Zhou 2016-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.47s/it]
+Zhou 2016-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s][Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
 
-001-2014-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s]
-001-2014-WithinSession:  50%|#####     | 1/2 [00:04&lt;00:04,  4.17s/it]
-001-2014-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.16s/it]
-001-2014-WithinSession: 100%|##########| 2/2 [00:08&lt;00:00,  4.16s/it]
+Zhou 2016-WithinSession:  50%|#####     | 1/2 [00:03&lt;00:03,  3.33s/it]
+Zhou 2016-WithinSession: 100%|##########| 2/2 [00:05&lt;00:00,  2.85s/it]
+Zhou 2016-WithinSession: 100%|##########| 2/2 [00:05&lt;00:00,  2.93s/it]
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    5.9s finished
+
+001-2014-WithinSession:   0%|          | 0/2 [00:00&lt;?, ?it/s][Parallel(n_jobs=1)]: Using backend SequentialBackend with 1 concurrent workers.
+
+001-2014-WithinSession:  50%|#####     | 1/2 [00:03&lt;00:03,  3.01s/it]
+001-2014-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  3.03s/it]
+001-2014-WithinSession: 100%|##########| 2/2 [00:06&lt;00:00,  3.03s/it]
+[Parallel(n_jobs=1)]: Done   2 out of   2 | elapsed:    6.1s finished
       score      time  samples  ... n_sessions    dataset  pipeline
-0  0.854354  0.045740    144.0  ...          2   001-2014     ts+lr
-1  0.834150  0.041366    144.0  ...          2   001-2014     ts+lr
-2  0.526327  0.047784    144.0  ...          2   001-2014     ts+lr
-3  0.548435  0.045443    144.0  ...          2   001-2014     ts+lr
-4  0.865657  0.042154    119.0  ...          3  Zhou 2016     ts+lr
+0  0.854354  0.024141    144.0  ...          2   001-2014     ts+lr
+1  0.834150  0.021255    144.0  ...          2   001-2014     ts+lr
+2  0.526327  0.022330    144.0  ...          2   001-2014     ts+lr
+3  0.548435  0.021239    144.0  ...          2   001-2014     ts+lr
+4  0.865657  0.029481    119.0  ...          3  Zhou 2016     ts+lr
 
 [5 rows x 9 columns]
 </pre></div>
@@ -697,8 +710,8 @@ regression computed in the tangent space of the covariance matrices.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../../_images/sphx_glr_plot_select_electrodes_resample_001.png" srcset="../../_images/sphx_glr_plot_select_electrodes_resample_001.png" alt="plot select electrodes resample" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  43.287 seconds)</p>
-<p><strong>Estimated memory usage:</strong>  371 MB</p>
+<img src="../../_images/sphx_glr_plot_select_electrodes_resample_001.png" srcset="../../_images/sphx_glr_plot_select_electrodes_resample_001.png" alt="plot select electrodes resample" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.368 seconds)</p>
+<p><strong>Estimated memory usage:</strong>  352 MB</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-advanced-examples-plot-select-electrodes-resample-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../../_downloads/83c876b60654b8a0b9ebaf6714ef3607/plot_select_electrodes_resample.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_select_electrodes_resample.py</span></code></a></p>
@@ -802,7 +815,7 @@ regression computed in the tangent space of the covariance matrices.</p>
     <div class="footer-items__end">
       
         <div class="footer-item"><p class="theme-version">
-  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.2.
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.13.3.
 </p></div>
       
     </div>
